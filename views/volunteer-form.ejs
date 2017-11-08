@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Volunteer</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" type="text/css" href="css/styles_volunteer.css"> -->
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/scripts_volunteer.js"></script>
+</head>
+<body class="responsive-height volunteer-form">
+	<div class="volunteer-wrapper">
+		<form class="vol-sign-up-form">
+			<h2 class="heading row text-center">Volunteer Application Form</h2>
+			<h5 class="thank-you text-center">Thank you so much for your interest in volunteering with The Shoebox Project.<br>Please fill out the form below (all fields are required).</h5>
+			<div class="form-wrapper">
+				<div class="full-name-error error"></div>
+				<label>Full name</label><input type="text" class="full-name" placeholder="Your Full Name" required>
+			</div>
+
+			<div class="form-wrapper">
+				<div class="email-error error"></div>
+				<label>Email</label><input type="email" class="email" placeholder="Your Email" required>
+			</div>
+
+			<div class="form-wrapper">
+				<div class="phone-error error"></div>
+				<label>Phone number</label><input type="tel" class="phone" placeholder="Your Phone Number" required>
+			</div>
+
+			<div class="form-wrapper">
+				
+				<label>Password  </label>
+				<div class="password-error error"></div>
+				<input type="password" class="password" placeholder="Your password" required>
+			</div>
+
+			<div class="form-wrapper">
+				<label>Confirm password</label><input type="password" class="password-confirm" placeholder="Confirm password" required>
+			</div>
+
+			<div class="form-wrapper">
+				<div class="interest-list">I'm interested in (choose as many as you'd like):<br></div>
+				<div class="interest">
+					<input type="checkbox" id="photographing" name="interest" value="photographing">
+					<label for="coding">Photographing</label>
+				</div>
+				<div class="interest">
+					<input type="checkbox" id="set-up" name="interest" value="set-up">
+					<label for="set-up">Set-up and tear down</label>
+				</div>
+				<div class="interest">
+					<input type="checkbox" id="manager" name="interest" value="manager">
+					<label for="manager">Shoot management</label>
+				</div>
+				<div class="interest">
+					<input type="checkbox" id="processing" name="interest" value="processing">
+					<label for="processing">Photo processing</label>
+				</div>
+				<div class="interest">
+					<input type="checkbox" id="assistance" name="interest" value="assistance">
+					<label for="assistance">General assistance</label>
+				</div>
+			</div>
+
+			<div class="form-wrapper background-consent">
+				<input type="checkbox" class="agree" id="background-check" value="background-check" required>
+				<label for="background-check" class="agree">I am at least 18 years old and will submit to a required background check.<br><br></label>
+				<input type="submit" class="submit btn btn-warning" value="Not quite ready...">
+			</div>
+		</form>
+		<div class="">
+				<img id="home" src="./images/icons/home-white.svg"/><a href="index.html"><img class="return-home" src="./images/logo-lettering/sb-lettering_white.png" height="40" width="150"/></a>
+			</div>
+	</div>
+
+</body>
+</html>

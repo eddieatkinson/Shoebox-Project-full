@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign in</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/scripts_login.js"></script>
+</head>
+<body class="responsive-height youth-signin-form">
+	<div>
+		<div class="youth-wrapper">
+			<form class="youth-sign-up-form">
+				<h2 class="volunteer-header row text-center">Member Login</h2>
+				<div class="login-wrapper">
+					<div class="email-error error"></div>
+					<label>Email</label><input type="email" class="email" placeholder="Your Email" required>
+				</div>
+
+				<div class="login-wrapper">
+					<label class="password-input">Password</label><input type="password" class="password" placeholder="Your password" required>
+					<div class="password-error error"></div>
+				</div>
+				
+				<div class="login-wrapper youth-login row col-sm-4">
+					<input type="submit" class="submit btn btn-warning" value="Login">
+				</div>
+
+				<div class="login-wrapper not-a-member col-sm-4"><label>Not a member?</label>
+					<input type="button" class="btn youth-btn btn-info btn-xs" value="Click here">
+				</div>
+
+			</form>
+			<div class="">
+				<img id="home" src="./images/icons/home.svg"/><a href="index.html"><img class="return-home" src="./images/logo-lettering/sb-lettering_dimgray.png" height="40" width="150"/></a>
+			</div>	
+		</div>
+	</div>
+</body>
+</html>
