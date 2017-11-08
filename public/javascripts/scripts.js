@@ -8,10 +8,10 @@ $(document).ready(()=>{
 	});
 	console.log("Connected!");
 	$('.family-login').click(()=>{
-		window.location.href='youth-login-form.html';
+		window.location.href='/users/login';
 	});
 	$('.volunteer-login').click(()=>{
-		window.location.href='volunteer-login-form.html';
+		window.location.href='/volunteers/login';
 	});
 	$('.link-to-map').click(()=>{
 		event.preventDefault();
