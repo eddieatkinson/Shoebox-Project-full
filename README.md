@@ -207,14 +207,14 @@ to run this script, open a terminal and run:
 sh awscript 
 ```
 ## Screenshots:
-![Homepage](images/screen-shots/mobile-home.jpg)
-![Map](images/screen-shots/map.png)
-![Forms](images/screen-shots/volunteer_form.jpg)
+![Homepage](public/images/screen-shots/mobile-home.jpg)
+![Map](public/images/screen-shots/map.png)
+![Forms](public/images/screen-shots/volunteer_form.jpg)
 Landing page wireframe created in Adobe XD
-![Wireframes](images/screen-shots/LandingPageWeb1920.png)
+![Wireframes](public/images/screen-shots/LandingPageWeb1920.png)
 Landing page on mobile, desired layout though not fully realized. 
-![Wireframes](images/screen-shots/iPhone67.png)
-![Wireframes](images/screen-shots/landing_page_small.png)
+![Wireframes](public/images/screen-shots/iPhone67.png)
+![Wireframes](public/images/screen-shots/landing_page_small.png)
 Mobile layout still in testing stages
 
 
