@@ -1,11 +1,194 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+	<title>The Shoebox Project</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="javascripts/scripts.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+  		<div>
+    		<div class="header">
+     			<button id="ChangeToggle" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        			<div id="navbar-hamburger">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+        			</div>
+       				<div id="navbar-close" class="hidden">
+          				<span class="glyphicon glyphicon-remove"></span>
+        			</div>
+      			</button>
+      			<a href="index.html"><img class="logo" src="./images/sm-sb-logo.png" height="50" width="70" /></a>
+        		<img class="sp" src="./images/logo-lettering/sb-lettering_white.png" height="50" width="170"/>
+      			<div class="login">
+			        <button class="btn btn-info family-login login-button">Family Login</button>
+			        <button class="btn btn-info volunteer-login login-button">Volunteer Login</button>
+        		</div>
+    		</div>
+
+    		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      			<ul class="nav navbar-nav">
+			        <li class="active"><a href="#about">About</a></li>
+			        <li class="active"><a href="blog.html">Blog</a></li>
+			        <li class="active"><a href="volunteer_form.html">Volunteer</a></li>
+			        <li class="active"><a href="#contact">Contact</a></li>
+			        <li class="active"><a href="https://stripe.com" target="_blank">Donate</a></li>
+      			</ul>
+    		</div>
+  		</div>
+	</nav>
+	<div class="wrapper">
+		<div class="header col-sm-12 header-when-large">
+			<div class="nav-bar">
+				<a href="index.html"><img class="logo" src="./images/sm-sb-logo.png"/></a>
+				<a href="index.html"><img class="sp" src="./images/logo-lettering/sb-lettering_white.png" height="50" width="170"/></a>
+				<div class="login">
+					<button class="btn btn-info family-login">Family Login</button>
+					<button class="btn btn-info volunteer-login">Volunteer Login</button>
+				</div>
+				<div class="nav-menu col-sm-offset-4">
+					<a class="nav-links" href="#about">About</a>
+					<a class="nav-links" href="blog.html">Blog</a>
+					<a class="nav-links" href="volunteer_form.html">Volunteer</a>
+					<a class="nav-links" href="#contact">Contact</a>
+					<a class="nav-links" href="https://stripe.com" target="_blank">Donate</a>
+				</div>
+			</div>
+		</div>
+		<div class="parallax-about">
+			<div class="hidden-spacer" id="about"></div>	
+		</div>
+		
+		<div style="height:300px; background-color:lightgrey;font-size:24px">
+			<span class="center">About</span></br>
+			<span class="center">
+			 The Shoebox Project is a non-profit company whose purpose is to provide professional photographs and memories for children in the foster care system.</p><p>Click <a href="#" class="link-to-map">here</a> for a cool map!
+			</span>
+		</div>
+
+		<div class="parallax-contact">
+			<div class="hidden-spacer" id="contact"></div>
+		</div>
+		
+		<div style="height:300px;background-color:lightgrey;font-size:24px">
+			<span class="center">Contact Us</span></br>
+			<span class="center">
+				<img src="./images/icons/mail-outline.svg"/><span> Email us: <a href="#">info@shoeboxproject.org</a></span>
+			</span>
+			<span class="center">	
+				<img src="./images/icons/phone.svg"/><span> Call us: <a href="#">123-456-7890</a></span>
+			</span>
+			<span class="center">
+				<img src="./images/icons/location.svg"/><span> Operational Headquarters: <a href="#"> 1234 Street Dr. NW City, State 56789</a></span>
+			</span>
+		</div>
+
+		<div class="parallax-space"></div>
+
+
+		<!-- <div style="height:200px;background-color:lightgrey;font-size:24px">
+
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+		tempor incididunt ut labore et dolore magna aliqua.</p> 
+		</div> -->
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+			  		<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h2 class="modal-title" id="myModalLabel">Frequently Asked Questions</h4>
+			  	</div>
+			  	<div class="haze-overlay">
+					<div class="FAQ-container">
+						<!-- <div class="faq-title">
+							<h1>Frequently Asked Questions</h1>
+						</div> -->
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="headingOne">
+									<h4 class="panel-title">
+										<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+										How can I get involved?
+										</a>
+									</h4>
+								</div>
+								<div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+					  				<div class="panel-body">
+									That's great! Please visit our <a href="volunteer_form.html" id="volunteer-FAQ-link">volunteer</a> page and fill out the form! Once you've submitted the application, we'll send you an email with further information.
+								  	</div>
+								</div>
+				 			</div>
+				  			<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="headingTwo">
+									<h4 class="panel-title">
+										<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										How else can I support the mission?
+										</a>
+									</h4>
+								</div>
+								<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+									<div class="panel-body">
+										Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</div>
+								</div>
+							</div>
+							<div class="panel panel-default">
+								<div class="panel-heading" role="tab" id="headingThree">
+									<h4 class="panel-title">
+										<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+										I'm not in Georgia. How can I help?
+										</a>
+									</h4>
+								</div>
+								<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+									<div class="panel-body">
+									Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+									</div>
+								</div>
+				 			</div>
+						</div>
+					</div>
+				</div>
+			 	<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+			  	</div>
+			</div>
+		  </div>
+		</div>
+		<footer>
+			<div class="footer col-sm-12">
+				<ul>
+					<li>
+				<a class="footer-text" href="#" data-toggle="modal" data-target="#myModal">FAQ</a>
+					</li>
+					<li>
+				<a class="footer-text" href="#">Resources</a>
+					</li>
+				</ul>
+				<div class="copyright">
+					&copy Shoebox Project Copyright 2017
+				</div>
+				<div class="social-media">
+					<img class="fb" src="./images/social-media/Facebook.svg" height="50" width="50"/>
+					<img class="twtr" src="./images/social-media/Twitter.svg" height="50" width="50"/>
+					<img class="ig" src="./images/social-media/Instagram.svg" height="50" width="50"/>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+
+</body>
 </html>
