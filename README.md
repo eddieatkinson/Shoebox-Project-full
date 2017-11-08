@@ -12,7 +12,7 @@ The Shoebox Project is a non-profit company whose purpose is to provide professi
 **Designer/Class Clown/Developer**
 * [Eddie Atkinson](https://github.com/eddieatkinson)
 **Data Wrangler/Map Magician/Developer**
-* [Amir Patel]
+* [Amir Patel](https://github.com/Amirpatel89)
 **New Kid on the Block**
 
 
