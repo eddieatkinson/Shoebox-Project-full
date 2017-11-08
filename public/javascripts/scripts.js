@@ -15,7 +15,7 @@ $(document).ready(()=>{
 	});
 	$('.link-to-map').click(()=>{
 		event.preventDefault();
-		window.open("map.html", "_blank", "toolbar=yes,scrollbar=yes,resizeable=yes,top=55,left=75,width=700,height=700");
+		window.open("/map", "_blank", "toolbar=yes,scrollbar=yes,resizeable=yes,top=55,left=75,width=700,height=700");
 	});
 	$(function() {
 		$('#ChangeToggle').click(function() {
