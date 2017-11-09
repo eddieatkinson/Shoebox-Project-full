@@ -68,7 +68,7 @@ $(document).ready(()=>{
 		}
 	});
 	$(".youth-btn").click(function(){
-		window.location.href = "/"
+		window.location.href = "/#contact"
 	});
 	$(".vol-btn").click(function(){
 		window.location.href = "/volunteers";
