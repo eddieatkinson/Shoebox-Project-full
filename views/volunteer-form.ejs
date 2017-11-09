@@ -10,29 +10,29 @@
 </head>
 <body class="responsive-height volunteer-form">
 	<div class="volunteer-wrapper">
-		<form class="vol-sign-up-form">
+		<form action="/volunteers/signupProcess" method="post" class="vol-sign-up-form">
 			<h2 class="heading row text-center">Volunteer Application Form</h2>
 			<h5 class="thank-you text-center">Thank you so much for your interest in volunteering with The Shoebox Project.<br>Please fill out the form below (all fields are required).</h5>
 			<div class="form-wrapper">
 				<div class="full-name-error error"></div>
-				<label>Full name</label><input type="text" class="full-name" placeholder="Your Full Name" required>
+				<label>Full name</label><input name="name" type="text" class="full-name" placeholder="Your Full Name" required>
 			</div>
 
 			<div class="form-wrapper">
 				<div class="email-error error"></div>
-				<label>Email</label><input type="email" class="email" placeholder="Your Email" required>
+				<label>Email</label><input name="email" type="email" class="email" placeholder="Your Email" required>
 			</div>
 
 			<div class="form-wrapper">
 				<div class="phone-error error"></div>
-				<label>Phone number</label><input type="tel" class="phone" placeholder="Your Phone Number" required>
+				<label>Phone number</label><input name="phone" type="tel" class="phone" placeholder="Your Phone Number" required>
 			</div>
 
 			<div class="form-wrapper">
 				
 				<label>Password  </label>
 				<div class="password-error error"></div>
-				<input type="password" class="password" placeholder="Your password" required>
+				<input name="password" type="password" class="password" placeholder="Your password" required>
 			</div>
 
 			<div class="form-wrapper">

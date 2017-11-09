@@ -69,7 +69,7 @@ $(document).ready(()=>{
 	userObj.signupDate = new Date();
 
 	$('.vol-sign-up-form').submit((event)=>{
-		event.preventDefault();
+		// event.preventDefault();
 
 		var password = $('.password').val();
 		var passwordConfirm = $('.password-confirm').val();
