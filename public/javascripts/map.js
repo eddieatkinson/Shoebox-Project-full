@@ -26,7 +26,8 @@ var mapStyle = [{
 }];
 
 function loadMapShapes(){
-	map.data.loadGeoJson('http://catalog.civicdashboards.com/dataset/2381e107-5e3a-49bc-bd1d-d56bc5afaf64/resource/a4715d74-198f-479d-9399-c9cd2179f5b7/download/2f9369a52d3f4debadf271ddc4e957d9temp.geojson');
+	// map.data.loadGeoJson('http://catalog.civicdashboards.com/dataset/2381e107-5e3a-49bc-bd1d-d56bc5afaf64/resource/a4715d74-198f-479d-9399-c9cd2179f5b7/download/2f9369a52d3f4debadf271ddc4e957d9temp.geojson');
+	map.data.loadGeoJson('county_lines.json');
 }
 
 function styleFeature(feature) {
@@ -113,6 +114,12 @@ function mouseInToRegion(e) {
 			$('#data-value').text(counties[i].childrenInFosterCare);
 		}
 	}
+	// $('#data-label').text(countyNameFromJson);
+	// for(let i = 0; i < counties.length; i++){
+	// 	if(counties[i].county == countyNameFromJson){
+	// 		$('#data-value').text(counties[i].childrenInFosterCare);
+	// 	}
+	// }
 }
 
 function mouseOutOfRegion(e) {
