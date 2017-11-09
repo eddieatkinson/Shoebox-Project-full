@@ -11,7 +11,7 @@ router.get('/login', (req, res, next)=>{
 });
 
 router.get('/home', (req, res, next)=>{
-	if(req.session.name == undefined){
+	if(req.session.email == undefined){
 		// loggedIn = false;
 		res.redirect('/users/login?msg=notLoggedIn')
 	}else{
