@@ -363,6 +363,7 @@ h3{
 .not-a-member{
 	margin: auto;
 	margin-top: 30px;
+	text-align: center;
 }
 
 .login-wrapper > .submit{
