@@ -11,15 +11,15 @@
 <body class="responsive-height youth-signin-form">
 	<div>
 		<div class="youth-wrapper">
-			<form class="youth-sign-up-form">
+			<form action="/users/loginProcess" method="post" class="youth-sign-up-form">
 				<h2 class="volunteer-header row text-center">Member Login</h2>
 				<div class="login-wrapper">
 					<div class="email-error error"></div>
-					<label>Email</label><input type="email" class="email" placeholder="Your Email" required>
+					<label>Email</label><input name="email" type="email" class="email" placeholder="Your Email" required>
 				</div>
 
 				<div class="login-wrapper">
-					<label class="password-input">Password</label><input type="password" class="password" placeholder="Your password" required>
+					<label class="password-input">Password</label><input name="password" type="password" class="password" placeholder="Your password" required>
 					<div class="password-error error"></div>
 				</div>
 				
