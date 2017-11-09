@@ -28,7 +28,7 @@ router.get('/resources', function(req, res, next) {
 });
 
 router.get('/user-signup-page', function(req, res, next) {
-  res.render('user-signup-page',{});
+  res.render('user-signup',{});
 });
 
 router.get('/user-home', function(req, res, next) {

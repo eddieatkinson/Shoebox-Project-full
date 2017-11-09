@@ -17,6 +17,28 @@ router.get('/login', (req, res, next)=>{
 router.post('/loginProcess', (req, res, next)=>{
 	var email = req.body.email;
 	var password = req.body.password;
+	var selectQuery = `SELECT * FROM volunteers WHERE email = ?;`;
+	connection.query(selectQuery, [email], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		if(results.length == 0){
+			res.redirect('/volunteers/?msg=notRegistered');
+		}else{
+			var passwordsMatch = bcrypt.compareSync(password, results[0].password);
+			if(passwordsMatch){
+				var row = results[0];
+				req.session.name = row.name;
+				req.session.uid = row.id;
+				req.session.email = row.email;
+				console.log(req.session.name);
+
+				res.redirect('/?msg=loggedIn');
+			}else{
+				res.redirect('/volunteers/login?msg=badPass');
+			}
+		}
+	});
 });
 
 router.post('/signupProcess', (req, res, next)=>{
@@ -33,6 +55,9 @@ router.post('/signupProcess', (req, res, next)=>{
 	// res.send(`name: ${name} email: ${email} phone: ${phone} pass: ${password}`);
 	var selectQuery = `SELECT * FROM volunteers WHERE email = ?;`;
 	connection.query(selectQuery, [email], (error, results)=>{
+		if(error){
+			throw error;
+		}
 		if(results.length != 0){
 			res.redirect('login?msg=registered');
 		}else{
