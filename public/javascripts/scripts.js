@@ -1,8 +1,4 @@
 $(document).ready(()=>{
-	localStorage.setItem('user-password', 'myPassword');
-	console.log(typeof(localStorage.getItem('user-password')));
-	localStorage.setItem('vol-password', 'myPassword');
-
 	$('#myModal').on('shown.bs.modal', function () {
 		$('#myInput').focus()
 	});
@@ -23,23 +19,31 @@ $(document).ready(()=>{
 			$('#navbar-close').toggleClass('hidden');  
 		});
 	});
-
-	// Scrollspy attempt
-	// $('body').scrollspy({target: ".navbar", offset: 50});
-
-	// $('#bs-example-navbar-collapse-1 a').on('click', function(event) {
-	// 	console.log("Didoen!")
-	// 	if(this.hash !== ""){
-	// 		event.preventDefault();
-
-	// 		var hash = this.hash;
-
-	// 		$('html, body').animate({
-	// 			scrollTop: $(hash).offset().top
-	// 		}, 800, function(){
-	// 			window.location.hash = hash;
-	// 		});
-	// 	}
-	// });
 	
+	// ------------------------------------
+	// -------Volunteer sign-up form-------
+	// ------------------------------------
+	$('.vol-sign-up-form').change(()=>{
+		count++;
+		var password = $('.password').val();
+		var passwordConfirm = $('.password-confirm').val();
+
+		$('.agree').change(()=>{
+			if(count >= 5){
+				$('.submit').removeClass('btn-warning');
+				$('.submit').addClass('btn-success');
+				$('.submit').attr('value', "I'm ready!")
+			}	
+		});
+	});
+
+	$('.vol-sign-up-form').submit((event)=>{
+		var password = $('.password').val();
+		var passwordConfirm = $('.password-confirm').val();
+
+		if(password != passwordConfirm){
+			event.preventDefault();
+			$('.password-error').html("Your passwords do not match.");
+		}
+	});
 });
