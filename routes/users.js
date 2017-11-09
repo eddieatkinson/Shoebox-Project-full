@@ -11,7 +11,13 @@ router.get('/login', (req, res, next)=>{
 });
 
 router.get('/home', (req, res, next)=>{
-	res.render('user-home', {});
+	if(req.session.name == undefined){
+		// loggedIn = false;
+		res.redirect('/users/login?msg=notLoggedIn')
+	}else{
+		// loggedIn = true;
+		res.render('user-home', {});
+	}
 });
 
 router.post('/loginProcess', (req, res, next)=>{
@@ -23,7 +29,7 @@ router.post('/loginProcess', (req, res, next)=>{
 			throw error;
 		}
 		if(results.length == 0){
-			res.redirect('/users/?msg=notRegistered');
+			res.redirect('/?msg=notRegistered');
 		}else{
 			var passwordsMatch = bcrypt.compareSync(password, results[0].password);
 			if(passwordsMatch){
@@ -31,9 +37,9 @@ router.post('/loginProcess', (req, res, next)=>{
 				req.session.name = row.name;
 				req.session.uid = row.id;
 				req.session.email = row.email;
-				console.log(req.session.name);
+				console.log("session name: " + req.session.name);
 
-				res.redirect('/?msg=loggedIn');
+				res.redirect('/users/home?msg=loggedIn');
 			}else{
 				res.redirect('/users/login?msg=badPass');
 			}
