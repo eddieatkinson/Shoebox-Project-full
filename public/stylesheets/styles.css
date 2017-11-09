@@ -498,8 +498,8 @@ div > label.agree{
 /////////////USER_HOME STYLES//////////////
 /////////////////////////////////////// */
 
-.container{
-	margin: 100px;
+.user-container{
+	margin-top: 100px;
 }
 
 h1 > .profile-pic{
