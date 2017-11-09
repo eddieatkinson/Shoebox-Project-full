@@ -9,9 +9,32 @@ var config = require('./config/config.js');
 // Get the express-session module
 var session = require('express-session');
 
+// const passport = require('passport');
+// const Auth0Strategy = require('passport-auth0');
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 var volunteers = require('./routes/volunteers');
+
+// const strategy = new Auth0Strategy(config.auth0,
+//   	function(accessToken, refreshToken, extraParams, profile, done) {
+// 	    // accessToken is the token to call Auth0 API (not needed in the most cases)
+// 	    // extraParams.id_token has the JSON Web Token
+// 	    // profile has all the information from the user
+// 	    return done(null, profile);
+//   	}
+// );
+
+// passport.use(strategy);
+
+// you can use this section to keep a smaller payload
+// passport.serializeUser(function(user, done) {
+//   	done(null, user);
+// });
+
+// passport.deserializeUser(function(user, done) {
+//   	done(null, user);
+// });
 
 var app = express();
 
@@ -22,6 +45,9 @@ var sessionOptions = {
 }
 
 app.use(session(sessionOptions));
+
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,6 +60,27 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Handle auth failure error messages
+// app.use(function(req, res, next) {
+//  if (req && req.query && req.query.error) {
+//    req.flash("error", req.query.error);
+//  }
+//  if (req && req.query && req.query.error_description) {
+//    req.flash("error_description", req.query.error_description);
+//  }
+//  next();
+// });
+
+// Check logged in
+// app.use(function(req, res, next) {
+//   res.locals.loggedIn = false;
+//   if (req.session.passport && typeof req.session.passport.user != 'undefined') {
+//     res.locals.loggedIn = true;
+//   }
+//   next();
+// });
+
 
 app.use('/', index);
 app.use('/users', users);

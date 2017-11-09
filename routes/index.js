@@ -8,7 +8,11 @@ var connection = mysql.createConnection(config.db);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+	var registered = false;
+	if(req.query.msg == 'registered'){
+		registered = true;
+	}
+	res.render('index', {registered: registered});
 });
 
 router.get('/blog', function(req, res, next) {

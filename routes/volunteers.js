@@ -1,10 +1,22 @@
 var express = require('express');
+// const passport = require('passport');
 var router = express.Router();
 var config = require('../config/config.js');
 var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
 
 var connection = mysql.createConnection(config.db);
+// router.get('/login-Goog', passport.authenticate('auth0', {
+//  	clientID: config.auth0.clientID,
+//   	domain: "shoeboxproject.auth0.com",
+//   	redirectUri: 'http://localhost:3001/callback',
+//   	responseType: 'code',
+//   	audience: 'https://shoeboxproject.auth0.com/userinfo',
+//   	scope: 'openid profile email'}),
+//   	function(req, res) {
+//     	res.redirect("/");
+// });
+
 /* GET volunteer listing. */
 router.get('/', function(req, res, next) {
   res.render('volunteer-form', {});
