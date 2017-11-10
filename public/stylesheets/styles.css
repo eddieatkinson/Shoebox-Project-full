@@ -525,7 +525,7 @@ div > input.agree{
 }
 
 div > label.agree{
-	line-height: 0px;
+	line-height: 40px;
 }
 
 .submit{
@@ -621,8 +621,10 @@ h1 > .profile-pic{
 		font-size: 40px;
 	}
 	.mobile-checkbox-boost{
-		transform: scale(5.5);
+		transform: scale(5.5) !important;
 		margin: 4px 50px 50px 4px !important;
 	}
 }
-
+.big-box{
+	transform: scale(2.0);
+}
