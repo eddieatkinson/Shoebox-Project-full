@@ -1,4 +1,5 @@
 var express = require('express');
+// const passport = require('passport');
 var router = express.Router();
 var config = require('../config/config.js');
 var mysql = require('mysql');
@@ -19,6 +20,17 @@ router.get('/home', (req, res, next)=>{
 		res.render('user-home', {});
 	}
 });
+
+// router.get('/login-Goog', passport.authenticate('auth0', {
+//  	clientID: config.auth0.clientID,
+//   	domain: "shoeboxproject.auth0.com",
+//   	redirectUri: 'http://localhost:3000/callback',
+//   	responseType: 'code',
+//   	audience: 'https://shoeboxproject.auth0.com/userinfo',
+//   	scope: 'openid profile email'}),
+//   	function(req, res) {
+//     	res.redirect("/");
+// });
 
 router.post('/loginProcess', (req, res, next)=>{
 	var email = req.body.email;
