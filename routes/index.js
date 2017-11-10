@@ -16,19 +16,26 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/blog', function(req, res, next) {
-  res.render('blog',{});
+    var selectQuery = `SELECT * FROM blog;`;
+    connection.query(selectQuery, (error, results)=>{
+        if(error){
+            throw error;
+        }
+        res.render('blog',{blog: results});    
+    });
+   
 });
 
 router.get('/donate', function(req, res, next) {
-  res.render('donate',{});
+    res.render('donate',{});
 });
 
 router.get('/map', function(req, res, next) {
-  res.render('map',{});
+    res.render('map',{});
 });
 
 router.get('/resources', function(req, res, next) {
-  res.render('resources',{});
+    res.render('resources',{});
 });
 
 // router.get('/user-signup-page', function(req, res, next) {
