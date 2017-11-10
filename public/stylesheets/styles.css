@@ -237,8 +237,8 @@ a#volunteer-FAQ-link{
 .volunteer-form{
 	background-image: url("../images/camera.png");
 	background-repeat: no-repeat;
-	/*background-size: 100%;
-	min-height: 100vh;*/
+	/*background-size: 100%;*/
+	/*min-height: 100vh;*/
 }
 
 .heading{
@@ -500,8 +500,8 @@ div > label.agree{
 /////////////USER_HOME STYLES//////////////
 /////////////////////////////////////// */
 
-.container{
-	margin: 100px;
+.user-container{
+	margin-top: 100px;
 }
 
 h1 > .profile-pic{
