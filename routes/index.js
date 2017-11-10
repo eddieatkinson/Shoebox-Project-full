@@ -31,25 +31,25 @@ router.get('/resources', function(req, res, next) {
   res.render('resources',{});
 });
 
-router.get('/user-signup-page', function(req, res, next) {
-  res.render('user-signup',{});
-});
+// router.get('/user-signup-page', function(req, res, next) {
+//   res.render('user-signup',{});
+// });
 
-router.get('/user-home', function(req, res, next) {
-  res.render('user-home',{});
-});
+// router.get('/user-home', function(req, res, next) {
+//   res.render('user-home',{});
+// });
 
-router.get('/volunteer-signup-form', function(req, res, next) {
-  res.render('volunteer-signup-form',{});
-});
+// router.get('/volunteer-signup-form', function(req, res, next) {
+//   res.render('volunteer-signup-form',{});
+// });
 
-router.get('/volunteer-form', function(req, res, next) {
-  res.render('volunteer-form',{});
-});
+// router.get('/volunteer-form', function(req, res, next) {
+//   res.render('volunteer-form',{});
+// });
 
-router.get('/youth-login-form', function(req, res, next) {
-  res.render('youth-login-form',{});
-});
+// router.get('/youth-login-form', function(req, res, next) {
+//   res.render('youth-login-form',{});
+// });
 
 
 module.exports = router;

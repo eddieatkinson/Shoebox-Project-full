@@ -61,7 +61,7 @@ router.post('/loginProcess', (req, res, next)=>{
 				req.session.name = row.first_name;
 				req.session.uid = row.id;
 				req.session.email = row.email;
-				console.log("session name: " + req.session.name);
+				// console.log("session name: " + req.session.name);
 
 				res.redirect('/users/home?msg=loggedIn');
 			}else{
