@@ -26,6 +26,11 @@ router.get('/login', (req, res, next)=>{
 	res.render('volunteer-login', {});
 });
 
+router.get('/logout', (req, res, next)=>{
+	req.session.destroy();
+	res.redirect('/');
+});
+
 router.get('/home', (req, res, next)=>{
 	var entryAdded = false;
 	if(req.query.msg == "entryAdded"){
@@ -34,7 +39,10 @@ router.get('/home', (req, res, next)=>{
 	if(req.session.email == undefined){
 		res.redirect('/volunteers/login');
 	}else{
-		res.render('volunteer-home', {entryAdded: entryAdded});
+		res.render('volunteer-home', {
+			entryAdded: entryAdded,
+			name: req.session.name
+		});
 	}
 });
 
