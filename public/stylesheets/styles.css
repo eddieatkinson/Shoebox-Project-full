@@ -609,7 +609,7 @@ h1 > .profile-pic{
 	.mobile-form{
 		margin-top: 100px;
 
-}
+	}
 	.btn{
 		font-size: 30px;
 	}
@@ -617,4 +617,12 @@ h1 > .profile-pic{
 		min-height: 30%;
 		margin-top: 200px;
 	}
+	.mobile-font-boost{
+		font-size: 40px;
+	}
+	.mobile-checkbox-boost{
+		transform: scale(5.5);
+		margin: 4px 50px 50px 4px !important;
+	}
 }
+

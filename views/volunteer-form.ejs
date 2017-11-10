@@ -11,61 +11,61 @@
 <body class="responsive-height-vol-form responsive-height volunteer-form">
 	<div class="volunteer-wrapper">
 		<form action="/volunteers/signupProcess" method="post" class="vol-sign-up-form">
-			<h2 class="heading row text-center">Volunteer Application Form</h2>
-			<h5 class="thank-you text-center">Thank you so much for your interest in volunteering with The Shoebox Project.<br>Please fill out the form below (all fields are required).</h5>
+			<h2 class="heading row text-center mobile-font-boost">Volunteer Application Form</h2>
+			<h5 class="thank-you text-center mobile-font-boost">Thank you so much for your interest in volunteering with The Shoebox Project.<br>Please fill out the form below (all fields are required).</h5>
 			<div class="form-wrapper">
 				<div class="full-name-error error"></div>
-				<label>Full name</label><input name="name" type="text" class="full-name" placeholder="Your Full Name" required>
+				<label class="mobile-font-boost">Full name</label><input name="name" type="text" class="full-name mobile-font-boost" placeholder="Your Full Name" required>
 			</div>
 
 			<div class="form-wrapper">
 				<div class="email-error error"></div>
-				<label>Email</label><input name="email" type="email" class="email" placeholder="Your Email" required>
+				<label class="mobile-font-boost">Email</label><input name="email" type="email" class="email mobile-font-boost" placeholder="Your Email" required>
 			</div>
 
 			<div class="form-wrapper">
 				<div class="phone-error error"></div>
-				<label>Phone number</label><input name="phone" type="tel" class="phone" placeholder="Your Phone Number" required>
+				<label class="mobile-font-boost">Phone number</label><input name="phone" type="tel" class="phone mobile-font-boost" placeholder="Your Phone Number" required>
 			</div>
 
 			<div class="form-wrapper">
 				
-				<label>Password  </label>
+				<label class="mobile-font-boost">Password</label>
 				<div class="password-error error"></div>
-				<input name="password" type="password" class="password" placeholder="Your password" required>
+				<input name="password" type="password" class="password mobile-font-boost" placeholder="Your password" required>
 			</div>
 
 			<div class="form-wrapper">
-				<label>Confirm password</label><input type="password" class="password-confirm" placeholder="Confirm password" required>
+				<label class="mobile-font-boost">Confirm password</label><input type="password" class="password-confirm mobile-font-boost" placeholder="Confirm password" required>
 			</div>
 
 			<div class="form-wrapper">
-				<div class="interest-list">I'm interested in (choose as many as you'd like):<br></div>
+				<div class="interest-list mobile-font-boost">I'm interested in (choose as many as you'd like):<br></div>
 				<div class="interest col-xs-12">
-					<input type="checkbox" id="photographing" name="photographer" value="yes">
-					<label for="coding">Photographing</label>
+					<input class="mobile-checkbox-boost" type="checkbox" id="photographing" name="photographer" value="yes">
+					<label class="mobile-font-boost" for="coding">Photographing</label>
 				</div>
 				<div class="interest col-xs-12">
-					<input type="checkbox" id="setUp" name="set-up" value="yes">
-					<label for="set-up">Set-up and tear down</label>
+					<input class="mobile-checkbox-boost" type="checkbox" id="setUp" name="set-up" value="yes">
+					<label class="mobile-font-boost" for="set-up">Set-up and tear down</label>
 				</div>
 				<div class="interest col-xs-12">
-					<input type="checkbox" id="manager" name="manager" value="yes">
-					<label for="manager">Shoot management</label>
+					<input class="mobile-checkbox-boost" type="checkbox" id="manager" name="manager" value="yes">
+					<label class="mobile-font-boost" for="manager">Shoot management</label>
 				</div>
 				<div class="interest col-xs-12">
-					<input type="checkbox" id="processing" name="processing" value="yes">
-					<label for="processing">Photo processing</label>
+					<input class="mobile-checkbox-boost" type="checkbox" id="processing" name="processing" value="yes">
+					<label class="mobile-font-boost" for="processing">Photo processing</label>
 				</div>
 				<div class="interest col-xs-12">
-					<input type="checkbox" id="assistance" name="general" value="yes">
-					<label for="assistance">General assistance</label>
+					<input class="mobile-checkbox-boost" type="checkbox" id="assistance" name="general" value="yes">
+					<label class="mobile-font-boost" for="assistance">General assistance</label>
 				</div>
 			</div>
 
 			<div class="form-wrapper background-consent">
-				<input type="checkbox" name="consent" class="agree" id="background-check" value="yes" required>
-				<label for="background-check" class="agree">I am at least 18 years old and will submit to a required background check.<br><br></label>
+				<label class="mobile-font-boost" for="background-check" class="agree">I am at least 18 years old and will submit to a required background check.<br><br></label>
+				<input class="mobile-checkbox-boost" type="checkbox" name="consent" class="agree" id="background-check" value="yes" required>
 				<input type="submit" class="submit btn btn-warning" value="Not quite ready...">
 			</div>
 		</form>
