@@ -31,7 +31,7 @@
     </div>
 <div class="container user-container">
   <div class="row">
-    <span class="center"><h3>Welcome, Shyla!</h3></span>
+    <span class="center"><h3>Welcome, <%=name%></h3></span>
     <h1> <img class='profile-pic' src="/images/profile-image.png"> My Gallery </h1>
         <hr>  
     <div class="row">           
@@ -45,29 +45,14 @@
   </div> <!-- end row -->
 
   <div class="hidden" id="img-repo">
+    <%url.map((image)=>{%>
+      <div class="item" id="image-1">
+        <img class="thumbnail img-responsive" src="<%=image.url%>">
+      </div>
+
+    <%})%>
+  </div>
     
-    <!-- #image-1 -->
-    <div class="item" id="image-1">
-      <img class="thumbnail img-responsive" src="/images/sand.jpg">
-    </div>
-    <div class="item" id="image-1">
-      <img class="thumbnail img-responsive" src="/images/bike.jpg">
-    </div> 
-    <div class="item" id="image-1">
-      <img class="thumbnail img-responsive" src="/images/balloon.jpg">
-    </div>
-    <div class="item" id="image-1">
-      <img class="thumbnail img-responsive" src="/images/pattycake.jpg">
-    </div> 
-    <div class="item" id="image-1">
-      <img class="thumbnail img-responsive" src="/images/reading.jpg">
-    </div> 
-    <div class="item" id="image-1">
-      <img class="thumbnail img-responsive" src="/images/giggles.jpg">
-    </div> <div class="item" id="image-1">
-      <img class="thumbnail img-responsive" src="/images/beach-sunset.jpg">
-    </div>   
-  </div>  <!-- close hidden -->
 
 <div class="modal" id="modal-gallery" role="dialog">
   <div class="modal-dialog">

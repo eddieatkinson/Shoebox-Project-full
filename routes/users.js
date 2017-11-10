@@ -17,7 +17,19 @@ router.get('/home', (req, res, next)=>{
 		res.redirect('/users/login?msg=notLoggedIn')
 	}else{
 		// loggedIn = true;
-		res.render('user-home', {});
+		var selectQuery = 
+			`SELECT url FROM images WHERE id = ?;`;
+		connection.query(selectQuery, [req.session.uid], (error, results)=>{
+			if(error){
+				throw error;
+			}else{
+				// res.json(results);
+				res.render('user-home', {
+					name: req.session.name,
+					url: results
+				});
+			}
+		});
 	}
 });
 
@@ -46,7 +58,7 @@ router.post('/loginProcess', (req, res, next)=>{
 			var passwordsMatch = bcrypt.compareSync(password, results[0].password);
 			if(passwordsMatch){
 				var row = results[0];
-				req.session.name = row.name;
+				req.session.name = row.first_name;
 				req.session.uid = row.id;
 				req.session.email = row.email;
 				console.log("session name: " + req.session.name);
