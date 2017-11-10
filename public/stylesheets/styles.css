@@ -260,8 +260,9 @@ a#volunteer-FAQ-link{
 .sign-up-form, .youth-sign-up-form, .vol-sign-up-form, .user-sign-up-form{
 	background-color: rgba(255, 255, 255, 0.95);
 	margin: auto;
-	width: 700px;
-	height: 350px;
+	width: 85%;
+	/* height: 650px; */
+	min-height: 85%;
 	/*height: 70vh;*/
 	border-radius: 5px;
 	padding: 5px 10px 10px 10px;
