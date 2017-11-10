@@ -6,10 +6,20 @@
 	<link rel="stylesheet" type="text/css" href="../stylesheets/styles.css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript" src="../javascripts/scripts.js"></script>
 
 </head>
 <body class="responsive-height youth-signin-form">
+	<% if(badEmail){ %>
+		<script type="text/javascript">
+			swal("The email you entered is not in the system.", "Please try again or contact us to enroll.", "error");
+		</script>
+	<% }else if(badPass){ %>
+		<script type="text/javascript">
+			swal("Your password is incorrect.", "Please try again.", "error");
+		</script>
+	<% } %>
 	<div>
 		<div class="youth-wrapper">
 			<form action="/users/loginProcess" method="post" class="youth-sign-up-form">
