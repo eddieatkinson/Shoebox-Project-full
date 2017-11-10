@@ -237,8 +237,8 @@ a#volunteer-FAQ-link{
 .volunteer-form{
 	background-image: url("../images/camera.png");
 	background-repeat: no-repeat;
-	/*background-size: 100%;
-	min-height: 100vh;*/
+	/*background-size: 100%;*/
+	/*min-height: 100vh;*/
 }
 
 .heading{
