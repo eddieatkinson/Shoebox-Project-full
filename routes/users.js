@@ -8,7 +8,17 @@ var bcrypt = require('bcrypt-nodejs');
 var connection = mysql.createConnection(config.db);
 /* GET users listing. */
 router.get('/login', (req, res, next)=>{
-	res.render('user-login', {});
+	var badEmail = false;
+	var badPass = false;
+	if(req.query.msg == 'notRegistered'){
+		badEmail = true;
+	}else if(req.query.msg == 'badPass'){
+		badPass = true;
+	}
+	res.render('user-login', {
+		badPass: badPass,
+		badEmail: badEmail
+	});
 });
 
 router.get('/home', (req, res, next)=>{
@@ -53,7 +63,7 @@ router.post('/loginProcess', (req, res, next)=>{
 			throw error;
 		}
 		if(results.length == 0){
-			res.redirect('/?msg=notRegistered');
+			res.redirect('/users/login?msg=notRegistered');
 		}else{
 			var passwordsMatch = bcrypt.compareSync(password, results[0].password);
 			if(passwordsMatch){
@@ -61,7 +71,7 @@ router.post('/loginProcess', (req, res, next)=>{
 				req.session.name = row.first_name;
 				req.session.uid = row.id;
 				req.session.email = row.email;
-				console.log("session name: " + req.session.name);
+				// console.log("session name: " + req.session.name);
 
 				res.redirect('/users/home?msg=loggedIn');
 			}else{
