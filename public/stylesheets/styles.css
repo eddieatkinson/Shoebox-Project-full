@@ -257,8 +257,34 @@ a#volunteer-FAQ-link{
 	margin: auto;
 	top: 10px;
 }*/
-
-.sign-up-form, .youth-sign-up-form, .vol-sign-up-form, .user-sign-up-form{
+.sign-up-form{
+	background-color: rgba(255, 255, 255, 0.95);
+	margin: auto;
+	width: 85%;
+	overflow: auto;
+	border-radius: 5px;
+	padding: 5px 10px 10px 10px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 66px;
+} 
+.youth-sign-up-form{
+	background-color: rgba(255, 255, 255, 0.95);
+	margin: auto;
+	width: 85%;
+	/* height: 650px; */
+	min-height: 70%;
+	overflow: auto;
+	/*height: 70vh;*/
+	border-radius: 5px;
+	padding: 5px 10px 10px 10px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 66px;
+} 
+.vol-sign-up-form, .user-sign-up-form{
 	background-color: rgba(255, 255, 255, 0.95);
 	margin: auto;
 	width: 85%;
@@ -275,12 +301,6 @@ a#volunteer-FAQ-link{
 }
 .vol-sign-up-form{
 	height: 650px;
-}
-@media screen and (max-width: 1100px){
-	.sign-up-form, .youth-sign-up-form{
-		width: 700px;
-		height: 600px;
-	}
 }
 .user-sign-up-form{
 	height: 500px;
@@ -307,8 +327,21 @@ h3{
 	/*background-image: url("../inspiration/5852c52d7c378.image.jpg");*/
 	/*background-repeat: no-repeat;*/
 	background-size: auto 100%;
-	min-height: 100vh;
+	min-height: 30vh;
 	background-position: top left;
+	top: 300px;
+	right: 0;
+
+	}
+}
+@media screen and (max-width: 1100px){
+	.responsive-height-vol-form{
+	background-size: auto 100%;
+	min-height: 50vh;
+	background-position: top left;
+	top: 5px;
+	right: 0;
+
 	}
 }
 .youth-wrapper, .vol-log-wrapper, .volunteer-wrapper{
@@ -327,7 +360,6 @@ h3{
 	/*background-image: url("../inspiration/5852c52d7c378.image.jpg");*/
 	/*background-repeat: no-repeat;*/
 	background-size: 100%;
-	min-height: 100vh;
 	}
 }
 
@@ -338,7 +370,7 @@ h3{
 .volunteer-header{
 	margin: auto;
 	color: black;
-	margin: 20px 0;
+	margin: 50px 0;
 }
 
 .volunteer-signin-form{
@@ -349,7 +381,7 @@ h3{
 }
 
 .login-wrapper{
-	margin: 15px;
+	margin: 20px;
 }
 
 .login-wrapper > div{
@@ -493,7 +525,7 @@ div > input.agree{
 }
 
 div > label.agree{
-	line-height: 0px;
+	line-height: 40px;
 }
 
 .submit{
@@ -606,4 +638,27 @@ h1 > .profile-pic{
 /////////////////////////////////////// */
 .blog{
 	padding: 200px;
+}
+@media screen and (max-width: 1100px){
+	.mobile-form{
+		margin-top: 100px;
+
+	}
+	.btn{
+		font-size: 30px;
+	}
+	.mobile-form-user{
+		min-height: 30%;
+		margin-top: 200px;
+	}
+	.mobile-font-boost{
+		font-size: 40px;
+	}
+	.mobile-checkbox-boost{
+		transform: scale(5.5) !important;
+		margin: 4px 50px 50px 4px !important;
+	}
+}
+.big-box{
+	transform: scale(2.0);
 }

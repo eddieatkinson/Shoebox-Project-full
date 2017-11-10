@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blog Entry</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="../stylesheets/styles.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript" src="../javascripts/scripts.js"></script>
+</head>
+<body>
+	<form action="/volunteers/blogEntry" method="post" class="blog-entry-form">
+		<h2 class="volunteer-header row text-center">New Blog Entry</h2>
+		<div class="blog-entry-wrapper">
+			<div class="email-error error"></div>
+			<label>Title</label><input name="title" type="text" class="blog-title" placeholder="Title" required>
+		</div>
+
+		<div class="blog-entry-wrapper">
+			<label class="blog-input">Body</label><input name="body" type="text-area" class="blog-body" placeholder="Write something uplifting here." required>
+			<div class="password-error error"></div>
+		</div>
+		
+		<div class="login-wrapper youth-login row col-sm-4">
+			<input type="submit" class="submit btn btn-warning" value="Submit!">
+		</div>
+	</form>
+
+</body>
+</html>

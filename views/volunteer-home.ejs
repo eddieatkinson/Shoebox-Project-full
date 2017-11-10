@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Volunteer Home</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="../stylesheets/styles.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript" src="../javascripts/scripts.js"></script>
+</head>
+<body>
+	<% if(entryAdded){ %>
+		<script type="text/javascript">
+			swal("Thank you! Your blog entry has been submitted.", "It will be posted upon approval.", "success");
+		</script>
+	<% } %>
+	<div class="container">
+		<div class="row col-sm-12 text-center">
+			<h3>Welcome, <%=name%></h3>
+		</div>
+		<div class="col-sm-9">
+			<iframe src="https://calendar.google.com/calendar/embed?src=khio5gi4mdbvipjohb8mb3hc60%40group.calendar.google.com&ctz=America/New_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+		</div>
+		<div class="col-sm-3">
+			<a href="/volunteers/logout"><button class="btn btn-info">Logout</button></a>
+		</div>
+		<div class="col-sm-3">
+			<a style="color:#58AED1;" href="/volunteers/blog">New Blog Post!</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -26,6 +26,56 @@ router.get('/login', (req, res, next)=>{
 	res.render('volunteer-login', {});
 });
 
+router.get('/logout', (req, res, next)=>{
+	req.session.destroy();
+	res.redirect('/');
+});
+
+router.get('/home', (req, res, next)=>{
+	var entryAdded = false;
+	if(req.query.msg == "entryAdded"){
+		entryAdded = true;
+	}
+	if(req.session.email == undefined){
+		res.redirect('/volunteers/login');
+	}else{
+		res.render('volunteer-home', {
+			entryAdded: entryAdded,
+			name: req.session.name
+		});
+	}
+});
+
+router.get('/blog', (req, res, next)=>{
+	if(req.session.email == undefined){
+		res.redirect('/volunteers/login');
+	}else{
+		res.render('volunteer-blog', {});
+	}
+});
+
+router.post('/blogEntry', (req, res, next)=>{
+	var title = req.body.title;
+	var body = req.body.body;
+	var getAuthor = `SELECT name FROM volunteers WHERE vol_id = ?;`;
+	connection.query(getAuthor, [req.session.uid], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		console.log(results);
+		console.log(req.session.uid);
+		var name = results[0].name;
+		var insertBlog = `INSERT INTO blog (name, title, body, vol_id)
+			VALUES (?, ?, ?, ?);`;
+		connection.query(insertBlog, [name, title, body, req.session.uid], (error, results)=>{
+			if(error){
+				throw error;
+			}
+			res.redirect('/volunteers/home?msg=entryAdded');
+		});
+	})
+});
+
 router.post('/loginProcess', (req, res, next)=>{
 	var email = req.body.email;
 	var password = req.body.password;
@@ -41,11 +91,12 @@ router.post('/loginProcess', (req, res, next)=>{
 			if(passwordsMatch){
 				var row = results[0];
 				req.session.name = row.name;
-				req.session.uid = row.id;
+				req.session.uid = row.vol_id;
 				req.session.email = row.email;
 				console.log(req.session.name);
+				console.log(req.session.uid);
 
-				res.redirect('/?msg=loggedIn');
+				res.redirect('home?msg=loggedIn');
 			}else{
 				res.redirect('/volunteers/login?msg=badPass');
 			}
