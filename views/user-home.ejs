@@ -3,49 +3,38 @@
 <head>
   <title>User Home Page</title>
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-  <link rel="stylesheet" type="text/css" href="../stylesheets/styles.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
-
-  <script type="text/javascript" src="../javascripts/scripts.js"></script>
+  <% include user-head %>
 
 </head>
 <body class="user-body">
-  <div>
     <div class="user-header col-sm-12">
       <div class="nav-bar">
-        <a href="/"><img class="logo user-home" src="/images/sm-sb-logo.png"/></a>
-        <a href="/"><img class="sp user-home" src="/images/myshoebox.png" height="50" width="170"/></a>
-          <div class="nav-menu">
+        <a href="#"><img class="logo" src="/images/sm-sb-logo.png"/></a>
+        <span class="user-name"><%=name%>'s</span><img id="user-welcome" src="/images/user-box.png"/>
+          <div class="nav-menu user-home">
             <a class="waves-effect waves-light btn" id="logout" href="/users/logout">Log Out</a>
           </div>
       </div>
     </div>
 <div class="container user-container">
-    <span class="center"><h3><%=name%>'s Gallery</h3></span>
-        <hr>           
-        <div class="col-12">
+  <div class="bad-footer">
+  </div>
+    <hr>           
+      <div class="col-12">
+        <div class="row">
           <a title="Image 1" href="#"> 
-            <img class="thumbnail img-responsive" id="image-1" src="/images/memories.jpg">
+            <img class="thumbnail img-responsive" id="image-1" src="/images/dinosaur.jpg">
           </a>
         </div>
-    </div> <!-- end row -->
-    <hr>   
-  </div> <!-- end row -->
-
-  <div class="hidden" id="img-repo">
-    <%url.map((image)=>{%>
-      <div class="item" id="image-1">
-        <img class="thumbnail img-responsive" src="<%=image.url%>">
       </div>
-    <%})%>
-  </div>
+    <hr>   
+    <div class="hidden" id="img-repo">
+      <%url.map((image)=>{%>
+        <div class="item" id="image-1">
+          <img class="thumbnail img-responsive" src="<%=image.url%>">
+        </div>
+      <%})%>
+    </div>
     
 
 <div class="modal" id="modal-gallery" role="dialog">
@@ -72,6 +61,7 @@
     </div>
   </div>
 </div>
+</div>
 <div class="bad-footer">
 </div>
     <footer class="user-footer">
@@ -95,6 +85,7 @@
       </div>
     </footer>
   </div>
-</div>   
+</div> 
+
 </body>
 </html>
