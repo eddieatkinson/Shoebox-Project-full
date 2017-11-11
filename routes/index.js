@@ -30,7 +30,8 @@ router.get('/donate', function(req, res, next) {
 });
 
 router.get('/map', function(req, res, next) {
-    res.render('map',{});
+    var testMessage = "The variable was passed all the way, Eddie!";
+    res.render('map',{testMessage: testMessage});
 });
 
 router.get('/resources', function(req, res, next) {

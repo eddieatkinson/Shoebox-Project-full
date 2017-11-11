@@ -72,6 +72,17 @@ $(document).ready(()=>{
 			$('#data-label').css('color', 'red');
 			$('#data-label').html("No counties match your search.");
 			$('#data-value').html("");
+		}else{
+			$.getJSON('county_lines.json', (results)=>{
+				console.log(results);
+				console.log(results.features);
+				results.features.map((county)=>{
+					if(county.properties.name == fullNameOfJsonCounty){
+						console.log(county.properties.name);
+						// county.setProperty('state', 'hover');
+					}
+				});
+			});
 		}
 	});
 
@@ -99,7 +110,7 @@ function mouseInToRegion(e) {
 	// set the hover state so the setStyle function can change the border
 	e.feature.setProperty('state', 'hover');
 	$('#data-label').css('color', 'black');
-	console.log(this);
+	console.log(e);
 
 	// Get county name from JSON and format it to match data in counties array
 	var countyNameFromJson = e.feature.getProperty('name');
