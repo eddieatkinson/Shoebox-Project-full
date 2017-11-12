@@ -79,7 +79,7 @@ footer{
 	height: 100px;
 	width: 100vw; 
 	position:absolute;
-	bottom: 0;
+	/*bottom: 0;*/
 	left: 0; 
 	color: white;
 }
@@ -639,6 +639,10 @@ div > label.agree{
 	height: 700px;
 }
 
+#map-search{
+	font-size: 12px;
+}
+
 /* ////////////////////////////////////////
 //////////////////BLOG/////////////////////
 /////////////////////////////////////// */
@@ -667,4 +671,7 @@ div > label.agree{
 }
 .big-box{
 	transform: scale(2.0);
+}
+a.blog-link{
+	color: #5BC0DE;
 }
