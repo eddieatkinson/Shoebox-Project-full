@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/blog', function(req, res, next) {
-    var selectQuery = `SELECT * FROM blog WHERE approved = "yes";`;
+    var selectQuery = `SELECT * FROM blog WHERE approved = "yes" ORDER BY date DESC;`;
     connection.query(selectQuery, (error, results)=>{
         if(error){
             throw error;

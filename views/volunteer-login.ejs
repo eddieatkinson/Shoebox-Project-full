@@ -6,9 +6,19 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/styles.css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script type="text/javascript" src="/javascripts/scripts.js"></script>
 </head>
-<body class="volunteer-signin-form"> 
+<body class="volunteer-signin-form">
+	<% if(notRegistered){ %>
+		<script type="text/javascript">
+			swal("That email is not in our system.", "Please try again with a different email, or sign-up.", "error");
+		</script>
+	<% }else if(badPass){ %>
+		<script type="text/javascript">
+			swal("Your password is incorrect.", "Please try again.", "error");
+		</script>
+	<% } %> 
 	<div>
 		<div class="vol-log-wrapper">
 		
