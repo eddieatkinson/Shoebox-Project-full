@@ -108,7 +108,10 @@ router.post('/loginProcess', (req, res, next)=>{
 		}
 		if(results.length == 0){
 			res.redirect('/volunteers/login?msg=notRegistered');
-		}else{
+		}else if(results[0].approved != 1){
+			res.redirect('/?msg=notApproved');
+		}
+		else{
 			var passwordsMatch = bcrypt.compareSync(password, results[0].password);
 			if(passwordsMatch){
 				var row = results[0];
@@ -148,9 +151,9 @@ router.post('/signupProcess', (req, res, next)=>{
 			res.redirect('login?msg=registered');
 		}else{
 			var hash = bcrypt.hashSync(password);
-			var insertQuery = `INSERT INTO volunteers (name, email, phone, password, photographer, setUp, manager, processing, general, consent)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
-			connection.query(insertQuery, [name, email, phone, hash, photographer, setUp, manager, processing, general, consent], (error)=>{ // We're not interested in results and fields
+			var insertQuery = `INSERT INTO volunteers (name, email, phone, password, photographer, setUp, manager, processing, general, consent, privileges_code)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+			connection.query(insertQuery, [name, email, phone, hash, photographer, setUp, manager, processing, general, consent, 1], (error)=>{ // We're not interested in results and fields
 				if(error){
 					throw error;
 				}else{
