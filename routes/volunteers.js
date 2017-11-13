@@ -89,17 +89,19 @@ router.get('/blog', (req, res, next)=>{
 router.post('/blogEntry', (req, res, next)=>{
 	var title = req.body.title;
 	var body = req.body.body;
+	var bodyWithBreaks = body.replace(new RegExp('\r?\n','g'), '<br />');
 	var getAuthor = `SELECT name FROM volunteers WHERE vol_id = ?;`;
 	connection.query(getAuthor, [req.session.uid], (error, results)=>{
+		// console.log(results);
+		// console.log(req.session.uid);
 		if(error){
 			throw error;
 		}
-		console.log(results);
-		console.log(req.session.uid);
 		var name = results[0].name;
+		// var bodyWithBreaks = results[0].body.replace(new RegExp('\r?\n','g'), '<br />');
 		var insertBlog = `INSERT INTO blog (name, title, body, vol_id)
 			VALUES (?, ?, ?, ?);`;
-		connection.query(insertBlog, [name, title, body, req.session.uid], (error, results)=>{
+		connection.query(insertBlog, [name, title, bodyWithBreaks, req.session.uid], (error, results)=>{
 			if(error){
 				throw error;
 			}
@@ -112,7 +114,7 @@ router.get('/blogReview', (req, res, next)=>{
 	if(req.session.privileges != 3){
 		res.redirect('/volunteers/home?msg=unauthorized');
 	}
-	res.send("Sup, admin?");
+	res.redirect('/blog?msg=blogReview');
 });
 
 router.post('/loginProcess', (req, res, next)=>{
