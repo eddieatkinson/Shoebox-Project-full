@@ -4,9 +4,11 @@
 	<title>Blog Entry</title>
 	<% include user-head %>
 </head>
-<body>
+<body class="blog-container">
 	<div class="container">
-		<div class="col-sm-3">
+		<div class="blog-margin">
+		</div>
+		<div class="col-sm-3 col-sm-offset-9">
 			<a href="/volunteers/logout"><button class="btn btn-info">Logout</button></a>
 		</div>
 		<form action="/volunteers/blogEntry" method="post" class="blog-entry-form">
@@ -21,10 +23,10 @@
 				<div class="password-error error"></div>
 			</div>
 			
-			<div class="login-wrapper youth-login row col-sm-4">
+			<div class="login-wrapper youth-login row col-sm-5">
 				<input type="submit" class="submit btn btn-warning" value="Submit!">
 			</div>
-		</form>
+		</form>	
 	</div>
 
 </body>

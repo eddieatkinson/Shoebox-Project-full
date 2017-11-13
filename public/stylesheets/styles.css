@@ -553,6 +553,7 @@ div > label.agree{
 	position: relative;
 	background-image: url("../images/users-home-bg.png") ;
 	background-size: cover;
+	background-attachment: fixed;
 }
 .user-container{
 	margin-top: 100px;
@@ -691,4 +692,17 @@ div > label.agree{
 }
 a.blog-link{
 	color: #5BC0DE;
+}
+.blog-margin{
+	margin-top: 50px;
+}
+.blog-container{
+	background-image: url(../images/blog.jpg);
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
+.blog-entry-form{
+	background-color: white;
+	padding: 30px;
 }
