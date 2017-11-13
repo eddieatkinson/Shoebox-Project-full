@@ -1,6 +1,9 @@
 /* ////////////////////////////////////////
 /////////////INDEX STYLES//////////////
 /////////////////////////////////////// */
+body{
+	width: 100%;
+}
 .wrapper{
 	margin-top: 0 !important;
 	position: relative;
@@ -82,6 +85,8 @@ footer{
 	/*bottom: 0;*/
 	left: 0; 
 	color: white;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
 }
 .footer{
 	padding-right: 0!important;
@@ -541,9 +546,13 @@ div > label.agree{
 /////////////USER_HOME STYLES//////////////
 /////////////////////////////////////// */
 .user-body{
-	position: relative;
+	/* position: relative; */
 	background-image: url("../images/users-home-bg.png") ;
 	background-size: cover;
+	background-repeat: no-repeat;
+	max-width: 100vw;
+	overflow: !important;
+	max-height: 100% !important;
 }
 .user-container{
 	margin-top: 100px;
@@ -553,10 +562,10 @@ div > label.agree{
 	margin-top: 20px;
 	font-size: 10px;
 }
-.bad-footer{
+/* .bad-footer{
 	width: 100%;
 	height: 200px;
-}
+} */
 
 .user-home{
 	float:right;
@@ -577,7 +586,8 @@ div > label.agree{
 	width: 100vw; 
 	position:absolute;
 	bottom: 0;
-	left: 0; 
+	left: 0;
+
 }
 .user-name{
 	color: white;
@@ -683,3 +693,5 @@ div > label.agree{
 a.blog-link{
 	color: #5BC0DE;
 }
+
+
