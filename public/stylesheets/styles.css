@@ -167,6 +167,13 @@ a#volunteer-FAQ-link{
 	float: right;
 	margin-top: -62px;
 }
+.grow { 
+	transition: all .2s ease-in-out; 
+}
+.grow:hover { 
+	transform: scale(1.1); 
+}
+
 .fb,.twtr,.ig{
 	padding: 10px;
 	margin-right: 20px;
@@ -580,6 +587,7 @@ div > label.agree{
 	margin-right: 10px;
 	height: 20px;
 	display: inline-block;
+	margin-top: 20px;
 }
 .user-welcome{
 	margin-top: 10px;

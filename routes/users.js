@@ -28,7 +28,7 @@ router.get('/home', (req, res, next)=>{
 	}else{
 		// loggedIn = true;
 		var selectQuery = 
-			`SELECT url FROM images WHERE id = ?;`;
+			`SELECT url FROM images WHERE id = ?;`;	
 		connection.query(selectQuery, [req.session.uid], (error, results)=>{
 			if(error){
 				throw error;
@@ -42,6 +42,7 @@ router.get('/home', (req, res, next)=>{
 		});
 	}
 });
+
 
 // router.get('/login-Goog', passport.authenticate('auth0', {
 //  	clientID: config.auth0.clientID,
