@@ -42,7 +42,15 @@ router.get('/logout', (req, res, next)=>{
 });
 
 router.get('/home', (req, res, next)=>{
+	var unauthorized = false;
+	if(req.query.msg == 'unauthorized'){
+		unauthorized = true;
+	}
+	var admin = false;
 	var notPermittedMsg = false;
+	if(req.session.privileges == 3){
+		admin = true;
+	}
 	if(req.query.msg == 'notPermitted'){
 		notPermittedMsg = true;
 	}
@@ -61,7 +69,9 @@ router.get('/home', (req, res, next)=>{
 			entryAdded: entryAdded,
 			notPermittedMsg: notPermittedMsg,
 			notPermitted: notPermitted,
-			name: req.session.name
+			name: req.session.name,
+			unauthorized: unauthorized,
+			admin: admin
 		});
 	}
 });
@@ -96,6 +106,13 @@ router.post('/blogEntry', (req, res, next)=>{
 			res.redirect('/volunteers/home?msg=entryAdded');
 		});
 	})
+});
+
+router.get('/blogReview', (req, res, next)=>{
+	if(req.session.privileges != 3){
+		res.redirect('/volunteers/home?msg=unauthorized');
+	}
+	res.send("Sup, admin?");
 });
 
 router.post('/loginProcess', (req, res, next)=>{

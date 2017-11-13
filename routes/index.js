@@ -7,15 +7,20 @@ var bcrypt = require('bcrypt-nodejs');
 var connection = mysql.createConnection(config.db);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next){
+    // var notAdmin = false;
 	var registered = false;
     var notApproved = false;
+    // if(req.query.msg == 'notAdmin'){
+    //     notAdmin = true;
+    // }
 	if(req.query.msg == 'registered'){
 		registered = true;
 	}else if(req.query.msg == 'notApproved'){
         notApproved = true;
     }
 	res.render('index', {
+        // notAdmin: notAdmin,
         registered: registered,
         notApproved: notApproved
     });
@@ -41,13 +46,13 @@ router.get('/blogContents/:blogId', (req, res, next)=>{
         if(error){
             throw error;
         }
-        // console.log(`Results = ${results}`);
-        // var bodyWithBreaks = results[0].body.replace(new RegExp('\r?\n','g'), '<br />');
-        // console.log(typeof(bodyWithBreaks));
-        // console.log(bodyWithBreaks);
+        console.log(`Results = ${results}`);
+        var bodyWithBreaks = results[0].body.replace(new RegExp('\r?\n','g'), '<br />');
+        console.log(typeof(bodyWithBreaks));
+        console.log(bodyWithBreaks);
         res.render('blog-contents', {
-            entry: results[0]
-            // bodyWithBreaks: bodyWithBreaks
+            entry: results[0],
+            bodyWithBreaks: bodyWithBreaks
         });
     });
 });
@@ -65,25 +70,25 @@ router.get('/resources', function(req, res, next) {
     res.render('resources',{});
 });
 
-// router.get('/user-signup-page', function(req, res, next) {
-//   res.render('user-signup',{});
-// });
+router.get('/user-signup-page', function(req, res, next) {
+  res.render('user-signup',{});
+});
 
-// router.get('/user-home', function(req, res, next) {
-//   res.render('user-home',{});
-// });
+router.get('/user-home', function(req, res, next) {
+  res.render('user-home',{});
+});
 
-// router.get('/volunteer-signup-form', function(req, res, next) {
-//   res.render('volunteer-signup-form',{});
-// });
+router.get('/volunteer-signup-form', function(req, res, next) {
+  res.render('volunteer-signup-form',{});
+});
 
-// router.get('/volunteer-form', function(req, res, next) {
-//   res.render('volunteer-form',{});
-// });
+router.get('/volunteer-form', function(req, res, next) {
+  res.render('volunteer-form',{});
+});
 
-// router.get('/youth-login-form', function(req, res, next) {
-//   res.render('youth-login-form',{});
-// });
+router.get('/youth-login-form', function(req, res, next) {
+  res.render('youth-login-form',{});
+});
 
 
 module.exports = router;
