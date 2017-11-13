@@ -54,12 +54,16 @@ body{
 	padding-right: 0;
 	padding-left: 0;
 }
+*{
+	font-family: 'Muli', sans-serif;
+}
 .logo{
 	margin-top: 20px;
 	min-width: 50px;
 	width: 100px;
 	padding: 12px;
 }
+
 .sp{
 	margin-top: 20px;
 }
@@ -105,6 +109,7 @@ li{
 	/*color: #3179AF;*/
 	/*border: 1px solid lightgrey;*/
 	margin-bottom: 20px;
+	font-family: 'Muli', sans-serif;
 }
 .copyright{
 	text-align: center;
@@ -143,6 +148,10 @@ p{
 .center{
 	text-align: center;
 	display: block;
+}
+.margin{
+	margin-left: 60px;
+	margin-right: 60px;
 }
 @media screen and (max-width: 1100px){
 	.center{
@@ -549,10 +558,14 @@ div > label.agree{
 	/* position: relative; */
 	background-image: url("../images/users-home-bg.png") ;
 	background-size: cover;
+<<<<<<< HEAD
 	background-repeat: no-repeat;
 	max-width: 100vw;
 	overflow: !important;
 	max-height: 100% !important;
+=======
+	background-attachment: fixed;
+>>>>>>> a1347c9516e2537ad369c4cb5e1c276a25ae582f
 }
 .user-container{
 	margin-top: 100px;
@@ -587,12 +600,13 @@ div > label.agree{
 	position:absolute;
 	bottom: 0;
 	left: 0;
+	top: -40px;
 
 }
 .user-name{
 	color: white;
 	font-size: 38px;
-	font-family: 'Amatic SC', cursive;
+	font-family: 'Amatic SC', cursive !important;
 	font-weight: bold;
 	margin-right: 10px;
 	height: 20px;
@@ -693,5 +707,21 @@ div > label.agree{
 a.blog-link{
 	color: #5BC0DE;
 }
+<<<<<<< HEAD
 
 
+=======
+.blog-margin{
+	margin-top: 50px;
+}
+.blog-container{
+	background-image: url(../images/blog.jpg);
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+}
+.blog-entry-form{
+	background-color: white;
+	padding: 30px;
+}
+>>>>>>> a1347c9516e2537ad369c4cb5e1c276a25ae582f

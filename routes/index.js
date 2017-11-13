@@ -7,12 +7,23 @@ var bcrypt = require('bcrypt-nodejs');
 var connection = mysql.createConnection(config.db);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next){
+    // var notAdmin = false;
 	var registered = false;
+    var notApproved = false;
+    // if(req.query.msg == 'notAdmin'){
+    //     notAdmin = true;
+    // }
 	if(req.query.msg == 'registered'){
 		registered = true;
-	}
-	res.render('index', {registered: registered});
+	}else if(req.query.msg == 'notApproved'){
+        notApproved = true;
+    }
+	res.render('index', {
+        // notAdmin: notAdmin,
+        registered: registered,
+        notApproved: notApproved
+    });
 });
 
 router.get('/blog', function(req, res, next) {
@@ -21,7 +32,9 @@ router.get('/blog', function(req, res, next) {
         if(error){
             throw error;
         }
-        res.render('blog',{blog: results});    
+        res.render('blog',{
+            blog: results
+        });    
     });
 });
 
@@ -33,8 +46,14 @@ router.get('/blogContents/:blogId', (req, res, next)=>{
         if(error){
             throw error;
         }
-        // console.log(`Results = ${results}`);
-        res.render('blog-contents', {entry: results[0]});
+        console.log(`Results = ${results}`);
+        var bodyWithBreaks = results[0].body.replace(new RegExp('\r?\n','g'), '<br />');
+        console.log(typeof(bodyWithBreaks));
+        console.log(bodyWithBreaks);
+        res.render('blog-contents', {
+            entry: results[0],
+            bodyWithBreaks: bodyWithBreaks
+        });
     });
 });
 

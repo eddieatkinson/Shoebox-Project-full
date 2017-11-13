@@ -23,6 +23,7 @@ $(document).ready(()=>{
 	// ------------------------------------
 	// -------Volunteer sign-up form-------
 	// ------------------------------------
+	var count = 0;
 	$('.vol-sign-up-form').change(()=>{
 		count++;
 		var password = $('.password').val();

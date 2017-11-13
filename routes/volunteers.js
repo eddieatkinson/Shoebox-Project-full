@@ -42,7 +42,15 @@ router.get('/logout', (req, res, next)=>{
 });
 
 router.get('/home', (req, res, next)=>{
+	var unauthorized = false;
+	if(req.query.msg == 'unauthorized'){
+		unauthorized = true;
+	}
+	var admin = false;
 	var notPermittedMsg = false;
+	if(req.session.privileges == 3){
+		admin = true;
+	}
 	if(req.query.msg == 'notPermitted'){
 		notPermittedMsg = true;
 	}
@@ -61,7 +69,9 @@ router.get('/home', (req, res, next)=>{
 			entryAdded: entryAdded,
 			notPermittedMsg: notPermittedMsg,
 			notPermitted: notPermitted,
-			name: req.session.name
+			name: req.session.name,
+			unauthorized: unauthorized,
+			admin: admin
 		});
 	}
 });
@@ -98,6 +108,13 @@ router.post('/blogEntry', (req, res, next)=>{
 	})
 });
 
+router.get('/blogReview', (req, res, next)=>{
+	if(req.session.privileges != 3){
+		res.redirect('/volunteers/home?msg=unauthorized');
+	}
+	res.send("Sup, admin?");
+});
+
 router.post('/loginProcess', (req, res, next)=>{
 	var email = req.body.email;
 	var password = req.body.password;
@@ -108,7 +125,10 @@ router.post('/loginProcess', (req, res, next)=>{
 		}
 		if(results.length == 0){
 			res.redirect('/volunteers/login?msg=notRegistered');
-		}else{
+		}else if(results[0].approved != 1){
+			res.redirect('/?msg=notApproved');
+		}
+		else{
 			var passwordsMatch = bcrypt.compareSync(password, results[0].password);
 			if(passwordsMatch){
 				var row = results[0];
@@ -148,9 +168,9 @@ router.post('/signupProcess', (req, res, next)=>{
 			res.redirect('login?msg=registered');
 		}else{
 			var hash = bcrypt.hashSync(password);
-			var insertQuery = `INSERT INTO volunteers (name, email, phone, password, photographer, setUp, manager, processing, general, consent)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
-			connection.query(insertQuery, [name, email, phone, hash, photographer, setUp, manager, processing, general, consent], (error)=>{ // We're not interested in results and fields
+			var insertQuery = `INSERT INTO volunteers (name, email, phone, password, photographer, setUp, manager, processing, general, consent, privileges_code)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+			connection.query(insertQuery, [name, email, phone, hash, photographer, setUp, manager, processing, general, consent, 1], (error)=>{ // We're not interested in results and fields
 				if(error){
 					throw error;
 				}else{

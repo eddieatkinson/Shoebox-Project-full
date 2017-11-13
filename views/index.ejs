@@ -2,22 +2,17 @@
 <html>
 <head>
 	<title>The Shoebox Project</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<% include head %>
 
-	<link rel="stylesheet" type="text/css" href="stylesheets/styles.css">
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script type="text/javascript" src="javascripts/scripts.js"></script>
 </head>
 <body>
-
 	<% if(registered){ %>
 		<script type="text/javascript">
 			swal("Thank you for signing up!", "We'll be in touch!", "success");
+		</script>
+	<% }else if(notApproved){ %>
+		<script type="text/javascript">
+			swal("We are still evaluating your application form.", "Please contact us with any questions.", "error");
 		</script>
 	<% } %>
 
@@ -38,7 +33,7 @@
       			<a href="/"><img class="logo" src="./images/sm-sb-logo.png" height="50" width="70" /></a>
         		<img class="sp" src="./images/sb-lettering_white.png" height="50" width="170"/>
       			<div class="login">
-			        <button class="btn btn-info family-login login-button">Family Login</button>
+			        <button class="btn btn-info family-login login-button raised">Family Login</button>
 			        <button class="btn btn-info volunteer-login login-button">Volunteer Login</button>
         		</div>
     		</div>
@@ -77,9 +72,9 @@
 		</div>
 		
 		<div style="height:100%; background-color:lightgrey;font-size:24px;">
-			<span class="center">About</span></br>
-			<span class="center">
-			 The Shoebox Project is a non-profit company whose purpose is to provide professional photographs and memories for children in the foster care system.</p><p>Click <a href="#" class="link-to-map">here</a> for a cool map!
+			<span class="center">About</span>
+			<span class="center margin">
+			 The Shoebox Project is a non-profit company whose purpose is to provide professional photographs and memories for children in the foster care system.</p><p>Click <a href="#" class="link-to-map">here</a> for an interactive map with more details about foster care children in Georgia. 
 			</span>
 		</div>
 
@@ -97,7 +92,7 @@
 			</span>
 			<span class="center">
 				<img src="./images/icons/location.svg"/><span> Operational Headquarters: <a href="#"> 1234 Street Dr. NW City, State 56789</a></span>
-			</span>
+			</span></br>
 		</div>
 
 		<div class="parallax-space"></div>

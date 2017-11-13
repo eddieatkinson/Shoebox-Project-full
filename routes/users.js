@@ -33,11 +33,19 @@ router.get('/home', (req, res, next)=>{
 			if(error){
 				throw error;
 			}else{
-				// res.json(results);
-				res.render('user-home', {
-					name: req.session.name,
-					url: results
-				});
+				var galleryQuery = `SELECT gallery_img FROM users WHERE id = ?;`;
+				connection.query(galleryQuery, [req.session.uid], (error2, results2)=>{
+					if(error){
+						throw error;
+					}else{
+						// res.json(results2);
+						res.render('user-home', {
+							name: req.session.name,
+							url: results,
+							cover: results2[0].gallery_img
+						});
+					}
+				})
 			}
 		});
 	}
