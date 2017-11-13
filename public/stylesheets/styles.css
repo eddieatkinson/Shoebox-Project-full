@@ -51,6 +51,9 @@
 	padding-right: 0;
 	padding-left: 0;
 }
+.h-font{
+	font-family: 'Muli', sans-serif;
+}
 .logo{
 	margin-top: 20px;
 	min-width: 50px;
@@ -100,6 +103,7 @@ li{
 	/*color: #3179AF;*/
 	/*border: 1px solid lightgrey;*/
 	margin-bottom: 20px;
+	font-family: 'Muli', sans-serif;
 }
 .copyright{
 	text-align: center;
@@ -582,7 +586,7 @@ div > label.agree{
 .user-name{
 	color: white;
 	font-size: 38px;
-	font-family: 'Amatic SC', cursive;
+	font-family: 'Amatic SC', cursive !important;
 	font-weight: bold;
 	margin-right: 10px;
 	height: 20px;
