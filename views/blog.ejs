@@ -6,14 +6,31 @@
 
 </head>
 <body>
+	<% if(notAdmin){ %>
+		<script type="text/javascript">
+			swal("You must be an administrator to review the blog posts.", "", "error");
+		</script>
+	<% }else if(approved){ %>
+		<script type="text/javascript">
+			swal("You have successfully approved a blog post!", "", "success");
+		</script>
+	<% }else if(hidden){ %>
+		<script type="text/javascript">
+			swal("You have successfully hidden a blog post!", "", "success");
+		</script>
+	<% } %>
 
 	<div class="header col-sm-12">
 			<div class="nav-bar">
 				<a href="/"><img class="logo" src="./images/sm-sb-logo.png"/></a>
 				<a href="/"><img class="sp" src="./images/sb-lettering_white.png" height="50" width="170"/></a>
 				<div class="login">
-					<button class="btn btn-info family-login">Family Login</button>
-					<button class="btn btn-info volunteer-login">Volunteer Login</button>
+					<% if(review){ %>
+						<a href="/users/logout"><button class="btn btn-danger family-login">Logout</button></a>
+					<% }else{ %>
+						<button class="btn btn-info family-login">Family Login</button>
+						<button class="btn btn-info volunteer-login">Volunteer Login</button>
+					<% } %>
 				</div>
 				<div class="nav-menu col-sm-offset-4">
 					<a class="nav-links" href="/#about">About</a>
@@ -33,6 +50,14 @@
 				<a class="blog-link" href="/blogContents/<%=entry.blog_id%>"><h3><%=entry.title%></h3></a>
 				<h5><%=entry.name%></h5>
 				<h6><%=entry.date%></h6>
+				<% if(review){ %>
+					<p><%-entry.body%></p>
+					<% if(entry.approved == 'no'){ %>
+						<a href="/blog/approvePost/<%=entry.blog_id%>"><button class="btn btn-success">Approve</button></a>
+					<% }else{ %>
+						<a href="/blog/hidePost/<%=entry.blog_id%>"><button class="btn btn-danger">Hide</button></a>
+					<% } %>
+				<% } %>
 				<hr />
 			<% }); %>
 		</div>

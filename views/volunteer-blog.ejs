@@ -5,11 +5,14 @@
 	<% include user-head %>
 </head>
 <body class="blog-container">
+	<div class="">
+		<img id="home" src="../images/icons/home-white.svg"/><a href="/"><img class="return-home" src="../images/sb-lettering_white.png" height="40" width="150"/></a>
+		<div class="col-sm-3 col-sm-offset-8">
+			<a href="/volunteers/logout"><button class="btn btn-info right">Logout</button></a>
+		</div>
+	</div>
 	<div class="container">
 		<div class="blog-margin">
-		</div>
-		<div class="col-sm-3 col-sm-offset-9">
-			<a href="/volunteers/logout"><button class="btn btn-info">Logout</button></a>
 		</div>
 		<form action="/volunteers/blogEntry" method="post" class="blog-entry-form">
 			<h2 class="volunteer-header row text-center">New Blog Entry</h2>
@@ -23,8 +26,10 @@
 				<div class="password-error error"></div>
 			</div>
 			
-			<div class="login-wrapper youth-login row col-sm-5">
+			<div class="col-sm-5 col-sm-offset-9">
 				<input type="submit" class="submit btn btn-warning" value="Submit!">
+			</div>
+			<div class="blog-margin">
 			</div>
 		</form>	
 	</div>
