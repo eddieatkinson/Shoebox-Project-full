@@ -586,6 +586,8 @@ div > label.agree{
 	float: right !important;
 	margin-top: 20px;
 	font-size: 10px;
+	margin-bottom: 8px;
+
 }
 /* .bad-footer{
 	width: 100%;
@@ -732,4 +734,20 @@ a.blog-link{
 	background-color: white;
 	padding: 30px;
 }
-
+/* ////////////////////////////////////////
+////////VOLUNTEER CALENDER/////////////////
+/////////////////////////////////////// */
+ 
+ .calendar{
+ 	background-image: url(../images/calendar.jpg);
+ 	background-size: cover;
+ }
+ #welcome{
+ 	color: white;
+ }
+ .padding{
+ 	margin-bottom: 8px;
+ }
+ #admin{
+ 	background-color: #edc8c3;
+ }
