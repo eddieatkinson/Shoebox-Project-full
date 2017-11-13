@@ -672,9 +672,9 @@ div > label.agree{
 		margin-top: 100px;
 
 	}
-	.btn{
+	/*.btn{
 		font-size: 30px;
-	}
+	}*/
 	.mobile-form-user{
 		min-height: 30%;
 		margin-top: 200px;
@@ -705,4 +705,7 @@ a.blog-link{
 .blog-entry-form{
 	background-color: white;
 	padding: 30px;
+}
+.right{
+	float: right;
 }
