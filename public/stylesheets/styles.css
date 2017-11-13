@@ -550,7 +550,6 @@ div > label.agree{
 /////////////USER_HOME STYLES//////////////
 /////////////////////////////////////// */
 .user-body{
-	position: relative;
 	background-image: url("../images/users-home-bg.png") ;
 	background-size: cover;
 	background-attachment: fixed;
@@ -561,6 +560,7 @@ div > label.agree{
 #logout{
 	float: right !important;
 	margin-top: 20px;
+	margin-bottom: 8px;
 	font-size: 10px;
 }
 .bad-footer{
@@ -708,4 +708,22 @@ a.blog-link{
 }
 .right{
 	float: right;
+}
+
+/* ////////////////////////////////////////
+////////VOLUNTEER CALENDER/////////////////
+/////////////////////////////////////// */
+
+.calender{
+	background-image: url(../images/calender.jpg);
+	background-size: cover;
+}
+#welcome{
+	color: white;
+}
+.padding{
+	margin-bottom: 8px;
+}
+#admin{
+	background-color: #edc8c3;
 }
