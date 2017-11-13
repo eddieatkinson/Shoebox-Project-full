@@ -23,7 +23,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', (req, res, next)=>{
-	res.render('volunteer-login', {});
+	var notRegistered = false;
+	var badPass = false;
+	if(req.query.msg == 'notRegistered'){
+		notRegistered = true;
+	}else if(req.query.msg == 'badPass'){
+		badPass = true;
+	}
+	res.render('volunteer-login', {
+		notRegistered: notRegistered,
+		badPass: badPass
+	});
 });
 
 router.get('/logout', (req, res, next)=>{
@@ -32,7 +42,15 @@ router.get('/logout', (req, res, next)=>{
 });
 
 router.get('/home', (req, res, next)=>{
+	var notPermittedMsg = false;
+	if(req.query.msg == 'notPermitted'){
+		notPermittedMsg = true;
+	}
 	var entryAdded = false;
+	var notPermitted = true;
+	if(req.session.privileges >= 2){
+		notPermitted = false;
+	}
 	if(req.query.msg == "entryAdded"){
 		entryAdded = true;
 	}
@@ -41,6 +59,8 @@ router.get('/home', (req, res, next)=>{
 	}else{
 		res.render('volunteer-home', {
 			entryAdded: entryAdded,
+			notPermittedMsg: notPermittedMsg,
+			notPermitted: notPermitted,
 			name: req.session.name
 		});
 	}
@@ -49,6 +69,8 @@ router.get('/home', (req, res, next)=>{
 router.get('/blog', (req, res, next)=>{
 	if(req.session.email == undefined){
 		res.redirect('/volunteers/login');
+	}else if(req.session.privileges < 2){
+		res.redirect('/volunteers/home?msg=notPermitted');
 	}else{
 		res.render('volunteer-blog', {});
 	}
@@ -85,7 +107,7 @@ router.post('/loginProcess', (req, res, next)=>{
 			throw error;
 		}
 		if(results.length == 0){
-			res.redirect('/volunteers/?msg=notRegistered');
+			res.redirect('/volunteers/login?msg=notRegistered');
 		}else{
 			var passwordsMatch = bcrypt.compareSync(password, results[0].password);
 			if(passwordsMatch){
@@ -93,6 +115,7 @@ router.post('/loginProcess', (req, res, next)=>{
 				req.session.name = row.name;
 				req.session.uid = row.vol_id;
 				req.session.email = row.email;
+				req.session.privileges = row.privileges_code;
 				console.log(req.session.name);
 				console.log(req.session.uid);
 

@@ -14,22 +14,27 @@
 	<script type="text/javascript" src="../javascripts/scripts.js"></script>
 </head>
 <body>
-	<form action="/volunteers/blogEntry" method="post" class="blog-entry-form">
-		<h2 class="volunteer-header row text-center">New Blog Entry</h2>
-		<div class="blog-entry-wrapper">
-			<div class="email-error error"></div>
-			<label>Title</label><input name="title" type="text" class="blog-title" placeholder="Title" required>
+	<div class="container">
+		<div class="col-sm-3">
+			<a href="/volunteers/logout"><button class="btn btn-info">Logout</button></a>
 		</div>
+		<form action="/volunteers/blogEntry" method="post" class="blog-entry-form">
+			<h2 class="volunteer-header row text-center">New Blog Entry</h2>
+			<div class="blog-entry-wrapper">
+				<div class="email-error error"></div>
+				<label>Title</label><input name="title" type="text" class="blog-title" placeholder="Title" required>
+			</div>
 
-		<div class="blog-entry-wrapper">
-			<label class="blog-input">Body</label><input name="body" type="text-area" class="blog-body" placeholder="Write something uplifting here." required>
-			<div class="password-error error"></div>
-		</div>
-		
-		<div class="login-wrapper youth-login row col-sm-4">
-			<input type="submit" class="submit btn btn-warning" value="Submit!">
-		</div>
-	</form>
+			<div class="blog-entry-wrapper">
+				<label class="blog-input">Body</label><textarea name="body" type="textarea" class="blog-body" placeholder="Write something uplifting here." required></textarea>
+				<div class="password-error error"></div>
+			</div>
+			
+			<div class="login-wrapper youth-login row col-sm-4">
+				<input type="submit" class="submit btn btn-warning" value="Submit!">
+			</div>
+		</form>
+	</div>
 
 </body>
 </html>
