@@ -41,13 +41,13 @@ router.get('/blogContents/:blogId', (req, res, next)=>{
         if(error){
             throw error;
         }
-        // console.log(`Results = ${results}`);
-        // var bodyWithBreaks = results[0].body.replace(new RegExp('\r?\n','g'), '<br />');
-        // console.log(typeof(bodyWithBreaks));
-        // console.log(bodyWithBreaks);
+        console.log(`Results = ${results}`);
+        var bodyWithBreaks = results[0].body.replace(new RegExp('\r?\n','g'), '<br />');
+        console.log(typeof(bodyWithBreaks));
+        console.log(bodyWithBreaks);
         res.render('blog-contents', {
-            entry: results[0]
-            // bodyWithBreaks: bodyWithBreaks
+            entry: results[0],
+            bodyWithBreaks: bodyWithBreaks
         });
     });
 });
