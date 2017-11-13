@@ -79,7 +79,7 @@ footer{
 	height: 100px;
 	width: 100vw; 
 	position:absolute;
-	bottom: 0;
+	/*bottom: 0;*/
 	left: 0; 
 	color: white;
 }
@@ -167,6 +167,13 @@ a#volunteer-FAQ-link{
 	float: right;
 	margin-top: -62px;
 }
+.grow { 
+	transition: all .2s ease-in-out; 
+}
+.grow:hover { 
+	transform: scale(1.1); 
+}
+
 .fb,.twtr,.ig{
 	padding: 10px;
 	margin-right: 20px;
@@ -580,6 +587,7 @@ div > label.agree{
 	margin-right: 10px;
 	height: 20px;
 	display: inline-block;
+	margin-top: 20px;
 }
 .user-welcome{
 	margin-top: 10px;
@@ -639,6 +647,10 @@ div > label.agree{
 	height: 700px;
 }
 
+#map-search{
+	font-size: 12px;
+}
+
 /* ////////////////////////////////////////
 //////////////////BLOG/////////////////////
 /////////////////////////////////////// */
@@ -667,4 +679,7 @@ div > label.agree{
 }
 .big-box{
 	transform: scale(2.0);
+}
+a.blog-link{
+	color: #5BC0DE;
 }

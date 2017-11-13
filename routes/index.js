@@ -16,12 +16,25 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/blog', function(req, res, next) {
-    var selectQuery = `SELECT * FROM blog WHERE approved = "yes";`;
+    var selectQuery = `SELECT * FROM blog WHERE approved = "yes" ORDER BY date DESC;`;
     connection.query(selectQuery, (error, results)=>{
         if(error){
             throw error;
         }
         res.render('blog',{blog: results});    
+    });
+});
+
+router.get('/blogContents/:blogId', (req, res, next)=>{
+    var blogId = req.params.blogId;
+    // console.log(`Blog ID = ${blogId}`);
+    var selectQuery = `SELECT * FROM blog WHERE blog_id = ?;`;
+    connection.query(selectQuery, [blogId], (error, results)=>{
+        if(error){
+            throw error;
+        }
+        // console.log(`Results = ${results}`);
+        res.render('blog-contents', {entry: results[0]});
     });
 });
 

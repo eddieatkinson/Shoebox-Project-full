@@ -18,6 +18,10 @@
 		<script type="text/javascript">
 			swal("Thank you! Your blog entry has been submitted.", "It will be posted upon approval.", "success");
 		</script>
+	<% }else if(notPermittedMsg){ %>
+		<script type="text/javascript">
+			swal("You are not permitted to make a blog entry.", "Please contact us if you'd like to contribute.", "error");
+		</script>
 	<% } %>
 	<div class="container">
 		<div class="row col-sm-12 text-center">
@@ -29,9 +33,11 @@
 		<div class="col-sm-3">
 			<a href="/volunteers/logout"><button class="btn btn-info">Logout</button></a>
 		</div>
-		<div class="col-sm-3">
-			<a style="color:#58AED1;" href="/volunteers/blog">New Blog Post!</a>
-		</div>
+		<% if(!notPermitted){ %>
+			<div class="col-sm-3">
+				<a style="color:#58AED1;" href="/volunteers/blog">New Blog Post!</a>
+			</div>
+		<% } %>
 	</div>
 </body>
 </html>
