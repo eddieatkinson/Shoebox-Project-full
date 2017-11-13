@@ -9,10 +9,16 @@ var connection = mysql.createConnection(config.db);
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var registered = false;
+    var notApproved = false;
 	if(req.query.msg == 'registered'){
 		registered = true;
-	}
-	res.render('index', {registered: registered});
+	}else if(req.query.msg == 'notApproved'){
+        notApproved = true;
+    }
+	res.render('index', {
+        registered: registered,
+        notApproved: notApproved
+    });
 });
 
 router.get('/blog', function(req, res, next) {

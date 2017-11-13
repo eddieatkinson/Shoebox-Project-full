@@ -23,6 +23,10 @@
 		<script type="text/javascript">
 			swal("Thank you for signing up!", "We'll be in touch!", "success");
 		</script>
+	<% }else if(notApproved){ %>
+		<script type="text/javascript">
+			swal("We are still evaluating your application form.", "Please contact us with any questions.", "error");
+		</script>
 	<% } %>
 
 	<nav class="navbar navbar-default">
