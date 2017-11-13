@@ -27,7 +27,9 @@ router.get('/blog', function(req, res, next) {
         if(error){
             throw error;
         }
-        res.render('blog',{blog: results});    
+        res.render('blog',{
+            blog: results
+        });    
     });
 });
 
@@ -40,7 +42,13 @@ router.get('/blogContents/:blogId', (req, res, next)=>{
             throw error;
         }
         // console.log(`Results = ${results}`);
-        res.render('blog-contents', {entry: results[0]});
+        // var bodyWithBreaks = results[0].body.replace(new RegExp('\r?\n','g'), '<br />');
+        // console.log(typeof(bodyWithBreaks));
+        // console.log(bodyWithBreaks);
+        res.render('blog-contents', {
+            entry: results[0]
+            // bodyWithBreaks: bodyWithBreaks
+        });
     });
 });
 
