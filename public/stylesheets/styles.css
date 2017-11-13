@@ -51,7 +51,7 @@
 	padding-right: 0;
 	padding-left: 0;
 }
-.h-font{
+*{
 	font-family: 'Muli', sans-serif;
 }
 .logo{
@@ -60,6 +60,7 @@
 	width: 100px;
 	padding: 12px;
 }
+
 .sp{
 	margin-top: 20px;
 }
@@ -142,6 +143,10 @@ p{
 .center{
 	text-align: center;
 	display: block;
+}
+.margin{
+	margin-left: 60px;
+	margin-right: 60px;
 }
 @media screen and (max-width: 1100px){
 	.center{
