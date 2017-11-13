@@ -732,4 +732,20 @@ a.blog-link{
 	background-color: white;
 	padding: 30px;
 }
-
+/* ////////////////////////////////////////
+////////VOLUNTEER CALENDER/////////////////
+/////////////////////////////////////// */
+ 
+ .calender{
+ 	background-image: url(../images/calender.jpg);
+ 	background-size: cover;
+ }
+ #welcome{
+ 	color: white;
+ }
+ .padding{
+ 	margin-bottom: 8px;
+ }
+ #admin{
+ 	background-color: #edc8c3;
+ }
