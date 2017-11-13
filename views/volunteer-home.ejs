@@ -5,19 +5,27 @@
 	<% include user-head %>
 </head>
 <body class="calender">
+	<div id="uploadVolPic" class="col-sm-3">
+		<a href="/volunteers/uploadPic"><button class="btn btn-info">Upload profile picture</button></a>
+	</div>
 	<div id="logout" class="col-sm-3">
 		<a href="/volunteers/logout"><button class="btn btn-info">Logout</button></a>
 	</div>
-	<div class="col-sm-3 col-sm-offset-9">	
+	<div class="col-sm-3 col-sm-offset-9">
 	<% if(!notPermitted){ %>
 		<a style="color:#58AED1;" href="/volunteers/blog"><button class="padding btn btn-info">New Blog Post!</button></a>
 	</div>
 	<% } %>
-		<% if(admin){ %>
-			<div class="col-sm-3 col-sm-offset-9">
-				<a style="color:#58AED1;" href="/volunteers/blogReview"><button class="btn" id="admin">Review Blog Posts</button></a>
-			</div>
-		<% } %>
+	<% if(admin){ %>
+		<div class="col-sm-3 col-sm-offset-9">
+			<a style="color:#58AED1;" href="/volunteers/blogReview"><button class="btn" id="admin">Review Blog Posts</button></a>
+		</div>
+	<% } %>
+	<% if(picUploaded){ %>
+		<script type="text/javascript">
+			swal("Thank you! Your photo has been uploaded.", "", "success");
+		</script>
+	<% } %>
 	<% if(entryAdded){ %>
 		<script type="text/javascript">
 			swal("Thank you! Your blog entry has been submitted.", "It will be posted upon approval.", "success");

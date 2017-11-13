@@ -1,9 +1,19 @@
 var express = require('express');
 // const passport = require('passport');
 var router = express.Router();
+var fs = require('fs');
 var config = require('../config/config.js');
 var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
+
+var multer = require('multer');
+// Tell multer where to save the files it gets
+var uploadDir = multer({
+	dest: 'public/images'
+});
+
+// Specify the name of the file input to accept
+var nameOfFileField = uploadDir.single('imageToUpload');
 
 var connection = mysql.createConnection(config.db);
 // router.get('/login-Goog', passport.authenticate('auth0', {
@@ -19,8 +29,62 @@ var connection = mysql.createConnection(config.db);
 
 /* GET volunteer listing. */
 router.get('/', function(req, res, next) {
-  res.render('volunteer-form', {});
+ 	res.render('volunteer-form', {});
 });
+
+router.get('/uploadPic', (req, res, next)=>{
+	res.render('volunteer-pic-upload', {});
+});
+
+router.post('/uploadPic', nameOfFileField, (req, res)=>{
+	var tmpPath = req.file.path;
+	var targetPath = `public/images/${req.file.originalname}`;
+	fs.readFile(tmpPath, (error, fileContents)=>{
+		if(error){
+			throw error;
+		}
+		fs.writeFile(targetPath, fileContents, (error)=>{
+			if(error){
+				throw error;
+			}
+			var update = `UPDATE volunteers SET vol_img = ? WHERE vol_id = ?`;
+			connection.query(update, [req.file.originalname, req.session.uid], (dbError)=>{
+				if(dbError){
+					throw dbError;
+				}
+				res.redirect('/volunteers/home?msg=picUploaded');
+			});
+		});
+	});
+});
+
+// router.post('/formSubmit', nameOfFileField, (req, res)=>{
+// 	console.log(req.file);
+// 	console.log(req.body);
+// 	var tmpPath = req.file.path;
+// 	var targetPath = `public/images/${req.file.originalname}`;
+// 	fs.readFile(tmpPath, (error, fileContents)=>{
+// 		if(error){
+// 			throw error
+// 		}
+// 		fs.writeFile(targetPath, fileContents, (error)=>{
+// 			if(error){
+// 				throw error
+// 			}
+// 			var insertQuery = `
+// 				INSERT INTO bands (imageUrl, title)
+// 					VALUES
+// 					(?, ?);`;
+// 			connection.query(insertQuery, [req.file.originalname, req.body.bandName], (dbError)=>{
+// 				if(dbError){
+// 					throw dbError;
+// 				}
+// 				res.redirect('/');
+// 			})
+// 		});
+// 	});
+// 	// res.json(req.body);
+// });
 
 router.get('/login', (req, res, next)=>{
 	var notRegistered = false;
@@ -42,6 +106,10 @@ router.get('/logout', (req, res, next)=>{
 });
 
 router.get('/home', (req, res, next)=>{
+	var picUploaded = false;
+	if(req.query.msg == 'picUploaded'){
+		picUploaded = true;
+	}
 	var unauthorized = false;
 	if(req.query.msg == 'unauthorized'){
 		unauthorized = true;
@@ -66,6 +134,7 @@ router.get('/home', (req, res, next)=>{
 		res.redirect('/volunteers/login');
 	}else{
 		res.render('volunteer-home', {
+			picUploaded: picUploaded,
 			entryAdded: entryAdded,
 			notPermittedMsg: notPermittedMsg,
 			notPermitted: notPermitted,

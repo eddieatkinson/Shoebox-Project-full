@@ -6,10 +6,16 @@
 </head>
 <body>
 	<div class="container">
+		<div id="logout" class="col-sm-3">
+			<a href="/volunteers/logout"><button class="btn btn-info">Logout</button></a>
+		</div>
+		<!-- <div id="uploadVolPic" class="col-sm-3">
+			<a href="#"><button class="btn btn-info">Upload profile picture</button></a> -->
+		</div>
 		<h4>Volunteers</h4>
 		<% volunteers.map((volunteer)=>{ %>
 			<div class="col-sm-4">
-				<img src="<%=volunteer.vol_img%>" />
+				<img class="vol-img" src="<%=volunteer.vol_img%>" />
 			</div>
 			<div class="col-sm-8">
 				<h6>Approved(yes/no): <%=volunteer.approved%></h6>
