@@ -7,15 +7,20 @@ var bcrypt = require('bcrypt-nodejs');
 var connection = mysql.createConnection(config.db);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res, next){
+    // var notAdmin = false;
 	var registered = false;
     var notApproved = false;
+    // if(req.query.msg == 'notAdmin'){
+    //     notAdmin = true;
+    // }
 	if(req.query.msg == 'registered'){
 		registered = true;
 	}else if(req.query.msg == 'notApproved'){
         notApproved = true;
     }
 	res.render('index', {
+        // notAdmin: notAdmin,
         registered: registered,
         notApproved: notApproved
     });

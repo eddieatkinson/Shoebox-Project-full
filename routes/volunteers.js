@@ -109,7 +109,7 @@ router.post('/blogEntry', (req, res, next)=>{
 });
 
 router.get('/blogReview', (req, res, next)=>{
-	if(req.session.privileges < 3){
+	if(req.session.privileges != 3){
 		res.redirect('/volunteers/home?msg=unauthorized');
 	}
 	res.send("Sup, admin?");
