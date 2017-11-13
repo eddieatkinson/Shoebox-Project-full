@@ -409,8 +409,10 @@ h3{
 .volunteer-signin-form{
 	background-image: url("../images/equipment.jpg");
 	background-repeat: no-repeat;
+	background-attachment: fixed;
 	/*background-size: 100%;
 	min-height: 100vh;*/
+	background-size: cover;
 }
 
 .login-wrapper{
