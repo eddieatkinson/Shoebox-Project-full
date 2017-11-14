@@ -43,7 +43,7 @@ router.get('/blog', function(req, res, next) {
 	if(review){ // Administrator privileges -- will see ALL blogs
 		var selectQuery = `SELECT * FROM blog ORDER BY blog_id DESC;`;
 	}else{ // Anyone else will only see approved blogs
-		var selectQuery = `SELECT blog_id, title, DATE_FORMAT(date, '%M %D %Y') as date, body, name, approved FROM blog WHERE approved = "yes" ORDER BY blog_id DESC;`;
+		var selectQuery = `SELECT blog_id, title, DATE_FORMAT(date, '%M %D\, %Y') as date, body, name, approved FROM blog WHERE approved = "yes" ORDER BY blog_id DESC;`;
 	}
 	connection.query(selectQuery, (error, results)=>{
 		if(error){
@@ -84,7 +84,7 @@ router.get('/blog/hidePost/:blogId', (req, res, next)=>{
 
 router.get('/blogContents/:blogId', (req, res, next)=>{
 	var blogId = req.params.blogId;
-	var selectQuery = `SELECT blog_id, title, DATE_FORMAT(date, '%M %D %Y') as date, body, name, approved FROM blog WHERE blog_id = ?;`;
+	var selectQuery = `SELECT blog_id, title, DATE_FORMAT(date, '%M %D\, %Y') as date, body, name, approved FROM blog WHERE blog_id = ?;`;
 	connection.query(selectQuery, [blogId], (error, results)=>{
 		if(error){
 			throw error;
