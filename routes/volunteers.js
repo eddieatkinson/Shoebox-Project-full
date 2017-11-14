@@ -63,13 +63,21 @@ router.get('/volunteerReview', (req, res)=>{
 	if(req.query.msg == 'commentsAdded'){
 		commentsAdded = true;
 	}
+	var commentsReplaced = false;
+	if(req.query.msg == 'commentsReplaced'){
+		commentsReplaced = true;
+	}
+	var levelChanged = false;
+	if(req.query.msg == 'levelChanged'){
+		levelChanged = true;
+	}
 	var approved = false;
 	if(req.query.msg == 'approved'){
-		approved = true
+		approved = true;
 	}
 	var denied = false;
 	if(req.query.msg == 'denied'){
-		denied = true
+		denied = true;
 	}
 	var selectQuery = `SELECT * FROM volunteers LEFT JOIN privileges ON volunteers.privileges_code = privileges.privileges_code ORDER BY vol_id;`;
 	connection.query(selectQuery, (error, results)=>{
@@ -80,6 +88,8 @@ router.get('/volunteerReview', (req, res)=>{
 		}
 		res.render('admin-dashboard', {
 			commentsAdded: commentsAdded,
+			commentsReplaced: commentsReplaced,
+			levelChanged: levelChanged,
 			volunteers: results,
 			approved: approved,
 			denied: denied
@@ -119,16 +129,67 @@ router.get('/volunteerReview/deny/:volId', (req, res, next)=>{
 	});
 });
 
+router.get('/volunteerReview/changeToAdmin/:vol_id', (req, res, next)=>{
+	var volId = req.params.vol_id;
+	var update = `UPDATE volunteers SET privileges_code = 3 WHERE vol_id = ?;`;
+	connection.query(update, [volId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.redirect('/volunteers/volunteerReview?msg=levelChanged');
+	});
+});
+
+router.get('/volunteerReview/changeToAuthor/:vol_id', (req, res, next)=>{
+	var volId = req.params.vol_id;
+	var update = `UPDATE volunteers SET privileges_code = 2 WHERE vol_id = ?;`;
+	connection.query(update, [volId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.redirect('/volunteers/volunteerReview?msg=levelChanged');
+	});
+});
+
+router.get('/volunteerReview/changeToBasic/:vol_id', (req, res, next)=>{
+	var volId = req.params.vol_id;
+	var update = `UPDATE volunteers SET privileges_code = 1 WHERE vol_id = ?;`;
+	connection.query(update, [volId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.redirect('/volunteers/volunteerReview?msg=levelChanged');
+	});
+});
+
 
 router.post('/addComment/:volId', (req, res, next)=>{
 	var comments = req.body.comments;
 	var volId = req.params.volId;
-	var updateComments = `UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
+	var updateComments = 
+	// `UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
+	`UPDATE volunteers SET comments = concat(comments, " ", ?) WHERE vol_id = ?;`;
 	connection.query(updateComments, [comments, volId], (error, results)=>{
 		if(error){
 			throw error;
 		}
+		// console.log(`Comments: ${comments}`);
+		// console.log(`Volunteer: ${volId}`);
 		res.redirect('/volunteers/volunteerReview?msg=commentsAdded');
+	});
+});
+
+router.post('/replaceComment/:volId', (req, res, next)=>{
+	var comments = req.body.comments;
+	var volId = req.params.volId;
+	var updateComments = 
+	`UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
+	// `UPDATE volunteers SET comments = concat(comments, " ", ?) WHERE vol_id = ?;`;
+	connection.query(updateComments, [comments, volId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.redirect('/volunteers/volunteerReview?msg=commentsReplaced');
 	});
 });
 
@@ -253,8 +314,8 @@ router.post('/loginProcess', (req, res, next)=>{
 				req.session.uid = row.vol_id;
 				req.session.email = row.email;
 				req.session.privileges = row.privileges_code;
-				console.log(req.session.name);
-				console.log(req.session.uid);
+				// console.log(req.session.name);
+				// console.log(req.session.uid);
 
 				res.redirect('home?msg=loggedIn');
 			}else{

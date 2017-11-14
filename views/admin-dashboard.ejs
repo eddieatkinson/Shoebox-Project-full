@@ -9,6 +9,14 @@
 		<script type="text/javascript">
 			swal("You have successfully updated comments.", "", "success");
 		</script>
+	<% }else if(commentsReplaced){ %>
+		<script type="text/javascript">
+			swal("You have successfully replaced comments.", "", "success");
+		</script>
+	<% }else if(levelChanged){ %>
+		<script type="text/javascript">
+			swal("You have successfully changed the privileges level.", "", "success");
+		</script>
 	<% }else if(approved){ %>
 		<script type="text/javascript">
 			swal("You have successfully approved a volunteer.", "", "success");
@@ -25,15 +33,12 @@
 		<div id="home-btn" class="col-sm-3">
 			<a href="/volunteers/home"><button class="btn btn-info">Home</button></a>
 		</div>
-		<!-- <div id="uploadVolPic" class="col-sm-3">
-			<a href="#"><button class="btn btn-info">Upload profile picture</button></a> -->
-		</div>
 		<h4 class="text-center">Volunteers</h4>
 		<% volunteers.map((volunteer)=>{ %>
 			<div class="col-sm-12">
 				<br /><br />
 				<h5 class="col-sm-offset-2"><%=volunteer.name%></h5>
-				<div class="col-sm-4 col-sm-offset-1">
+				<div class="col-sm-3 col-sm-offset-1">
 					<% if(volunteer.vol_img != undefined){ %>
 					<img class="vol-img" src="/images/<%=volunteer.vol_img%>" />
 					<% } %>
@@ -47,53 +52,30 @@
 						<% } %>
 					</h5>
 					<h5><br />Privileges: <%=volunteer.level%>
-						<span class="col-sm-offset-1"><a href="/volunteers/volunteerReview/change/<%=volunteer.vol_id%>"><button class="btn orange">Change</button></a></span>
+						<span class="col-sm-offset-1">Change to: 
+							<% if(volunteer.privileges_code != 3){ %>
+								<a href="/volunteers/volunteerReview/changeToAdmin/<%=volunteer.vol_id%>"><button class="btn green">Admin</button></a>
+							<% } %>
+							<% if(volunteer.privileges_code != 2){ %>
+								<a href="/volunteers/volunteerReview/changeToAuthor/<%=volunteer.vol_id%>"><button class="btn blue">Author</button></a>
+							<% } %>
+							<% if(volunteer.privileges_code != 1){%>
+								<a href="/volunteers/volunteerReview/changeToBasic/<%=volunteer.vol_id%>"><button class="btn orange">Basic</button></a>
+							<% } %>
+							</span>
 					</h5>
 					<h5><br />Comments: <%-volunteer.comments%></h5>
-					<form action="/volunteers/addComment/<%=volunteer.vol_id%>" method="post">
+					<form class="col-sm-6" action="/volunteers/addComment/<%=volunteer.vol_id%>" method="post">
 				  		<textarea name="comments" placeholder="Enter comments here."></textarea>
 				  		<button class="btn blue" type="submit">Add comments</button>
 				  	</form>
-					<!-- <a href="#" class="update-vol-info" data-toggle="modal" data-target="#myModal">Add comments</a> -->
+				  	<form class="col-sm-6" action="/volunteers/replaceComment/<%=volunteer.vol_id%>" method="post">
+				  		<textarea name="comments" placeholder="Enter comments here."></textarea>
+				  		<button class="btn orange" type="submit">Replace comments</button>
+				  	</form>
 				</div>
 			</div>
 		<% }); %>
 	</div>
-<!-- Modal -->
-	<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<div role="document">
-			<div class="modal-content">
-		  		<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h2 class="modal-title" id="myModalLabel">Add comment</h4>
-		  	</div>
-		  	<form action="/volunteers/addComment" method="post">
-		  		<textarea name="comments" placeholder="Enter comments here."></textarea>
-		  		<button class="btn" type="submit">Submit</button>
-		  	</form>
-		 	<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-		  <!-- 	</div>
-		</div>
-	  </div>
-	</div> --> -->
-
 </body>
 </html>
-
-<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-			  		<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h2 class="modal-title" id="myModalLabel">Add comment</h4>
-			  	</div>
-			 	<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-			  	</div>
-			</div>
-		  </div>
-		</div>
