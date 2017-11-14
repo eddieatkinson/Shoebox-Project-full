@@ -582,7 +582,7 @@ div > label.agree{
 .user-container{
 	margin-top: 100px;
 }
-#logout, #uploadVolPic{
+#logout, #uploadVolPic, #home-btn{
 	/*float: right !important;*/
 	margin-top: 20px;
 	font-size: 10px;
@@ -593,7 +593,7 @@ div > label.agree{
 	float: right !important;
 }
 
-#uploadVolPic{
+#uploadVolPic, #home-btn{
 	float: left !important;
 }
 /* .bad-footer{
