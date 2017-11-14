@@ -650,9 +650,7 @@ div > label.agree{
   margin-top:10%;
   width:5%;
 }
-.image-responsive{
-	max-height: 100vh !important;
-}
+
 
 
 
@@ -747,20 +745,20 @@ a.blog-link, a.update-vol-info{
 ////////VOLUNTEER CALENDER/////////////////
 /////////////////////////////////////// */
  
- .calendar{
+.calendar{
  	background-image: url(../images/calendar.jpg);
  	background-size: cover;
  	background-attachment: fixed;
- }
- #welcome{
+}
+#welcome{
  	color: white;
- }
- .padding{
+}
+.padding{
  	margin-bottom: 8px;
- }
- #admin{
+}
+#admin{
  	background-color: #edc8c3;
- }
+}
 
 /* ////////////////////////////////////////
 ////////VOLUNTEER DASHBOARD////////////////
