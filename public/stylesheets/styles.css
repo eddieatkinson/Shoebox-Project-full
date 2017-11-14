@@ -643,7 +643,9 @@ div > label.agree{
   margin-top:10%;
   width:5%;
 }
-
+.image-responsive{
+	max-height: 100vh !important;
+}
 
 
 
@@ -741,6 +743,7 @@ a.blog-link{
  .calendar{
  	background-image: url(../images/calendar.jpg);
  	background-size: cover;
+ 	background-attachment: fixed;
  }
  #welcome{
  	color: white;
