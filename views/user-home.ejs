@@ -23,18 +23,18 @@
     <hr>           
       <div class="col-12">
         <div class="row">
-          <a title="Image 1" href="#"> 
+          <a title="Image 1" href="#" data-local="#myCarousel"> 
             <img class="thumbnail img-responsive" id="image-1" src="<%=cover%>">
           </a>
         <hr>   
         <div class="hidden" id="img-repo">
           <%url.map((image)=>{%>
           <div class="item" id="image-1">
-            <img class="thumbnail img-responsive" src="<%=image.url%>">
+            <img class="img-responsive" src="<%=image.url%>">
           </div>
           <%})%>
         </div>
-        <div class="modal" id="modal-gallery" role="dialog">
+        <div class="modal modal-fullscreen force-fullscreen" id="modal-gallery" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -42,7 +42,7 @@
                   <h3 class="modal-title"></h3>
               </div>
               <div class="modal-body">
-                  <div id="modal-carousel" class="carousel">
+                  <div id="modal-carousel" class="carousel carousel-fit">
            
                     <div class="carousel-inner">           
                     </div>

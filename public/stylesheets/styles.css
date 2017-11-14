@@ -582,12 +582,19 @@ div > label.agree{
 .user-container{
 	margin-top: 100px;
 }
-#logout{
-	float: right !important;
+#logout, #uploadVolPic, #home-btn{
+	/*float: right !important;*/
 	margin-top: 20px;
 	font-size: 10px;
 	margin-bottom: 8px;
+}
 
+#logout{
+	float: right !important;
+}
+
+#uploadVolPic, #home-btn{
+	float: left !important;
 }
 /* .bad-footer{
 	width: 100%;
@@ -717,7 +724,7 @@ div > label.agree{
 .big-box{
 	transform: scale(2.0);
 }
-a.blog-link{
+a.blog-link, a.update-vol-info{
 	color: #5BC0DE;
 }
 
@@ -738,21 +745,29 @@ a.blog-link{
 ////////VOLUNTEER CALENDER/////////////////
 /////////////////////////////////////// */
  
- .calendar{
+.calendar{
  	background-image: url(../images/calendar.jpg);
  	background-size: cover;
- }
- #welcome{
+ 	background-attachment: fixed;
+}
+#welcome{
  	color: white;
- }
- .padding{
+}
+.padding{
  	margin-bottom: 8px;
- }
- #admin{
+}
+#admin{
  	background-color: #edc8c3;
  }
- #my-signin2{
- 	position: relative;
- 	left: 50%;
- 	top: 0;
- }
+#admin:hover{
+	color: white;
+}
+
+/* ////////////////////////////////////////
+////////VOLUNTEER DASHBOARD////////////////
+/////////////////////////////////////// */
+
+.vol-img{
+	width: 100%;
+}
+>>>>>>> e87b23281d480883cb2a4c1bc7aa814f8b336152
