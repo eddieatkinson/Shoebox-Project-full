@@ -5,8 +5,8 @@
 	<% include user-head %>
 </head>
 <body>
-	<form method="post" action="/volunteers/uploadPic" enctype="multipart/form-data">
-		<div class="md-col-4 md-col-offset-2">
+	<form class="upload-pic" method="post" action="/volunteers/uploadPic" enctype="multipart/form-data">
+		<div class="col-xs-offset-2 col-xs-8">
 			<input type="text" name="volName" />
 			<input type="file" name="imageToUpload" />
 			<input type="submit" class="btn btn-primary" />

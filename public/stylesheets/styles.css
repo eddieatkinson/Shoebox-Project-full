@@ -114,6 +114,8 @@ li{
 	/*color: #3179AF;*/
 	/*border: 1px solid lightgrey;*/
 	margin-bottom: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
 	font-family: 'Muli', sans-serif;
 }
 .copyright{
@@ -736,8 +738,10 @@ div > label.agree{
 	left: 10vw;
 	top: 95vh;
 	text-align: center;
-	
 	}
+
+
+
 
 }
 .big-box{
@@ -790,4 +794,7 @@ a.blog-link, a.update-vol-info{
 .vol-img{
 	width: 100%;
 }
-
+.upload-pic{
+	text-align: center;
+	margin-top: 15vh;
+}
