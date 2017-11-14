@@ -651,9 +651,8 @@ div > label.agree{
   width:5%;
 }
 
-.carousel-inner>.item>img{
-	max-height: 100vh;
-}
+
+
 
 /* ////////////////////////////////////////
 //////////////////MAP/////////////////////
@@ -772,7 +771,8 @@ a.blog-link, a.update-vol-info{
 	width: 100%;
 }
  #my-signin2{
- 	position: relative;
- 	left: 25%;
- 	top: 0;
+ 	position: absolute;
+	/* top: 50%; */
+	left: 40%;
+	top: 4vh;
  }
