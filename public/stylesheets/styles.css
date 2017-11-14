@@ -759,7 +759,7 @@ a.blog-link, a.update-vol-info{
 }
 #admin{
  	background-color: #edc8c3;
-}
+ }
 #admin:hover{
 	color: white;
 }
@@ -771,3 +771,8 @@ a.blog-link, a.update-vol-info{
 .vol-img{
 	width: 100%;
 }
+ #my-signin2{
+ 	position: relative;
+ 	left: 50%;
+ 	top: 0;
+ }
