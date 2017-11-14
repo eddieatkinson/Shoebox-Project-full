@@ -770,4 +770,8 @@ a.blog-link, a.update-vol-info{
 .vol-img{
 	width: 100%;
 }
->>>>>>> e87b23281d480883cb2a4c1bc7aa814f8b336152
+ #my-signin2{
+ 	position: relative;
+ 	left: 50%;
+ 	top: 0;
+ }
