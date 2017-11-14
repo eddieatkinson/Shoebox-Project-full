@@ -67,13 +67,17 @@ router.get('/volunteerReview', (req, res)=>{
 	if(req.query.msg == 'commentsReplaced'){
 		commentsReplaced = true;
 	}
+	var levelChanged = false;
+	if(req.query.msg == 'levelChanged'){
+		levelChanged = true;
+	}
 	var approved = false;
 	if(req.query.msg == 'approved'){
-		approved = true
+		approved = true;
 	}
 	var denied = false;
 	if(req.query.msg == 'denied'){
-		denied = true
+		denied = true;
 	}
 	var selectQuery = `SELECT * FROM volunteers LEFT JOIN privileges ON volunteers.privileges_code = privileges.privileges_code ORDER BY vol_id;`;
 	connection.query(selectQuery, (error, results)=>{
@@ -85,6 +89,7 @@ router.get('/volunteerReview', (req, res)=>{
 		res.render('admin-dashboard', {
 			commentsAdded: commentsAdded,
 			commentsReplaced: commentsReplaced,
+			levelChanged: levelChanged,
 			volunteers: results,
 			approved: approved,
 			denied: denied
@@ -121,6 +126,39 @@ router.get('/volunteerReview/deny/:volId', (req, res, next)=>{
 			throw error;
 		}
 		res.redirect('/volunteers/volunteerReview?msg=denied');
+	});
+});
+
+router.get('/volunteerReview/changeToAdmin/:vol_id', (req, res, next)=>{
+	var volId = req.params.vol_id;
+	var update = `UPDATE volunteers SET privileges_code = 3 WHERE vol_id = ?;`;
+	connection.query(update, [volId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.redirect('/volunteers/volunteerReview?msg=levelChanged');
+	});
+});
+
+router.get('/volunteerReview/changeToAuthor/:vol_id', (req, res, next)=>{
+	var volId = req.params.vol_id;
+	var update = `UPDATE volunteers SET privileges_code = 2 WHERE vol_id = ?;`;
+	connection.query(update, [volId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.redirect('/volunteers/volunteerReview?msg=levelChanged');
+	});
+});
+
+router.get('/volunteerReview/changeToBasic/:vol_id', (req, res, next)=>{
+	var volId = req.params.vol_id;
+	var update = `UPDATE volunteers SET privileges_code = 1 WHERE vol_id = ?;`;
+	connection.query(update, [volId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.redirect('/volunteers/volunteerReview?msg=levelChanged');
 	});
 });
 

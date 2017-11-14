@@ -13,6 +13,10 @@
 		<script type="text/javascript">
 			swal("You have successfully replaced comments.", "", "success");
 		</script>
+	<% }else if(levelChanged){ %>
+		<script type="text/javascript">
+			swal("You have successfully changed the privileges level.", "", "success");
+		</script>
 	<% }else if(approved){ %>
 		<script type="text/javascript">
 			swal("You have successfully approved a volunteer.", "", "success");
@@ -37,7 +41,7 @@
 			<div class="col-sm-12">
 				<br /><br />
 				<h5 class="col-sm-offset-2"><%=volunteer.name%></h5>
-				<div class="col-sm-4 col-sm-offset-1">
+				<div class="col-sm-3 col-sm-offset-1">
 					<% if(volunteer.vol_img != undefined){ %>
 					<img class="vol-img" src="/images/<%=volunteer.vol_img%>" />
 					<% } %>
@@ -51,7 +55,17 @@
 						<% } %>
 					</h5>
 					<h5><br />Privileges: <%=volunteer.level%>
-						<span class="col-sm-offset-1"><a href="/volunteers/volunteerReview/change/<%=volunteer.vol_id%>"><button class="btn orange">Change</button></a></span>
+						<span class="col-sm-offset-1">Change to: 
+							<% if(volunteer.privileges_code != 3){ %>
+								<a href="/volunteers/volunteerReview/changeToAdmin/<%=volunteer.vol_id%>"><button class="btn green">Admin</button></a>
+							<% } %>
+							<% if(volunteer.privileges_code != 2){ %>
+								<a href="/volunteers/volunteerReview/changeToAuthor/<%=volunteer.vol_id%>"><button class="btn blue">Author</button></a>
+							<% } %>
+							<% if(volunteer.privileges_code != 1){%>
+								<a href="/volunteers/volunteerReview/changeToBasic/<%=volunteer.vol_id%>"><button class="btn orange">Basic</button></a>
+							<% } %>
+							</span>
 					</h5>
 					<h5><br />Comments: <%-volunteer.comments%></h5>
 					<form class="col-sm-6" action="/volunteers/addComment/<%=volunteer.vol_id%>" method="post">
