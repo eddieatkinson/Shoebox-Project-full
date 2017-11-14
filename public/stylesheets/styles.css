@@ -751,3 +751,8 @@ a.blog-link{
  #admin{
  	background-color: #edc8c3;
  }
+ #my-signin2{
+ 	position: relative;
+ 	left: 50%;
+ 	top: 0;
+ }

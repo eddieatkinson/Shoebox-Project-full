@@ -3,6 +3,9 @@
 <head>
 	<title>Volunteer Home</title>
 	<% include user-head %>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<meta name="google-signin-client_id" content="146054318389-hbep4445e0rc6ovd4929m9hecb4gf260.apps.googleusercontent.com">
+
 </head>
 <body class="calendar">
 	<div id="logout" class="col-sm-3">
@@ -35,7 +38,40 @@
 		<div class="row col-sm-12 text-center">
 			<h3 id="welcome">Welcome, <%=name%></h3>
 		</div>
-		<div class="col-sm-9">
+		  <div id="my-signin2"></div>
+		  <script>
+		    function onSuccess(googleUser) {
+		      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+			    (function(){
+				  if( window.localStorage){
+				    if( !localStorage.getItem( 'firstLoad')){
+				      localStorage['firstLoad'] = true;
+				      window.location.reload();
+				    }  
+				    else
+				      localStorage.removeItem( 'firstLoad' );
+				  	}
+				})();
+			}
+		    function onFailure(error) {
+		      console.log(error);
+		    }
+		    function renderButton() {
+		      gapi.signin2.render('my-signin2', {
+		        'scope': 'profile email',
+		        'width': 240,
+		        'height': 50,
+		        'longtitle': true,
+		        'theme': 'dark',
+		        'onsuccess': onSuccess,
+		        'onfailure': onFailure
+		      });
+		    }
+		  </script>
+
+		  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+		<div class="col-sm-12">
 			<iframe src="https://calendar.google.com/calendar/embed?src=khio5gi4mdbvipjohb8mb3hc60%40group.calendar.google.com&ctz=America/New_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 		</div>
 	</div>
