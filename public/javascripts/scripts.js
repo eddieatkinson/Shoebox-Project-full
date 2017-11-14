@@ -119,3 +119,16 @@ $(document).ready(()=>{
 	// 	window.open("/volunteers/uploadPic", "_blank", "toolbar=yes,scrollbar=yes,resizeable=yes,top=55,left=75,width=700,height=700");
 	// });
 });
+
+
+var signedIn = ""; 
+function checkSigned(){
+var signed = signedIn;
+if (signed !== 'yes'){
+$(".calen").html('Please Sign in to Google to View the Calender');
+	console.log(signed);
+	}else{
+	console.log(signed);
+$(".calen").html('<iframe src="https://calendar.google.com/calendar/embed?src=khio5gi4mdbvipjohb8mb3hc60%40group.calendar.google.com&ctz=America/New_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>');
+}
+};
