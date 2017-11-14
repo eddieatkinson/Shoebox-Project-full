@@ -173,8 +173,8 @@ router.post('/addComment/:volId', (req, res, next)=>{
 		if(error){
 			throw error;
 		}
-		console.log(`Comments: ${comments}`);
-		console.log(`Volunteer: ${volId}`);
+		// console.log(`Comments: ${comments}`);
+		// console.log(`Volunteer: ${volId}`);
 		res.redirect('/volunteers/volunteerReview?msg=commentsAdded');
 	});
 });
@@ -314,8 +314,8 @@ router.post('/loginProcess', (req, res, next)=>{
 				req.session.uid = row.vol_id;
 				req.session.email = row.email;
 				req.session.privileges = row.privileges_code;
-				console.log(req.session.name);
-				console.log(req.session.uid);
+				// console.log(req.session.name);
+				// console.log(req.session.uid);
 
 				res.redirect('home?msg=loggedIn');
 			}else{
