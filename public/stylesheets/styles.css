@@ -759,6 +759,9 @@ a.blog-link, a.update-vol-info{
 #admin{
  	background-color: #edc8c3;
 }
+#admin:hover{
+	color: white;
+}
 
 /* ////////////////////////////////////////
 ////////VOLUNTEER DASHBOARD////////////////
