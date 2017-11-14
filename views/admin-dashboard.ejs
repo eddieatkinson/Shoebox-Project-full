@@ -41,18 +41,18 @@
 				<div class="col-sm-7">
 					<h5>Approved: <%=volunteer.approved%>
 						<%if(volunteer.approved != 'yes'){%>
-							<span class="col-sm-offset-1"><a href="/volunteers/volunteerReview/approve/<%=volunteer.vol_id%>"><button class="btn-success">Approve</button></a></span>
+							<span class="col-sm-offset-1"><a href="/volunteers/volunteerReview/approve/<%=volunteer.vol_id%>"><button class="btn green">Approve</button></a></span>
 						<% }else{ %>
-							<span class="col-sm-offset-1"><a href="/volunteers/volunteerReview/deny/<%=volunteer.vol_id%>"><button class="btn-danger">Deny</button></a></span>
+							<span class="col-sm-offset-1"><a href="/volunteers/volunteerReview/deny/<%=volunteer.vol_id%>"><button class="btn red">Deny</button></a></span>
 						<% } %>
 					</h5>
 					<h5><br />Privileges: <%=volunteer.level%>
-						<span class="col-sm-offset-1"><a href="/volunteers/volunteerReview/change/<%=volunteer.vol_id%>"><button class="btn-warning">Change</button></a></span>
+						<span class="col-sm-offset-1"><a href="/volunteers/volunteerReview/change/<%=volunteer.vol_id%>"><button class="btn orange">Change</button></a></span>
 					</h5>
 					<h5><br />Comments: <%-volunteer.comments%></h5>
 					<form action="/volunteers/addComment/<%=volunteer.vol_id%>" method="post">
 				  		<textarea name="comments" placeholder="Enter comments here."></textarea>
-				  		<button class="btn-info" type="submit">Add comments</button>
+				  		<button class="btn blue" type="submit">Add comments</button>
 				  	</form>
 					<!-- <a href="#" class="update-vol-info" data-toggle="modal" data-target="#myModal">Add comments</a> -->
 				</div>
