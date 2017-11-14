@@ -44,11 +44,7 @@
 			swal("You are not authorized to review blog posts.", "Please contact us with further questions.", "error");
 		</script>
 	<% } %>
-	<div class="container">
-		<div class="row col-sm-12 text-center">
-			<h3 id="welcome">Welcome, <%=name%></h3>
-		</div>
-		  <div id="my-signin2"></div>
+		<div id="my-signin2">
 		  <script>
 		    function onSuccess(googleUser) {
 		      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
@@ -80,9 +76,14 @@
 		  </script>
 
 		  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+		</div>
 
-		<div class="col-sm-12">
+	<div class="container-fluid">
+		<div class="row col-xs-12 text-center">
+			<h3 id="welcome col-xs-12">Welcome, <%=name%></h3>
+		<div class="col-xs-12">
 			<iframe src="https://calendar.google.com/calendar/embed?src=khio5gi4mdbvipjohb8mb3hc60%40group.calendar.google.com&ctz=America/New_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+		</div>
 		</div>
 	</div>
 
