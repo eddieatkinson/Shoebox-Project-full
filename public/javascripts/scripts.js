@@ -110,4 +110,12 @@ $(document).ready(()=>{
 		// show the modal
 		$("#modal-gallery").modal("show");
 	});
+
+	// ------------------------------------
+	// ------------User home-------------
+	// ------------------------------------
+	// $('#uploadVolPic').click(()=>{
+	// 	event.preventDefault();
+	// 	window.open("/volunteers/uploadPic", "_blank", "toolbar=yes,scrollbar=yes,resizeable=yes,top=55,left=75,width=700,height=700");
+	// });
 });
