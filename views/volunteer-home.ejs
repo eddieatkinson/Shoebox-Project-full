@@ -14,10 +14,10 @@
 	<div id="logout" class="col-sm-3">
 		<a href="/volunteers/logout"><button class="btn btn-info">Logout</button></a>
 	</div>
-	<div class="col-sm-3 col-sm-offset-9">
 	<% if(!notPermitted){ %>
+		<div class="col-sm-3 col-sm-offset-9">
 		<a style="color:#58AED1;" href="/volunteers/blog"><button class="padding btn waves-effect btn-info">New Blog Post!</button></a>
-	</div>
+		</div>
 	<% } %>
 	<% if(admin){ %>
 		<div class="col-sm-3 col-sm-offset-9">
