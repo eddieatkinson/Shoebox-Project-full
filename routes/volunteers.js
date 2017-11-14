@@ -58,33 +58,79 @@ router.post('/uploadPic', nameOfFileField, (req, res)=>{
 	});
 });
 
-// router.post('/formSubmit', nameOfFileField, (req, res)=>{
-// 	console.log(req.file);
-// 	console.log(req.body);
-// 	var tmpPath = req.file.path;
-// 	var targetPath = `public/images/${req.file.originalname}`;
-// 	fs.readFile(tmpPath, (error, fileContents)=>{
-// 		if(error){
-// 			throw error
-// 		}
-// 		fs.writeFile(targetPath, fileContents, (error)=>{
-// 			if(error){
-// 				throw error
-// 			}
-// 			var insertQuery = `
-// 				INSERT INTO bands (imageUrl, title)
-// 					VALUES
-// 					(?, ?);`;
-// 			connection.query(insertQuery, [req.file.originalname, req.body.bandName], (dbError)=>{
-// 				if(dbError){
-// 					throw dbError;
-// 				}
-// 				res.redirect('/');
-// 			})
-// 		});
-// 	});
-// 	// res.json(req.body);
-// });
+router.get('/volunteerReview', (req, res)=>{
+	var commentsAdded = false;
+	if(req.query.msg == 'commentsAdded'){
+		commentsAdded = true;
+	}
+	var approved = false;
+	if(req.query.msg == 'approved'){
+		approved = true
+	}
+	var denied = false;
+	if(req.query.msg == 'denied'){
+		denied = true
+	}
+	var selectQuery = `SELECT * FROM volunteers LEFT JOIN privileges ON volunteers.privileges_code = privileges.privileges_code ORDER BY vol_id;`;
+	connection.query(selectQuery, (error, results)=>{
+		// console.log(results);
+		// console.log(req.session.uid);
+		if(error){
+			throw error;
+		}
+		res.render('admin-dashboard', {
+			commentsAdded: commentsAdded,
+			volunteers: results,
+			approved: approved,
+			denied: denied
+		});
+		// var name = results[0].name;
+		// var bodyWithBreaks = results[0].body.replace(new RegExp('\r?\n','g'), '<br />');
+		// var insertBlog = `INSERT INTO blog (name, title, body, vol_id)
+		// 	VALUES (?, ?, ?, ?);`;
+		// connection.query(insertBlog, [name, title, bodyWithBreaks, req.session.uid], (error, results)=>{
+		// 	if(error){
+		// 		throw error;
+		// 	}
+		// 	res.redirect('/volunteers/home?msg=entryAdded');
+		// });
+	});
+});
+
+router.get('/volunteerReview/approve/:vol_id', (req, res, next)=>{
+	var volId = req.params.vol_id;
+	var update = `UPDATE volunteers SET approved = 'yes' WHERE vol_id = ?;`;
+	connection.query(update, [volId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.redirect('/volunteers/volunteerReview?msg=approved');
+	});
+});
+
+router.get('/volunteerReview/deny/:volId', (req, res, next)=>{
+	var volId = req.params.volId;
+	var update = `UPDATE volunteers SET approved = 'no' WHERE vol_id = ?;`;
+	connection.query(update, [volId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.redirect('/volunteers/volunteerReview?msg=denied');
+	});
+});
+
+
+router.post('/addComment/:volId', (req, res, next)=>{
+	var comments = req.body.comments;
+	var volId = req.params.volId;
+	var updateComments = `UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
+	connection.query(updateComments, [comments, volId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.redirect('/volunteers/volunteerReview?msg=commentsAdded');
+	});
+});
 
 router.get('/login', (req, res, next)=>{
 	var notRegistered = false;
@@ -176,7 +222,7 @@ router.post('/blogEntry', (req, res, next)=>{
 			}
 			res.redirect('/volunteers/home?msg=entryAdded');
 		});
-	})
+	});
 });
 
 router.get('/blogReview', (req, res, next)=>{
@@ -196,7 +242,7 @@ router.post('/loginProcess', (req, res, next)=>{
 		}
 		if(results.length == 0){
 			res.redirect('/volunteers/login?msg=notRegistered');
-		}else if(results[0].approved != 1){
+		}else if(results[0].approved == 'no'){
 			res.redirect('/?msg=notApproved');
 		}
 		else{
