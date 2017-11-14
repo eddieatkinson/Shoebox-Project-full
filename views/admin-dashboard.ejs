@@ -9,6 +9,10 @@
 		<script type="text/javascript">
 			swal("You have successfully updated comments.", "", "success");
 		</script>
+	<% }else if(commentsReplaced){ %>
+		<script type="text/javascript">
+			swal("You have successfully replaced comments.", "", "success");
+		</script>
 	<% }else if(approved){ %>
 		<script type="text/javascript">
 			swal("You have successfully approved a volunteer.", "", "success");
@@ -50,9 +54,13 @@
 						<span class="col-sm-offset-1"><a href="/volunteers/volunteerReview/change/<%=volunteer.vol_id%>"><button class="btn orange">Change</button></a></span>
 					</h5>
 					<h5><br />Comments: <%-volunteer.comments%></h5>
-					<form action="/volunteers/addComment/<%=volunteer.vol_id%>" method="post">
+					<form class="col-sm-6" action="/volunteers/addComment/<%=volunteer.vol_id%>" method="post">
 				  		<textarea name="comments" placeholder="Enter comments here."></textarea>
 				  		<button class="btn blue" type="submit">Add comments</button>
+				  	</form>
+				  	<form class="col-sm-6" action="/volunteers/replaceComment/<%=volunteer.vol_id%>" method="post">
+				  		<textarea name="comments" placeholder="Enter comments here."></textarea>
+				  		<button class="btn orange" type="submit">Replace comments</button>
 				  	</form>
 					<!-- <a href="#" class="update-vol-info" data-toggle="modal" data-target="#myModal">Add comments</a> -->
 				</div>

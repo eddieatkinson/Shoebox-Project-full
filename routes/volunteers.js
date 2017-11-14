@@ -63,6 +63,10 @@ router.get('/volunteerReview', (req, res)=>{
 	if(req.query.msg == 'commentsAdded'){
 		commentsAdded = true;
 	}
+	var commentsReplaced = false;
+	if(req.query.msg == 'commentsReplaced'){
+		commentsReplaced = true;
+	}
 	var approved = false;
 	if(req.query.msg == 'approved'){
 		approved = true
@@ -80,6 +84,7 @@ router.get('/volunteerReview', (req, res)=>{
 		}
 		res.render('admin-dashboard', {
 			commentsAdded: commentsAdded,
+			commentsReplaced: commentsReplaced,
 			volunteers: results,
 			approved: approved,
 			denied: denied
@@ -123,12 +128,30 @@ router.get('/volunteerReview/deny/:volId', (req, res, next)=>{
 router.post('/addComment/:volId', (req, res, next)=>{
 	var comments = req.body.comments;
 	var volId = req.params.volId;
-	var updateComments = `UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
+	var updateComments = 
+	// `UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
+	`UPDATE volunteers SET comments = concat(comments, " ", ?) WHERE vol_id = ?;`;
 	connection.query(updateComments, [comments, volId], (error, results)=>{
 		if(error){
 			throw error;
 		}
+		console.log(`Comments: ${comments}`);
+		console.log(`Volunteer: ${volId}`);
 		res.redirect('/volunteers/volunteerReview?msg=commentsAdded');
+	});
+});
+
+router.post('/replaceComment/:volId', (req, res, next)=>{
+	var comments = req.body.comments;
+	var volId = req.params.volId;
+	var updateComments = 
+	`UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
+	// `UPDATE volunteers SET comments = concat(comments, " ", ?) WHERE vol_id = ?;`;
+	connection.query(updateComments, [comments, volId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.redirect('/volunteers/volunteerReview?msg=commentsReplaced');
 	});
 });
 
