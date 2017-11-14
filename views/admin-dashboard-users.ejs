@@ -25,10 +25,13 @@
 		<% users.map((user)=>{ %>
 			<div class="col-sm-12">
 				<br /><br />
-				<h5 class="col-sm-offset-2"><%=`${user.first_name} ${user.last_name}`%></h5>
+				<h5 class="col-sm-offset-2">
+					<%=`${user.first_name} ${user.last_name}`%>
+					<a href="/volunteers/uploadUserPhotos/<%=user.id%>/<%=volunteerId%>"><button class="btn green">Upload Photos</button></a>
+				</h5>
 				<div class="col-sm-3 col-sm-offset-1">
-					<% if(user.vol_img != undefined){ %>
-					<img class="vol-img" src="/images/<%=user.vol_img%>" />
+					<% if(user.url != undefined){ %>
+					<img class="vol-img" src="<%=user.url%>" />
 					<% } %>
 				</div>
 				<div class="col-sm-7">
