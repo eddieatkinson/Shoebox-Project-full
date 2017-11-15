@@ -36,6 +36,26 @@ var upload = multer({
 	})
 });
 
+// Specify the name of the file input to accept
+var nameOfFileField = uploadDir.single('imageToUpload');
+
+var connection = mysql.createConnection(config.db);
+// router.get('/login-Goog', passport.authenticate('auth0', {
+//  	clientID: config.auth0.clientID,
+//   	domain: "shoeboxproject.auth0.com",
+//   	redirectUri: 'http://localhost:3001/callback',
+//   	responseType: 'code',
+//   	audience: 'https://shoeboxproject.auth0.com/userinfo',
+//   	scope: 'openid profile email'}),
+//   	function(req, res) {
+//     	res.redirect("/");
+// });
+
+/* GET volunteer listing. */
+router.get('/', function(req, res, next) {
+ 	res.render('volunteer-form', {});
+});
+
 router.get('/uploadUserPhotos/:userId/:volId', (req, res)=>{
 	var userId = req.params.userId;
 	var volId = req.params.volId;
@@ -60,6 +80,19 @@ router.post('/uploadUserPhotosProcess/:userId/:volId', upload.any(), (req, res)=
 	res.redirect(`/volunteers/userReview?msg=${info.length}`);
 });
 
+router.get('/viewPhotos/:userId', (req, res)=>{
+	var userId = req.params.userId;
+	var selectUserPhoto = `SELECT url FROM images WHERE id = ?;`;
+	connection.query(selectUserPhoto, [userId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.render('user-photos', {
+			images: results
+		});
+	});
+});
+
 router.post('/profile/uploadProcess', upload.any(),(req, res, next)=>{
 	var info = req.files;
 	var insertUrl = `INSERT INTO images (url) VALUES (?);`;
@@ -71,26 +104,6 @@ router.post('/profile/uploadProcess', upload.any(),(req, res, next)=>{
 		});
 	});
 	res.redirect(`/profile/upload?msg=${info.length}`);
-});
-
-// Specify the name of the file input to accept
-var nameOfFileField = uploadDir.single('imageToUpload');
-
-var connection = mysql.createConnection(config.db);
-// router.get('/login-Goog', passport.authenticate('auth0', {
-//  	clientID: config.auth0.clientID,
-//   	domain: "shoeboxproject.auth0.com",
-//   	redirectUri: 'http://localhost:3001/callback',
-//   	responseType: 'code',
-//   	audience: 'https://shoeboxproject.auth0.com/userinfo',
-//   	scope: 'openid profile email'}),
-//   	function(req, res) {
-//     	res.redirect("/");
-// });
-
-/* GET volunteer listing. */
-router.get('/', function(req, res, next) {
- 	res.render('volunteer-form', {});
 });
 
 router.get('/uploadPic', (req, res, next)=>{

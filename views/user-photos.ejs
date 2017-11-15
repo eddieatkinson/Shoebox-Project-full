@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Photos</title>
+	<% include user-head%>
+</head>
+<body>
+	<div class="container">
+		<a href="/volunteers/userReview"><button class="btn">Home</button></a> <br /><br />
+		<%images.map((image)=>{%>
+			<div class="col-sm-4">
+				<img style="max-width: 100%;" src="<%=image.url%>" />
+			</div>
+		<% });%>
+	</div>
+</body>
+</html>
