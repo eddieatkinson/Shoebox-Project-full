@@ -69,11 +69,8 @@ router.post('/profile/uploadProcess', upload.any(),(req, res, next)=>{
 				throw error;
 			}
 		});
-		console.log(stuff.location);
 	});
-	// console.log(url);
 	res.redirect(`/profile/upload?msg=${info.length}`);
-	// console.log(req.files);
 });
 
 // Specify the name of the file input to accept
@@ -161,7 +158,6 @@ router.get('/volunteerReview', (req, res)=>{
 
 router.get('/userReview', (req, res)=>{
 	var numPhotos = -1;
-	// console.log(Number(req.query.msg));
 	if(Number(req.query.msg) != NaN){
 		var numPhotos = Number(req.query.msg);
 	}
@@ -186,11 +182,6 @@ router.get('/userReview', (req, res)=>{
 		if(error){
 			throw error;
 		}
-		if(numPhotos > 0){
-			console.log('---------------------');
-			console.log(numPhotos);
-			console.log('---------------------');
-		}
 		res.render('admin-dashboard-users', {
 			numPhotos: numPhotos,
 			volunteerId: req.session.uid,
@@ -200,8 +191,6 @@ router.get('/userReview', (req, res)=>{
 		});
 	});
 });
-
-
 
 router.get('/volunteerReview/approve/:vol_id', (req, res, next)=>{
 	var volId = req.params.vol_id;
@@ -269,8 +258,6 @@ router.post('/addComment/:volId', (req, res, next)=>{
 		if(error){
 			throw error;
 		}
-		// console.log(`Comments: ${comments}`);
-		// console.log(`Volunteer: ${volId}`);
 		res.redirect('/volunteers/volunteerReview?msg=commentsAdded');
 	});
 });
@@ -280,7 +267,6 @@ router.post('/replaceComment/:volId', (req, res, next)=>{
 	var volId = req.params.volId;
 	var updateComments = 
 	`UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
-	// `UPDATE volunteers SET comments = concat(comments, " ", ?) WHERE vol_id = ?;`;
 	connection.query(updateComments, [comments, volId], (error, results)=>{
 		if(error){
 			throw error;
@@ -293,14 +279,11 @@ router.post('/addUserComment/:userId', (req, res, next)=>{
 	var comments = req.body.comments;
 	var userId = req.params.userId;
 	var updateComments = 
-	// `UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
 	`UPDATE users SET comments = concat(comments, " ", ?) WHERE id = ?;`;
 	connection.query(updateComments, [comments, userId], (error, results)=>{
 		if(error){
 			throw error;
 		}
-		// console.log(`Comments: ${comments}`);
-		// console.log(`Volunteer: ${volId}`);
 		res.redirect('/volunteers/userReview?msg=commentsAdded');
 	});
 });
@@ -309,14 +292,11 @@ router.post('/replaceUserComment/:userId', (req, res, next)=>{
 	var comments = req.body.comments;
 	var userId = req.params.userId;
 	var updateComments = 
-	// `UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
 	`UPDATE users SET comments = ? WHERE id = ?;`;
 	connection.query(updateComments, [comments, userId], (error, results)=>{
 		if(error){
 			throw error;
 		}
-		// console.log(`Comments: ${comments}`);
-		// console.log(`Volunteer: ${volId}`);
 		res.redirect('/volunteers/userReview?msg=commentsReplaced');
 	});
 });
@@ -404,13 +384,10 @@ router.post('/blogEntry', (req, res, next)=>{
 	var bodyWithBreaks = body.replace(new RegExp('\r?\n','g'), '<br />');
 	var getAuthor = `SELECT name FROM volunteers WHERE vol_id = ?;`;
 	connection.query(getAuthor, [req.session.uid], (error, results)=>{
-		// console.log(results);
-		// console.log(req.session.uid);
 		if(error){
 			throw error;
 		}
 		var name = results[0].name;
-		// var bodyWithBreaks = results[0].body.replace(new RegExp('\r?\n','g'), '<br />');
 		var insertBlog = `INSERT INTO blog (name, title, body, vol_id)
 			VALUES (?, ?, ?, ?);`;
 		connection.query(insertBlog, [name, title, bodyWithBreaks, req.session.uid], (error, results)=>{
@@ -450,8 +427,6 @@ router.post('/loginProcess', (req, res, next)=>{
 				req.session.uid = row.vol_id;
 				req.session.email = row.email;
 				req.session.privileges = row.privileges_code;
-				// console.log(req.session.name);
-				// console.log(req.session.uid);
 
 				res.redirect('home?msg=loggedIn');
 			}else{
@@ -472,7 +447,6 @@ router.post('/signupProcess', (req, res, next)=>{
 	var processing = req.body.processing;
 	var general = req.body.general;
 	var consent = req.body.consent;
-	// res.send(`name: ${name} email: ${email} phone: ${phone} pass: ${password}`);
 	var selectQuery = `SELECT * FROM volunteers WHERE email = ?;`;
 	connection.query(selectQuery, [email], (error, results)=>{
 		if(error){
