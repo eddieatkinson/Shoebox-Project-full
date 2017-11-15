@@ -25,7 +25,7 @@ var upload = multer({
 	storage: multerS3({
 		s3: s0,
 		bucket: 'eddie-first-test-bucket',
-		contentType: multerS3.AUTO_CONTENT_TYPE,
+		contentType: multerS3.AUTO_CONTENT_TYPE, // Will choose best contentType
 		acl: 'public-read',
 		metadata: (req, file, cb)=>{
 			cb(null, {fieldName: file.fieldname});
@@ -40,20 +40,166 @@ var upload = multer({
 var nameOfFileField = uploadDir.single('imageToUpload');
 
 var connection = mysql.createConnection(config.db);
-// router.get('/login-Goog', passport.authenticate('auth0', {
-//  	clientID: config.auth0.clientID,
-//   	domain: "shoeboxproject.auth0.com",
-//   	redirectUri: 'http://localhost:3001/callback',
-//   	responseType: 'code',
-//   	audience: 'https://shoeboxproject.auth0.com/userinfo',
-//   	scope: 'openid profile email'}),
-//   	function(req, res) {
-//     	res.redirect("/");
-// });
 
 /* GET volunteer listing. */
 router.get('/', function(req, res, next) {
  	res.render('volunteer-form', {});
+});
+
+// Collect info for potential volunteers
+router.post('/signupProcess', (req, res, next)=>{
+	var name = req.body.name;
+	var email = req.body.email;
+	var phone = req.body.phone;
+	var password = req.body.password;
+	var photographer = req.body.photographer;
+	var setUp = req.body.setUp;
+	var manager = req.body.manager;
+	var processing = req.body.processing;
+	var general = req.body.general;
+	var consent = req.body.consent;
+	var selectQuery = `SELECT * FROM volunteers WHERE email = ?;`;
+	connection.query(selectQuery, [email], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		if(results.length != 0){
+			res.redirect('login?msg=registered');
+		}else{
+			var hash = bcrypt.hashSync(password);
+			var insertQuery = `INSERT INTO volunteers (name, email, phone, password, photographer, setUp, manager, processing, general, consent, privileges_code)
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+			connection.query(insertQuery, [name, email, phone, hash, photographer, setUp, manager, processing, general, consent, 1], (error)=>{ // We're not interested in results and fields
+				if(error){
+					throw error;
+				}else{
+					res.redirect('/?msg=registered')
+				}
+			});
+		}
+	});
+});
+
+router.get('/login', (req, res, next)=>{
+	var notAdmin = false;
+	var notRegistered = false;
+	var badPass = false;
+	if(req.query.msg == 'notRegistered'){
+		notRegistered = true;
+	}else if(req.query.msg == 'badPass'){
+		badPass = true;
+	}else if(req.query.msg == 'notAdmin'){
+		notAdmin = true;
+	}
+	res.render('volunteer-login', {
+		notAdmin: notAdmin,
+		notRegistered: notRegistered,
+		badPass: badPass
+	});
+});
+
+router.post('/loginProcess', (req, res, next)=>{
+	var email = req.body.email;
+	var password = req.body.password;
+	var selectQuery = `SELECT * FROM volunteers WHERE email = ?;`;
+	connection.query(selectQuery, [email], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		if(results.length == 0){ // Not in system
+			res.redirect('/volunteers/login?msg=notRegistered');
+		}else if(results[0].approved == 'no'){ // Not yet approved by admin
+			res.redirect('/?msg=notApproved');
+		}
+		else{
+			var passwordsMatch = bcrypt.compareSync(password, results[0].password);
+			if(passwordsMatch){
+				var row = results[0];
+				req.session.name = row.name;
+				req.session.uid = row.vol_id;
+				req.session.email = row.email;
+				req.session.privileges = row.privileges_code;
+
+				res.redirect('home?msg=loggedIn');
+			}else{
+				res.redirect('/volunteers/login?msg=badPass');
+			}
+		}
+	});
+});
+
+
+router.get('/home', (req, res, next)=>{
+	var profilePic ="SELECT vol_img FROM volunteers WHERE  vol_id =? ;";
+	connection.query(profilePic, [req.session.uid], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		var picUploaded = false;
+		if(req.query.msg == 'picUploaded'){
+			picUploaded = true;
+		}
+		var unauthorized = false;
+		if(req.query.msg == 'unauthorized'){
+			unauthorized = true;
+		}
+		var admin = false;
+		var notPermittedMsg = false;
+		if(req.session.privileges == 3){
+			admin = true;
+		}
+		if(req.query.msg == 'notPermitted'){
+			notPermittedMsg = true;
+		}
+		var entryAdded = false;
+		var notPermitted = true;
+		if(req.session.privileges >= 2){
+			notPermitted = false;
+		}
+		if(req.query.msg == "entryAdded"){
+			entryAdded = true;
+		}
+		if(req.session.email == undefined){
+			res.redirect('/volunteers/login');
+		}else{
+			res.render('volunteer-home', {
+				volImg: results[0].vol_img,
+				picUploaded: picUploaded,
+				entryAdded: entryAdded,
+				notPermittedMsg: notPermittedMsg,
+				notPermitted: notPermitted,
+				name: req.session.name,
+				unauthorized: unauthorized,
+				admin: admin
+			});
+		}
+	});
+});
+
+router.get('/uploadPic', (req, res, next)=>{
+	res.render('volunteer-pic-upload', {});
+});
+
+router.post('/uploadPic', nameOfFileField, (req, res)=>{
+	var tmpPath = req.file.path;
+	var targetPath = `public/images/${req.file.originalname}`;
+	fs.readFile(tmpPath, (error, fileContents)=>{
+		if(error){
+			throw error;
+		}
+		fs.writeFile(targetPath, fileContents, (error)=>{
+			if(error){
+				throw error;
+			}
+			var update = `UPDATE volunteers SET vol_img = ? WHERE vol_id = ?`;
+			connection.query(update, [req.file.originalname, req.session.uid], (dbError)=>{
+				if(dbError){
+					throw dbError;
+				}
+				res.redirect('/volunteers/home?msg=picUploaded');
+			});
+		});
+	});
 });
 
 router.get('/uploadUserPhotos/:userId/:volId', (req, res)=>{
@@ -93,46 +239,52 @@ router.get('/viewPhotos/:userId', (req, res)=>{
 	});
 });
 
-router.post('/profile/uploadProcess', upload.any(),(req, res, next)=>{
-	var info = req.files;
-	var insertUrl = `INSERT INTO images (url) VALUES (?);`;
-	info.map((stuff)=>{
-		connection.query(insertUrl, [stuff.location], (error, results)=>{
-			if(error){
-				throw error;
-			}
-		});
-	});
-	res.redirect(`/profile/upload?msg=${info.length}`);
+// Write blog post
+router.get('/blog', (req, res, next)=>{
+	if(req.session.email == undefined){
+		res.redirect('/volunteers/login');
+	}else if(req.session.privileges < 2){
+		res.redirect('/volunteers/home?msg=notPermitted');
+	}else{
+		res.render('volunteer-blog', {});
+	}
 });
 
-router.get('/uploadPic', (req, res, next)=>{
-	res.render('volunteer-pic-upload', {});
-});
-
-router.post('/uploadPic', nameOfFileField, (req, res)=>{
-	var tmpPath = req.file.path;
-	var targetPath = `public/images/${req.file.originalname}`;
-	fs.readFile(tmpPath, (error, fileContents)=>{
+router.post('/blogEntry', (req, res, next)=>{
+	var title = req.body.title;
+	var body = req.body.body;
+	var bodyWithBreaks = body.replace(new RegExp('\r?\n','g'), '<br />');
+	var getAuthor = `SELECT name FROM volunteers WHERE vol_id = ?;`;
+	connection.query(getAuthor, [req.session.uid], (error, results)=>{
 		if(error){
 			throw error;
 		}
-		fs.writeFile(targetPath, fileContents, (error)=>{
+		var name = results[0].name;
+		var insertBlog = `INSERT INTO blog (name, title, body, vol_id)
+			VALUES (?, ?, ?, ?);`;
+		connection.query(insertBlog, [name, title, bodyWithBreaks, req.session.uid], (error, results)=>{
 			if(error){
 				throw error;
 			}
-			var update = `UPDATE volunteers SET vol_img = ? WHERE vol_id = ?`;
-			connection.query(update, [req.file.originalname, req.session.uid], (dbError)=>{
-				if(dbError){
-					throw dbError;
-				}
-				res.redirect('/volunteers/home?msg=picUploaded');
-			});
+			res.redirect('/volunteers/home?msg=entryAdded');
 		});
 	});
 });
 
+router.get('/logout', (req, res, next)=>{
+	req.session.destroy();
+	res.redirect('/');
+});
+
+/////////////////////////////////
+//////////ADMIN DASHBOARD////////
+/////////////////////////////////
+
+// Manage volunteers
 router.get('/volunteerReview', (req, res)=>{
+	if(req.session.privileges != 3){
+		res.redirect('/volunteers/login?msg=notAdmin');
+	}
 	var commentsAdded = false;
 	if(req.query.msg == 'commentsAdded'){
 		commentsAdded = true;
@@ -165,42 +317,6 @@ router.get('/volunteerReview', (req, res)=>{
 			volunteers: results,
 			approved: approved,
 			denied: denied
-		});
-	});
-});
-
-router.get('/userReview', (req, res)=>{
-	var numPhotos = -1;
-	if(Number(req.query.msg) != NaN){
-		var numPhotos = Number(req.query.msg);
-	}
-	var commentsAdded = false;
-	if(req.query.msg == 'commentsAdded'){
-		commentsAdded = true;
-	}
-	var commentsReplaced = false;
-	if(req.query.msg == 'commentsReplaced'){
-		commentsReplaced = true;
-	}
-	var selectQuery = `SELECT * 
-		FROM users
-		LEFT JOIN (
-			SELECT images.id, images.img_id, images.url, images.date_uploaded, images.vol_id
-			FROM (
-				SELECT id, MIN(img_id) as minId 
-				FROM images GROUP BY id
-			) AS x INNER JOIN images ON images.id = x.id AND images.img_id = x.minId
-		) AS images ON users.id = images.id ORDER BY users.id;`;
-	connection.query(selectQuery, (error, results)=>{
-		if(error){
-			throw error;
-		}
-		res.render('admin-dashboard-users', {
-			numPhotos: numPhotos,
-			volunteerId: req.session.uid,
-			commentsAdded: commentsAdded,
-			commentsReplaced: commentsReplaced,
-			users: results
 		});
 	});
 });
@@ -260,7 +376,6 @@ router.get('/volunteerReview/changeToBasic/:vol_id', (req, res, next)=>{
 	});
 });
 
-
 router.post('/addComment/:volId', (req, res, next)=>{
 	var comments = req.body.comments;
 	var volId = req.params.volId;
@@ -285,6 +400,47 @@ router.post('/replaceComment/:volId', (req, res, next)=>{
 			throw error;
 		}
 		res.redirect('/volunteers/volunteerReview?msg=commentsReplaced');
+	});
+});
+
+// Manage users
+router.get('/userReview', (req, res)=>{
+	if(req.session.privileges != 3){
+		res.redirect('/volunteers/login?msg=notAdmin');
+	}
+	var numPhotos = -1;
+	if(Number(req.query.msg) != NaN){
+		var numPhotos = Number(req.query.msg);
+	}
+	var commentsAdded = false;
+	if(req.query.msg == 'commentsAdded'){
+		commentsAdded = true;
+	}
+	var commentsReplaced = false;
+	if(req.query.msg == 'commentsReplaced'){
+		commentsReplaced = true;
+	}
+	// Get only one image from each user's gallery to display
+	var selectQuery = `SELECT * 
+		FROM users
+		LEFT JOIN (
+			SELECT images.id, images.img_id, images.url, images.date_uploaded, images.vol_id
+			FROM (
+				SELECT id, MIN(img_id) as minId 
+				FROM images GROUP BY id
+			) AS x INNER JOIN images ON images.id = x.id AND images.img_id = x.minId
+		) AS images ON users.id = images.id ORDER BY users.id;`;
+	connection.query(selectQuery, (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.render('admin-dashboard-users', {
+			numPhotos: numPhotos,
+			volunteerId: req.session.uid,
+			commentsAdded: commentsAdded,
+			commentsReplaced: commentsReplaced,
+			users: results
+		});
 	});
 });
 
@@ -314,172 +470,12 @@ router.post('/replaceUserComment/:userId', (req, res, next)=>{
 	});
 });
 
-router.get('/login', (req, res, next)=>{
-	var notRegistered = false;
-	var badPass = false;
-	if(req.query.msg == 'notRegistered'){
-		notRegistered = true;
-	}else if(req.query.msg == 'badPass'){
-		badPass = true;
-	}
-	res.render('volunteer-login', {
-		notRegistered: notRegistered,
-		badPass: badPass
-	});
-});
-
-router.get('/logout', (req, res, next)=>{
-	req.session.destroy();
-	res.redirect('/');
-});
-
-router.get('/home', (req, res, next)=>{
-	var picUploaded = false;
-
-	var profilePic ="SELECT vol_img FROM volunteers WHERE  vol_id =? ;";
-	connection.query(profilePic, [req.session.uid], (error, results)=>{
-		if(error){
-			throw error;
-		}
-		if(req.query.msg == 'picUploaded'){
-			picUploaded = true;
-		}
-		var unauthorized = false;
-		if(req.query.msg == 'unauthorized'){
-			unauthorized = true;
-		}
-		var admin = false;
-		var notPermittedMsg = false;
-		if(req.session.privileges == 3){
-			admin = true;
-		}
-		if(req.query.msg == 'notPermitted'){
-			notPermittedMsg = true;
-		}
-		var entryAdded = false;
-		var notPermitted = true;
-		if(req.session.privileges >= 2){
-			notPermitted = false;
-		}
-		if(req.query.msg == "entryAdded"){
-			entryAdded = true;
-		}
-		if(req.session.email == undefined){
-			res.redirect('/volunteers/login');
-		}else{
-			res.render('volunteer-home', {
-				volImg: results[0].vol_img,
-				picUploaded: picUploaded,
-				entryAdded: entryAdded,
-				notPermittedMsg: notPermittedMsg,
-				notPermitted: notPermitted,
-				name: req.session.name,
-				unauthorized: unauthorized,
-				admin: admin
-			});
-		}
-	});
-});
-
-router.get('/blog', (req, res, next)=>{
-	if(req.session.email == undefined){
-		res.redirect('/volunteers/login');
-	}else if(req.session.privileges < 2){
-		res.redirect('/volunteers/home?msg=notPermitted');
-	}else{
-		res.render('volunteer-blog', {});
-	}
-});
-
-router.post('/blogEntry', (req, res, next)=>{
-	var title = req.body.title;
-	var body = req.body.body;
-	var bodyWithBreaks = body.replace(new RegExp('\r?\n','g'), '<br />');
-	var getAuthor = `SELECT name FROM volunteers WHERE vol_id = ?;`;
-	connection.query(getAuthor, [req.session.uid], (error, results)=>{
-		if(error){
-			throw error;
-		}
-		var name = results[0].name;
-		var insertBlog = `INSERT INTO blog (name, title, body, vol_id)
-			VALUES (?, ?, ?, ?);`;
-		connection.query(insertBlog, [name, title, bodyWithBreaks, req.session.uid], (error, results)=>{
-			if(error){
-				throw error;
-			}
-			res.redirect('/volunteers/home?msg=entryAdded');
-		});
-	});
-});
-
+// Manage blog posts
 router.get('/blogReview', (req, res, next)=>{
 	if(req.session.privileges != 3){
 		res.redirect('/volunteers/home?msg=unauthorized');
 	}
 	res.redirect('/blog?msg=blogReview');
-});
-
-router.post('/loginProcess', (req, res, next)=>{
-	var email = req.body.email;
-	var password = req.body.password;
-	var selectQuery = `SELECT * FROM volunteers WHERE email = ?;`;
-	connection.query(selectQuery, [email], (error, results)=>{
-		if(error){
-			throw error;
-		}
-		if(results.length == 0){
-			res.redirect('/volunteers/login?msg=notRegistered');
-		}else if(results[0].approved == 'no'){
-			res.redirect('/?msg=notApproved');
-		}
-		else{
-			var passwordsMatch = bcrypt.compareSync(password, results[0].password);
-			if(passwordsMatch){
-				var row = results[0];
-				req.session.name = row.name;
-				req.session.uid = row.vol_id;
-				req.session.email = row.email;
-				req.session.privileges = row.privileges_code;
-
-				res.redirect('home?msg=loggedIn');
-			}else{
-				res.redirect('/volunteers/login?msg=badPass');
-			}
-		}
-	});
-});
-
-router.post('/signupProcess', (req, res, next)=>{
-	var name = req.body.name;
-	var email = req.body.email;
-	var phone = req.body.phone;
-	var password = req.body.password;
-	var photographer = req.body.photographer;
-	var setUp = req.body.setUp;
-	var manager = req.body.manager;
-	var processing = req.body.processing;
-	var general = req.body.general;
-	var consent = req.body.consent;
-	var selectQuery = `SELECT * FROM volunteers WHERE email = ?;`;
-	connection.query(selectQuery, [email], (error, results)=>{
-		if(error){
-			throw error;
-		}
-		if(results.length != 0){
-			res.redirect('login?msg=registered');
-		}else{
-			var hash = bcrypt.hashSync(password);
-			var insertQuery = `INSERT INTO volunteers (name, email, phone, password, photographer, setUp, manager, processing, general, consent, privileges_code)
-				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
-			connection.query(insertQuery, [name, email, phone, hash, photographer, setUp, manager, processing, general, consent, 1], (error)=>{ // We're not interested in results and fields
-				if(error){
-					throw error;
-				}else{
-					res.redirect('/?msg=registered')
-				}
-			});
-		}
-	});
 });
 
 module.exports = router;

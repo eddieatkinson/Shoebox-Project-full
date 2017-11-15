@@ -6,6 +6,7 @@ var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
 
 var connection = mysql.createConnection(config.db);
+
 /* GET users listing. */
 router.get('/login', (req, res, next)=>{
 	var badEmail = false;
@@ -23,10 +24,8 @@ router.get('/login', (req, res, next)=>{
 
 router.get('/home', (req, res, next)=>{
 	if(req.session.email == undefined){
-		// loggedIn = false;
 		res.redirect('/users/login?msg=notLoggedIn')
 	}else{
-		// loggedIn = true;
 		var selectQuery = 
 			`SELECT url FROM images WHERE id = ?;`;	
 		connection.query(selectQuery, [req.session.uid], (error, results)=>{
@@ -51,18 +50,6 @@ router.get('/home', (req, res, next)=>{
 	}
 });
 
-
-// router.get('/login-Goog', passport.authenticate('auth0', {
-//  	clientID: config.auth0.clientID,
-//   	domain: "shoeboxproject.auth0.com",
-//   	redirectUri: 'http://localhost:3000/callback',
-//   	responseType: 'code',
-//   	audience: 'https://shoeboxproject.auth0.com/userinfo',
-//   	scope: 'openid profile email'}),
-//   	function(req, res) {
-//     	res.redirect("/");
-// });
-
 router.post('/loginProcess', (req, res, next)=>{
 	var email = req.body.email;
 	var password = req.body.password;
@@ -81,7 +68,6 @@ router.post('/loginProcess', (req, res, next)=>{
 				req.session.uid = row.id;
 				req.session.email = row.email;
 				// console.log("session name: " + req.session.name);
-
 				res.redirect('/users/home?msg=loggedIn');
 			}else{
 				res.redirect('/users/login?msg=badPass');
