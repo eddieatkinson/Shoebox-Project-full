@@ -722,7 +722,7 @@ div > label.agree{
 
 	}
 	.btn{
-		font-size: 30px
+		font-size: 30px;
 	}
 	.mobile-form-user{
 		min-height: 30%;
@@ -742,18 +742,17 @@ div > label.agree{
 	}
 	#my-signin2{
 	left: 10vw;
-	top: 97vh;
+	top: 95vh;
 	text-align: center;
-	}
-	.blog-entry-form{
-		height: 75vh;
-	}
-	.submit-blog{
-		bottom: 22vh;
-		position: fixed;
 	}
 }
 
+#blog-bg{
+	background-image: url(../images/more-photos.jpg);
+	background-size: cover;
+ 	background-attachment: fixed;
+ 	background-repeat: no-repeat;
+}
 
 .big-box{
 	transform: scale(2.0);
@@ -762,6 +761,9 @@ a.blog-link, a.update-vol-info{
 	color: #5BC0DE;
 }
 
+.blog-link > h3{
+	text-shadow: 1px 1px rgba(0,0,0,.40)
+}
 .blog-margin{
 	margin-top: 50px;
 }
@@ -773,7 +775,6 @@ a.blog-link, a.update-vol-info{
 }
 .blog-entry-form{
 	padding: 30px;
-	background-color: rgba(255, 255, 255, 0.7);
 }
 
 /* ////////////////////////////////////////
@@ -809,30 +810,4 @@ a.blog-link, a.update-vol-info{
 .upload-pic{
 	text-align: center;
 	margin-top: 15vh;
-	height: 75vh;
 }
-.back-button-upload{
-	margin-top: 2vh;
-}
-
-.vol-upload-body{
-	background-image: url(../images/horizontal.jpg);
- 	background-size: cover;
- 	background-attachment: fixed;
- 	background-repeat: no-repeat;
-}
-.white-form-background{
-	background-color: rgba(0, 0, 0, 0.3);
-}
-.submit-pic{
-	margin-bottom: 0;
-	padding-bottom: 0;
-	position: relative;
-}
-#your-pic{
-  max-width: 400px;
-  width: 400px;
-  max-height: 400px;
-}
-
-
