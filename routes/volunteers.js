@@ -25,7 +25,7 @@ var upload = multer({
 	storage: multerS3({
 		s3: s0,
 		bucket: 'eddie-first-test-bucket',
-		contenttype: 'image/jpg',
+		contentType: multerS3.AUTO_CONTENT_TYPE,
 		acl: 'public-read',
 		metadata: (req, file, cb)=>{
 			cb(null, {fieldName: file.fieldname});
