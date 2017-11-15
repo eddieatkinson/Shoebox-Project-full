@@ -160,6 +160,11 @@ router.get('/volunteerReview', (req, res)=>{
 });
 
 router.get('/userReview', (req, res)=>{
+	var numPhotos = -1;
+	// console.log(Number(req.query.msg));
+	if(Number(req.query.msg) != NaN){
+		var numPhotos = Number(req.query.msg);
+	}
 	var commentsAdded = false;
 	if(req.query.msg == 'commentsAdded'){
 		commentsAdded = true;
@@ -181,7 +186,13 @@ router.get('/userReview', (req, res)=>{
 		if(error){
 			throw error;
 		}
+		if(numPhotos > 0){
+			console.log('---------------------');
+			console.log(numPhotos);
+			console.log('---------------------');
+		}
 		res.render('admin-dashboard-users', {
+			numPhotos: numPhotos,
 			volunteerId: req.session.uid,
 			commentsAdded: commentsAdded,
 			commentsReplaced: commentsReplaced,
