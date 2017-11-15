@@ -752,6 +752,9 @@ div > label.agree{
 		bottom: 22vh;
 		position: fixed;
 	}
+	.blog-body{
+		height: 800px;
+	}
 }
 
 /*#blog-bg{
