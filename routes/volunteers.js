@@ -168,7 +168,15 @@ router.get('/userReview', (req, res)=>{
 	if(req.query.msg == 'commentsReplaced'){
 		commentsReplaced = true;
 	}
-	var selectQuery = `SELECT * FROM users LEFT JOIN (SELECT DISTINCT(id) FROM images) AS images ON users.id = images.id ORDER BY users.id;`;
+	var selectQuery = `SELECT * 
+		FROM users
+		LEFT JOIN (
+			SELECT images.id, images.img_id, images.url, images.date_uploaded, images.vol_id
+			FROM (
+				SELECT id, MIN(img_id) as minId 
+				FROM images GROUP BY id
+			) AS x INNER JOIN images ON images.id = x.id AND images.img_id = x.minId
+		) AS images ON users.id = images.id ORDER BY users.id;`;
 	connection.query(selectQuery, (error, results)=>{
 		if(error){
 			throw error;
