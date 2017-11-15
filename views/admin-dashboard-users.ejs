@@ -7,7 +7,7 @@
 <body>
 	<% if(numPhotos > 0){ %>
 		<script type="text/javascript">
-			swal("You have uploaded photos.", "", "success");
+			swal("You have uploaded <%=numPhotos%> photo<% if(numPhotos > 1){%>s<%}%>.", "", "success");
 		</script>
 	<% }else if(commentsAdded){ %>
 		<script type="text/javascript">
