@@ -722,7 +722,7 @@ div > label.agree{
 
 	}
 	.btn{
-		font-size: 30px;
+		font-size: 30px
 	}
 	.mobile-form-user{
 		min-height: 30%;
@@ -742,8 +742,15 @@ div > label.agree{
 	}
 	#my-signin2{
 	left: 10vw;
-	top: 95vh;
+	top: 97vh;
 	text-align: center;
+	}
+	.blog-entry-form{
+		height: 75vh;
+	}
+	.submit-blog{
+		bottom: 22vh;
+		position: fixed;
 	}
 }
 
