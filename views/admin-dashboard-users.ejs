@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard - Users</title>
+	<% include user-head %>
+</head>
+<body>
+	<% if(commentsAdded){ %>
+		<script type="text/javascript">
+			swal("You have successfully updated comments.", "", "success");
+		</script>
+	<% }else if(commentsReplaced){ %>
+		<script type="text/javascript">
+			swal("You have successfully replaced comments.", "", "success");
+		</script>
+	<% } %>
+	<div class="container">
+		<div id="logout" class="col-sm-3">
+			<a href="/volunteers/logout"><button class="btn btn-info">Logout</button></a>
+		</div>
+		<div id="home-btn" class="col-sm-3">
+			<a href="/volunteers/home"><button class="btn btn-info">Home</button></a>
+		</div>
+		<h4 class="text-center">Users</h4>
+		<% users.map((user)=>{ %>
+			<div class="col-sm-12">
+				<br /><br />
+				<h5 class="col-sm-offset-2">
+					<%=`${user.first_name} ${user.last_name}`%>
+					<a href="/volunteers/uploadUserPhotos/<%=user.id%>/<%=volunteerId%>"><button class="btn green">Upload Photos</button></a>
+				</h5>
+				<div class="col-sm-3 col-sm-offset-1">
+					<% if(user.url != undefined){ %>
+					<img class="vol-img" src="<%=user.url%>" />
+					<% } %>
+				</div>
+				<div class="col-sm-7">
+					<h5><br />Comments: <%-user.comments%></h5>
+					<form class="col-sm-6" action="/volunteers/addUserComment/<%=user.id%>" method="post">
+				  		<textarea name="comments" placeholder="Write here to add to comments."></textarea>
+				  		<button class="btn blue" type="submit">Add comments</button>
+				  	</form>
+				  	<form class="col-sm-6" action="/volunteers/replaceUserComment/<%=user.id%>" method="post">
+				  		<textarea name="comments" placeholder="Write here to replace current comments."></textarea>
+				  		<button class="btn orange" type="submit">Replace comments</button>
+				  	</form>
+				</div>
+			</div>
+		<% }); %>
+	</div>
+</body>
+</html>

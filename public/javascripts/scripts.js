@@ -124,11 +124,13 @@ $(document).ready(()=>{
 var signedIn = ""; 
 function checkSigned(){
 var signed = signedIn;
+const mq = window.matchMedia( "(max-width: 1100px)" );
 if (signed !== 'yes'){
-$(".calen").html('Please Sign in to Google to View the Calender');
-	console.log(signed);
-	}else{
-	console.log(signed);
-$(".calen").html('<iframe src="https://calendar.google.com/calendar/embed?src=khio5gi4mdbvipjohb8mb3hc60%40group.calendar.google.com&ctz=America/New_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>');
-}
+	$(".calen").html('<h3>Please Sign in to Google to View the Calender<h3>');
+		}else if (mq.matches){
+		$(".calen").html('<iframe src="https://calendar.google.com/calendar/embed?src=khio5gi4mdbvipjohb8mb3hc60%40group.calendar.google.com&ctz=America/New_York" style="border: 0" width="800" height="1200" frameborder="0" scrolling="no"></iframe>');
+		}else{
+			$(".calen").html('<iframe src="https://calendar.google.com/calendar/embed?src=khio5gi4mdbvipjohb8mb3hc60%40group.calendar.google.com&ctz=America/New_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>');
+
+		}
 };

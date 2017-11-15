@@ -1,8 +1,11 @@
 var express = require('express');
 // const passport = require('passport');
+var aws = require('aws-sdk');
 var router = express.Router();
 var fs = require('fs');
 var config = require('../config/config.js');
+var multerS3 = require('multer-s3');
+var multer = require('multer');
 var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
 
@@ -10,6 +13,67 @@ var multer = require('multer');
 // Tell multer where to save the files it gets
 var uploadDir = multer({
 	dest: 'public/images'
+});
+
+aws.config.loadFromPath('./config/config.json');
+aws.config.update({
+	signatureVersion: 'v4'
+});
+var s0 = new aws.S3({});
+
+var upload = multer({
+	storage: multerS3({
+		s3: s0,
+		bucket: 'eddie-first-test-bucket',
+		contenttype: 'image/jpg',
+		acl: 'public-read',
+		metadata: (req, file, cb)=>{
+			cb(null, {fieldName: file.fieldname});
+		},
+		key: (req, file, cb)=>{
+			cb(null, Date.now()+file.originalname)
+		}
+	})
+});
+
+router.get('/uploadUserPhotos/:userId/:volId', (req, res)=>{
+	var userId = req.params.userId;
+	var volId = req.params.volId;
+	res.render('upload-user-photos', {
+		userId: userId,
+		volId: volId
+	});
+});
+
+router.post('/uploadUserPhotosProcess/:userId/:volId', upload.any(), (req, res)=>{
+	var userId = req.params.userId;
+	var volId = req.params.volId;
+	var info = req.files;
+	var insertUrl = `INSERT INTO images (id, url, vol_id) VALUES (?, ?, ?);`;
+	info.map((image)=>{
+		connection.query(insertUrl, [userId, image.location, volId], (error, results)=>{
+			if(error){
+				throw error;
+			}
+		});
+	});
+	res.redirect(`/volunteers/userReview?msg=${info.length}`);
+});
+
+router.post('/profile/uploadProcess', upload.any(),(req, res, next)=>{
+	var info = req.files;
+	var insertUrl = `INSERT INTO images (url) VALUES (?);`;
+	info.map((stuff)=>{
+		connection.query(insertUrl, [stuff.location], (error, results)=>{
+			if(error){
+				throw error;
+			}
+		});
+		console.log(stuff.location);
+	});
+	// console.log(url);
+	res.redirect(`/profile/upload?msg=${info.length}`);
+	// console.log(req.files);
 });
 
 // Specify the name of the file input to accept
@@ -81,12 +145,10 @@ router.get('/volunteerReview', (req, res)=>{
 	}
 	var selectQuery = `SELECT * FROM volunteers LEFT JOIN privileges ON volunteers.privileges_code = privileges.privileges_code ORDER BY vol_id;`;
 	connection.query(selectQuery, (error, results)=>{
-		// console.log(results);
-		// console.log(req.session.uid);
 		if(error){
 			throw error;
 		}
-		res.render('admin-dashboard', {
+		res.render('admin-dashboard-vol', {
 			commentsAdded: commentsAdded,
 			commentsReplaced: commentsReplaced,
 			levelChanged: levelChanged,
@@ -94,18 +156,33 @@ router.get('/volunteerReview', (req, res)=>{
 			approved: approved,
 			denied: denied
 		});
-		// var name = results[0].name;
-		// var bodyWithBreaks = results[0].body.replace(new RegExp('\r?\n','g'), '<br />');
-		// var insertBlog = `INSERT INTO blog (name, title, body, vol_id)
-		// 	VALUES (?, ?, ?, ?);`;
-		// connection.query(insertBlog, [name, title, bodyWithBreaks, req.session.uid], (error, results)=>{
-		// 	if(error){
-		// 		throw error;
-		// 	}
-		// 	res.redirect('/volunteers/home?msg=entryAdded');
-		// });
 	});
 });
+
+router.get('/userReview', (req, res)=>{
+	var commentsAdded = false;
+	if(req.query.msg == 'commentsAdded'){
+		commentsAdded = true;
+	}
+	var commentsReplaced = false;
+	if(req.query.msg == 'commentsReplaced'){
+		commentsReplaced = true;
+	}
+	var selectQuery = `SELECT * FROM users LEFT JOIN (SELECT DISTINCT(id) FROM images) AS images ON users.id = images.id ORDER BY users.id;`;
+	connection.query(selectQuery, (error, results)=>{
+		if(error){
+			throw error;
+		}
+		res.render('admin-dashboard-users', {
+			volunteerId: req.session.uid,
+			commentsAdded: commentsAdded,
+			commentsReplaced: commentsReplaced,
+			users: results
+		});
+	});
+});
+
+
 
 router.get('/volunteerReview/approve/:vol_id', (req, res, next)=>{
 	var volId = req.params.vol_id;
@@ -190,6 +267,38 @@ router.post('/replaceComment/:volId', (req, res, next)=>{
 			throw error;
 		}
 		res.redirect('/volunteers/volunteerReview?msg=commentsReplaced');
+	});
+});
+
+router.post('/addUserComment/:userId', (req, res, next)=>{
+	var comments = req.body.comments;
+	var userId = req.params.userId;
+	var updateComments = 
+	// `UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
+	`UPDATE users SET comments = concat(comments, " ", ?) WHERE id = ?;`;
+	connection.query(updateComments, [comments, userId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		// console.log(`Comments: ${comments}`);
+		// console.log(`Volunteer: ${volId}`);
+		res.redirect('/volunteers/userReview?msg=commentsAdded');
+	});
+});
+
+router.post('/replaceUserComment/:userId', (req, res, next)=>{
+	var comments = req.body.comments;
+	var userId = req.params.userId;
+	var updateComments = 
+	// `UPDATE volunteers SET comments = ? WHERE vol_id = ?;`;
+	`UPDATE users SET comments = ? WHERE id = ?;`;
+	connection.query(updateComments, [comments, userId], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		// console.log(`Comments: ${comments}`);
+		// console.log(`Volunteer: ${volId}`);
+		res.redirect('/volunteers/userReview?msg=commentsReplaced');
 	});
 });
 

@@ -66,7 +66,19 @@
 		      console.log(error);
 		    }
 		    function renderButton() {
+		    const mq = window.matchMedia( "(max-width: 1100px)" );
+		    if(mq.matches){
 		      gapi.signin2.render('my-signin2', {
+		        'scope': 'profile email',
+		        'width': 870,
+		        'height': 150,
+		        'longtitle': true,
+		        'theme': 'dark',
+		        'onsuccess': onSuccess,
+		        'onfailure': onFailure
+		      });
+		  	}else{
+		  		gapi.signin2.render('my-signin2', {
 		        'scope': 'profile email',
 		        'width': 240,
 		        'height': 50,
@@ -75,6 +87,7 @@
 		        'onsuccess': onSuccess,
 		        'onfailure': onFailure
 		      });
+		  	}
 		    }
 		  </script>
 
@@ -83,7 +96,7 @@
 
 	<div class="container-fluid">
 		<div class="row col-xs-12 text-center">
-			<h3 id="welcome" class="col-xs-12">Welcome, <%=name%></h3>
+			<h1 id="welcome col-xs-12">Welcome, <%=name%></h1>
 		<div class="col-xs-12 calen">
 			<script>setTimeout(checkSigned, 1000);</script>
 		</div>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upload files</title>
+	<% include head%>
+</head>
+<body>
+	<div class="container">
+		<form method="post" action="/volunteers/uploadUserPhotosProcess/<%=userId%>/<%=volId%>" enctype="multipart/form-data">
+			<input type="file", name="file" multiple />
+			<button class="btn btn-info" type="submit">Submit</button>
+		</form>
+	</div>
+</body>
+</html>

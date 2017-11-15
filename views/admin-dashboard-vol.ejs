@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Dashboard</title>
+	<title>Dashboard - Volunteers</title>
 	<% include user-head %>
 </head>
 <body>
@@ -66,11 +66,11 @@
 					</h5>
 					<h5><br />Comments: <%-volunteer.comments%></h5>
 					<form class="col-sm-6" action="/volunteers/addComment/<%=volunteer.vol_id%>" method="post">
-				  		<textarea name="comments" placeholder="Enter comments here."></textarea>
+				  		<textarea name="comments" placeholder="Write here to add to current comments."></textarea>
 				  		<button class="btn blue" type="submit">Add comments</button>
 				  	</form>
 				  	<form class="col-sm-6" action="/volunteers/replaceComment/<%=volunteer.vol_id%>" method="post">
-				  		<textarea name="comments" placeholder="Enter comments here."></textarea>
+				  		<textarea name="comments" placeholder="Write here to replace current comments."></textarea>
 				  		<button class="btn orange" type="submit">Replace comments</button>
 				  	</form>
 				</div>
