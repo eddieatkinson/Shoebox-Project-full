@@ -342,42 +342,50 @@ router.get('/logout', (req, res, next)=>{
 
 router.get('/home', (req, res, next)=>{
 	var picUploaded = false;
-	if(req.query.msg == 'picUploaded'){
-		picUploaded = true;
-	}
-	var unauthorized = false;
-	if(req.query.msg == 'unauthorized'){
-		unauthorized = true;
-	}
-	var admin = false;
-	var notPermittedMsg = false;
-	if(req.session.privileges == 3){
-		admin = true;
-	}
-	if(req.query.msg == 'notPermitted'){
-		notPermittedMsg = true;
-	}
-	var entryAdded = false;
-	var notPermitted = true;
-	if(req.session.privileges >= 2){
-		notPermitted = false;
-	}
-	if(req.query.msg == "entryAdded"){
-		entryAdded = true;
-	}
-	if(req.session.email == undefined){
-		res.redirect('/volunteers/login');
-	}else{
-		res.render('volunteer-home', {
-			picUploaded: picUploaded,
-			entryAdded: entryAdded,
-			notPermittedMsg: notPermittedMsg,
-			notPermitted: notPermitted,
-			name: req.session.name,
-			unauthorized: unauthorized,
-			admin: admin
-		});
-	}
+
+	var profilePic ="SELECT vol_img FROM volunteers WHERE  vol_id =? ;";
+	connection.query(profilePic, [req.session.uid], (error, results)=>{
+		if(error){
+			throw error;
+		}
+		if(req.query.msg == 'picUploaded'){
+			picUploaded = true;
+		}
+		var unauthorized = false;
+		if(req.query.msg == 'unauthorized'){
+			unauthorized = true;
+		}
+		var admin = false;
+		var notPermittedMsg = false;
+		if(req.session.privileges == 3){
+			admin = true;
+		}
+		if(req.query.msg == 'notPermitted'){
+			notPermittedMsg = true;
+		}
+		var entryAdded = false;
+		var notPermitted = true;
+		if(req.session.privileges >= 2){
+			notPermitted = false;
+		}
+		if(req.query.msg == "entryAdded"){
+			entryAdded = true;
+		}
+		if(req.session.email == undefined){
+			res.redirect('/volunteers/login');
+		}else{
+			res.render('volunteer-home', {
+				volImg: results[0].vol_img,
+				picUploaded: picUploaded,
+				entryAdded: entryAdded,
+				notPermittedMsg: notPermittedMsg,
+				notPermitted: notPermitted,
+				name: req.session.name,
+				unauthorized: unauthorized,
+				admin: admin
+			});
+		}
+	});
 });
 
 router.get('/blog', (req, res, next)=>{
