@@ -4,7 +4,7 @@
 	<title>Upload Photo</title>
 	<% include user-head %>
 </head>
-<body>
+<body class="vol-upload-body">
 	<button class="btn btn-primary back-button-upload" onclick="goBack()">Go Back</button>
 
 <script>
@@ -12,13 +12,20 @@ function goBack() {
     window.history.back();
 }
 </script>
-	<form class="upload-pic" method="post" action="/volunteers/uploadPic" enctype="multipart/form-data">
-		<div class="col-xs-offset-2 col-xs-8">
-			<input type="text" name="volName" />
-			<input type="file" name="imageToUpload" />
-			<input type="submit" class="btn btn-primary" />
+	<div class="container">
+		<div class="row white-form-background">
+			<form class="upload-pic" method="post" action="/volunteers/uploadPic" enctype="multipart/form-data">
+				<div class="show-pic">
+					<img id="your-pic" src="http://placehold.it/180" alt="your image" />
+				</div>
+				<div class="col-xs-12">
+					<input type="text" name="volName"/>
+					<input type="file" name="imageToUpload" onchange="readURL(this);" />
+					<input type="submit" class="btn btn-primary submit-pic" />
+				</div>
+			</form>
 		</div>
-	</form>
+	</div>
 
 </body>
 </html>

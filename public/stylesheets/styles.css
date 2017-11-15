@@ -803,7 +803,29 @@ a.blog-link, a.update-vol-info{
 .upload-pic{
 	text-align: center;
 	margin-top: 15vh;
+	height: 75vh;
 }
 .back-button-upload{
 	margin-top: 2vh;
 }
+
+.vol-upload-body{
+	background-image: url(../images/horizontal.jpg);
+ 	background-size: cover;
+ 	background-attachment: fixed;
+ 	background-repeat: no-repeat;
+}
+.white-form-background{
+	background-color: rgba(0, 0, 0, 0.3);
+}
+.submit-pic{
+	margin-bottom: 0;
+	padding-bottom: 0;
+	position: relative;
+}
+#your-pic{
+  max-width: 400px;
+  width: 400px;
+  max-height: 400px;
+}
+
