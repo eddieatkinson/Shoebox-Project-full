@@ -618,7 +618,7 @@ div > label.agree{
 	box-shadow: 1px 1px 3px rgba(0,0,0,0.08);
 	height: 100px;
 	width: 100vw; 
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	left: 0;
 
@@ -651,7 +651,13 @@ div > label.agree{
   width:5%;
 }
 
+.modal {
+	max-height: 95%;
+}
 
+.carousel {
+	height: auto;
+}
 
 
 /* ////////////////////////////////////////
