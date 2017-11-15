@@ -745,10 +745,19 @@ div > label.agree{
 	top: 95vh;
 	text-align: center;
 	}
+}
 
-
-
-
+#blog-bg{
+	background-image: url(../images/more-photos.jpg);
+	background-size: cover;
+ 	background-attachment: fixed;
+ 	background-repeat: no-repeat;
+}
+#content-bg{
+	background-image: url(../images/blog-content.jpg);
+	background-size: cover;
+ 	background-attachment: fixed;
+ 	background-repeat: no-repeat;
 }
 .big-box{
 	transform: scale(2.0);
@@ -757,6 +766,9 @@ a.blog-link, a.update-vol-info{
 	color: #5BC0DE;
 }
 
+.blog-link > h3{
+	text-shadow: 1px 1px rgba(0,0,0,.40)
+}
 .blog-margin{
 	margin-top: 50px;
 }
@@ -767,8 +779,10 @@ a.blog-link, a.update-vol-info{
 	background-attachment: fixed;
 }
 .blog-entry-form{
-	background-color: white;
 	padding: 30px;
+}
+.blog > p,h3,h5,h6{
+	text-shadow: 1px 1px rgba(0,0,0,.20);
 }
 /* ////////////////////////////////////////
 ////////VOLUNTEER CALENDER/////////////////
