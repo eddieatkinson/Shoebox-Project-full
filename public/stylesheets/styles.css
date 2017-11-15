@@ -714,7 +714,11 @@ div > label.agree{
 //////////////////BLOG/////////////////////
 /////////////////////////////////////// */
 .blog{
-	padding: 200px;
+	/*padding: 200px;*/
+	padding: 25px;
+	margin: 175px;
+	background-color: rgba(255, 255, 255, 0.7);
+	border-radius: 5px;
 }
 @media screen and (max-width: 1100px){
 	.mobile-form{
