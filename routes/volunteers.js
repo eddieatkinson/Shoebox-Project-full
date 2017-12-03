@@ -71,7 +71,7 @@ router.post('/signupProcess', (req, res, next)=>{
 				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 			connection.query(insertQuery, [name, email, phone, hash, photographer, setUp, manager, processing, general, consent, 1], (error)=>{ // We're not interested in results and fields
 				if(error){
-					throw error;
+					throw error;''
 				}else{
 					res.redirect('/?msg=registered')
 				}

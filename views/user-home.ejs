@@ -1,88 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>User Home Page</title>
-  
-  <% include user-head %>
+	<title>User Home Page</title>
+	
+	<% include user-head %>
 
 </head>
 <body class="user-body">
-  <div class="user-wrapper">
-    <div class="user-header col-sm-12">
-      <div class="nav-bar">
-        <a href="#"><img class="logo" src="/images/sm-sb-logo.png"/></a>
-        <span class="user-name"><%=name%>'s SHOEBOX</span><!-- <img id="user-welcome" src="/images/user-box.png"/> -->
-          <div class="nav-menu user-home">
-            <a class="waves-effect waves-light btn" id="logout" href="/users/logout">Log Out</a>
-          </div>
-      </div>
-    </div>
+	<div class="user-wrapper">
+		<div class="user-header col-sm-12">
+			<div class="nav-bar">
+				<a href="#"><img class="logo" src="/images/sm-sb-logo.png"/></a>
+				<span class="user-name"><%=name%>'s SHOEBOX</span><!-- <img id="user-welcome" src="/images/user-box.png"/> -->
+					<div class="nav-menu user-home">
+						<a class="waves-effect waves-light btn" id="logout" href="/users/logout">Log Out</a>
+					</div>
+			</div>
+		</div>
 <div class="container user-container">
-  <div class="bad-footer">
-  </div>
-    <hr>           
-      <div class="col-12">
-        <div class="row">
-          <a title="Image 1" href="#" data-local="#myCarousel"> 
-            <img class="thumbnail" id="image-1" src="<%=cover%>">
-          </a>
-        <hr>   
-        <div class="hidden" id="img-repo">
-          <%url.map((image)=>{%>
-          <div class="item" id="image-1">
-            <img class="img-responsive" src="<%=image.url%>">
-          </div>
-          <%})%>
-        </div>
-        <div class="modal" id="modal-gallery" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                  <button class="close" type="button" data-dismiss="modal">X</button>
-                  <h3 class="modal-title"></h3>
-              </div>
-              <div class="modal-body">
-                  <div id="modal-carousel" class="carousel">
-           
-                    <div class="carousel-inner">           
-                    </div>
-                    
-                    <a class="carousel-control left" href="#modal-carousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                    <a class="carousel-control right" href="#modal-carousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                    
-                  </div>
-              </div>
-              <div class="modal-footer">
-                  <button class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        </div>
-        <div class="bad-footer">
-        </div>
-        <footer class="user-footer">
-          <div class="footer col-sm-12">
-            <ul>
-              <li>
-                <span class="footer-text" data-toggle="modal" data-target="#myModal"></span>
-              </li>
-              <li>
-                <span class="footer-text"></span>
-              </li>
-            </ul>
-            <div class="copyright">
-              &copy Shoebox Project Copyright 2017
-            </div>
-            <div class="social-media">
-              <img class="fb grow" src="/images/social-media/Facebook.svg" height="50" width="50"/>
-              <img class="twtr grow" src="/images/social-media/Twitter.svg" height="50" width="50"/>
-              <img class="ig grow" src="/images/social-media/Instagram.svg" height="50" width="50"/>
-            </div>
-          </div>
-        </footer>
-      </div>
-    </div> 
-  </div>
+	<div class="bad-footer">
+	</div>
+		<hr>           
+			<div class="col-12">
+				<div class="row">
+					<a title="Image 1" href="#" data-local="#myCarousel"> 
+						<img class="thumbnail" id="image-1" src="<%=cover%>">
+					</a>
+				<hr>   
+				<div class="hidden" id="img-repo">
+					<%url.map((image)=>{%>
+					<div class="item" id="image-1">
+						<img class="img-responsive" src="<%=image.url%>">
+					</div>
+					<%})%>
+				</div>
+				<div class="modal" id="modal-gallery" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+									<button class="close" type="button" data-dismiss="modal">X</button>
+									<h3 class="modal-title"></h3>
+							</div>
+							<div class="modal-body">
+									<div id="modal-carousel" class="carousel">
+					 
+										<div class="carousel-inner">           
+										</div>
+										
+										<a class="carousel-control left" href="#modal-carousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+										<a class="carousel-control right" href="#modal-carousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+										
+									</div>
+							</div>
+							<div class="modal-footer">
+									<button class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+				<div class="bad-footer">
+				</div>
+				<footer class="user-footer">
+					<div class="footer col-sm-12">
+						<ul>
+							<li>
+								<span class="footer-text" data-toggle="modal" data-target="#myModal"></span>
+							</li>
+							<li>
+								<span class="footer-text"></span>
+							</li>
+						</ul>
+						<div class="copyright">
+							&copy Shoebox Project Copyright 2017
+						</div>
+						<div class="social-media">
+							<img class="fb grow" src="/images/social-media/Facebook.svg" height="50" width="50"/>
+							<img class="twtr grow" src="/images/social-media/Twitter.svg" height="50" width="50"/>
+							<img class="ig grow" src="/images/social-media/Instagram.svg" height="50" width="50"/>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div> 
+	</div>
 </body>
 </html>

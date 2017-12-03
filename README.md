@@ -1,5 +1,5 @@
-## Overview:
-The Shoebox Project is a non-profit company whose purpose is to provide professional photographs and memories for children in the foster care system. We set up a site for the company, including sign-up forms, login capabilities, an interactive map, and various pages to navigate to on the site.
+## The Shoebox Project
+The Shoebox Project is a non-profit company whose purpose is to provide professional photographs and memories for children in the foster care system. We set up a site for the company, including sign-up forms, a blog, login capabilities, an interactive map, and various pages to navigate to on the site.
 
 
 ## Github Link:
@@ -13,20 +13,23 @@ The Shoebox Project is a non-profit company whose purpose is to provide professi
 * [Eddie Atkinson](https://github.com/eddieatkinson)
 **Data Wrangler/Map Magician/Developer**
 * [Amir Patel](https://github.com/Amirpatel89)
-**New Kid on the Block**
+**New Kid on the Block/Responsive Developer**
 
 
 ## Technologies used:
 **Languages:**
+* Node
 * JavaScript
 * HTML5
 * CSS
 
 **Frameworks:**
+* Express
 * jQuery
 * Bootstrap
 
 **Other:**
+* MySQL
 * Adobe XD - wireframe
 * Google Maps API
 * County location data from [CivicDashboards](http://catalog.civicdashboards.com)
@@ -99,112 +102,53 @@ function mouseInToRegion(e) {
           }
     });
 ```
-Local storage used for authentication 
+
+Administrator can upload images directly to Amazon S3 storage and put url into database.
 ``` javascript
-$(document).ready(()=>{
+var uploadDir = multer({
+    dest: 'public/images'
+});
 
-    // store input data from user signup screen in localStorage
-    
-        // create an object to put the data into
+aws.config.loadFromPath('./config/config.json');
+aws.config.update({
+    signatureVersion: 'v4'
+});
+var s0 = new aws.S3({});
 
-        var userObj = {
-            userType :  [],
-            fullName : [],
-            userPhone : [],
-            userEmail : [],
-            passwd : [],
-            signupDate : []
+var upload = multer({
+    storage: multerS3({
+        s3: s0,
+        bucket: 'eddie-first-test-bucket',
+        contentType: multerS3.AUTO_CONTENT_TYPE, // Will choose best contentType
+        acl: 'public-read',
+        metadata: (req, file, cb)=>{
+            cb(null, {fieldName: file.fieldname});
+        },
+        key: (req, file, cb)=>{
+            cb(null, Date.now()+file.originalname)
         }
-        userObj.signupDate = new Date();    // get the date and put it into the object
+    })
+});
 
-        $('.user-sign-up-form').submit((event)=>{
-            event.preventDefault();
+// Specify the name of the file input to accept
+var nameOfFileField = uploadDir.single('imageToUpload');
 
-            // get the passwords that were entered on the screen:
+var connection = mysql.createConnection(config.db);
 
-            var password = $('.password').val();    
-            var passwordConfirm = $('.password-confirm').val();
-
-            // get the number of stored users from the site's localStorage 
-
-            var numUsers = localStorage.getItem('users-signedup')
-            
-            if(password != passwordConfirm){
-                console.log(password);
-                console.log($('.password-confirm').val());
-                $('.password-error').html("Your passwords do not match.");
-            }else{
-                console.log("passwords match")
-                
-                // if the number of users is null, set the number to 1
-
-                if(numUsers == null){
-                    numUsers = 1;
-                    console.log("numUsers is null",numUsers)
-                }else{
-                    numUsers++;     // increment the number of users objects stored in localStorage
-                }
-                
-                // set the new number of users in localStorage
-
-                localStorage.setItem('users-signedup',numUsers)
-
-                // put the new data entered by the user into the object
-
-                userObj.userType= 'Family';
-                userObj.fullName = $('.full-name').val();
-                userObj.userPhone = $('.phone').val();
-                userObj.userEmail = $('.email').val();
-                userObj.passwd = $('.password').val();
-
-                // store the data in localStorage with a number at the end of the field name
-
-                localStorage.setItem("userType"+numUsers, userObj.userType);
-                localStorage.setItem("password"+numUsers, userObj.passwd);
-                localStorage.setItem("fullName"+numUsers, userObj.fullName);
-                localStorage.setItem("userEmail"+numUsers, userObj.userEmail);
-                localStorage.setItem("userPhone"+numUsers, userObj.userPhone);
-                localStorage.setItem("signupDate"+numUsers, userObj.signupDate);
-
-                // bring up the user page
-
-                window.location.href = "user_home.html"
-                
+router.post('/uploadUserPhotosProcess/:userId/:volId', upload.any(), (req, res)=>{
+    var userId = req.params.userId;
+    var volId = req.params.volId;
+    var info = req.files;
+    var insertUrl = `INSERT INTO images (id, url, vol_id) VALUES (?, ?, ?);`;
+    info.map((image)=>{
+        connection.query(insertUrl, [userId, image.location, volId], (error, results)=>{
+            if(error){
+                throw error;
             }
         });
-        
-    }); 
-```
-``` javascript
-    //  to access the localStorage when a user logs in:
-
-        // get the number of users stored in localStorage
-
-        var numUsers = localStorage.getItem('users-signedup')
-
-        //  get the data the user entered on the login page
-
-        var enteredEmail = $('.email').val();
-        var enteredPassword = $('.password').val();
-
-        for (i=1; i <= numUsers; i++){      // loop through the sets of data in localStorage
-
-            // retrieve the emails and passwords until a match is found or the data ends
-
-            userObj.passwd = localStorage.getItem('password'+i)
-            userObj.userEmail = localStorage.getItem('userEmail'+i)
-```
-```script
-wrote a bash script to login to the ubuntu aws site and named it awscript, and put it in the directory
-that my terminal opens into so it changes the directory automatically and then logs in\
-
-cd desktop/digitalcrafts
-sudo ssh -i 'alsawskeys.pem' ubuntu@ec2-18-221-235-147.us-east-2.compute.amazonaws.com
-```
-``` 
-to run this script, open a terminal and run:
-
-sh awscript 
+    });
+    res.redirect(`/volunteers/userReview?msg=${info.length}`);
+});
 ```
 ## Screenshots:
 ![Homepage](public/images/screen-shots/mobile-home.jpg)
@@ -217,14 +161,5 @@ Landing page on mobile, desired layout though not fully realized.
 ![Wireframes](public/images/screen-shots/landing_page_small.png)
 Mobile layout still in testing stages
 
-
-## Contributing:
-1. Allow project administrator (and/or volunteers) to upload photos and documents.
-2. Give users ability to access photos. 
-3. Add a "donate" button for charitable-feeling site visitors.
-
 ## URL:
-[The Shoebox Project](http://www.eddiebatkinson.com/shoeboxproject)
-
-## Project History:
-10/18/2017 - Project Start
+[The Shoebox Project](http://myshoeboxproject.org)
