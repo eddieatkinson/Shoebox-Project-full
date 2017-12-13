@@ -1,9 +1,8 @@
 ## The Shoebox Project
 The Shoebox Project is a non-profit company whose purpose is to provide professional photographs and memories for children in the foster care system. We set up a site for the company, including sign-up forms, a blog, login capabilities, an interactive map, and various pages to navigate to on the site.
 
-
 ## Github Link:
-[The Shoebox Project GitHub](https://github.com/ValerieThoma/baby-unicorns)
+[The Shoebox Project GitHub](https://github.com/eddieatkinson/shoebox-project-full)
 
 ## Team Members & Roles:
 * [Allyson Conrad](https://github.com/allysonc1)
